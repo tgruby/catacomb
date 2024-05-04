@@ -1,17 +1,17 @@
 @font-face {
     font-family: 'PrintChar21';
-    src: url('/fonts/PrintChar21.woff2') format('woff2'),
-         url('/fonts/PrintChar21.woff') format('woff'),
-         url('/fonts/PrintChar21.ttf') format('truetype');
+    src: url('fonts/PrintChar21.woff2') format('woff2'),
+         url('fonts/PrintChar21.woff') format('woff'),
+         url('fonts/PrintChar21.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'PRNumber3';
-    src: url('/fonts/PRNumber3.woff2') format('woff2'),
-         url('/fonts/PRNumber3.woff') format('woff'),
-         url('/fonts/PRNumber3.ttf') format('truetype');
+    src: url('fonts/PRNumber3.woff2') format('woff2'),
+         url('fonts/PRNumber3.woff') format('woff'),
+         url('fonts/PRNumber3.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

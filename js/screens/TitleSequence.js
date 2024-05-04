@@ -17,7 +17,7 @@ export default class TitleSequence extends Screen {
          ╰─────────╯        
 `
   constructor () {
-    figlet.defaults({ fontPath: "/figlet/fonts" });
+    figlet.defaults({ fontPath: "figlet/fonts" });
     super({ id: 'TitleSequence', width: 80, height: 50, border: false })
     this.add({ x: 'center', y: 18, block: this.startTitleSequence.split('\n') })
     this.audio = new AudioPlayer('sounds/theme-music.mp3')
