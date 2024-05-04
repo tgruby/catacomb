@@ -1,0 +1,44 @@
+{ 
+    "id": "item.vines",
+    "name": "Glowing Vines",
+    "type": "item",
+    "description": "Glowing vines... they seem to be alive.",
+    "obstructsMovement": false,
+    "allowsPickup": true,
+    "far": {
+        "position": "overhead",
+        "frames": [
+            [
+                "@"
+            ]
+       ]
+    },
+    "mid": {
+        "position": "overhead",
+        "frames": [
+            [
+                "':"
+            ]
+       ]
+    },
+    "near": {
+        "position": "overhead",
+        "frames": [
+            [
+                "':''"
+            ]
+        ]
+    },
+    "here": {
+        "position": "overhead",
+        "frames": [
+            [
+                "|@|@|@|",
+                "|@|@|@o",
+                "o@|@|@@",
+                "@@|@o@@",
+                "@@o@@@@"
+            ]
+       ]
+    }
+}

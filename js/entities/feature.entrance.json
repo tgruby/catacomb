@@ -1,0 +1,42 @@
+{ 
+    "id": "feature.entrance",
+    "name": "Hole in the Ceiling",
+    "type": "feature",
+    "obstructsMovement": false,
+    "allowsPickup": false,
+    "far": {
+        "position": "overhead",
+        "frames": [
+            [
+                ".."
+            ]
+       ]
+    },
+    "mid": {
+        "position": "overhead",
+        "frames": [
+            [
+                "::"
+            ]
+       ]
+    },
+    "near": {
+        "position": "overhead",
+        "frames": [
+            [
+                ".--.",
+                "'=='"
+            ]
+        ]
+    },
+    "here": {
+        "position": "overhead",
+        "frames": [
+            [
+                "@.-'⎺⎺⎺⎺⎺⎺'-.@",
+                "(            )",
+                "@`·.¸____¸.·´@"
+            ]
+       ]
+    }
+}

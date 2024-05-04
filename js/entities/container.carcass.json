@@ -1,0 +1,44 @@
+{ 
+    "id": "container.carcass",
+    "name": "Dead Body",
+    "type": "container",
+    "description": "Hmmm... something died here.  Did you have something to do with it?",
+    "obstructsMovement": false,
+    "allowsPickup": true,
+    "contains": [],
+    "far": {
+        "position": "floor",
+        "frames": [
+            [
+                "._"
+            ]
+       ]
+    },
+    "mid": {
+        "position": "floor",
+        "frames": [
+            [
+                ".-."
+            ]
+       ]
+    },
+    "near": {
+        "position": "floor",
+        "frames": [
+            [
+                " _.-._ ",
+                "'._._~`"
+            ]
+        ]
+    },
+    "here": {
+        "position": "floor",
+        "frames": [
+            [
+                "@.-'-._.__@@@@@",
+                "{   ~  /   `~~.",
+                "@`-._.'__;-'@@@"
+            ]
+       ]
+    }
+}
