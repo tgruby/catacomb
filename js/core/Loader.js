@@ -42,7 +42,7 @@ class Loader {
   }
 
   fetchMod (id) {
-    fetch('/js/entities/' + id + '.json')
+    fetch('js/entities/' + id + '.json')
       .then(response => response.json())
       .then(data => {
         this.entities[id] = data
