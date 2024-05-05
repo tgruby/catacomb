@@ -59,6 +59,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 | Close Journal | `Esc`
 
 ## Development Status
-This game is a hobby and so worked on occassionally, so progress will vary. I am targeting a basic playable version in September, 2024... but of course, subject to change.
 
-> Currently Unplayable. Inital Title Sequence, Character Picker, Level One test environment and basic Journal and Inventory screens are working.
+![alt text](/out-of-order.png "Status")
+
+> Currently the first level is "playable", but otherwise locks up when finishing it.
