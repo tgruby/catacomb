@@ -2,11 +2,9 @@
 
 ![alt text](/catacomb-title.png "Title Screen")
 
-[Play the Game](https://tgruby.github.io/catacomb/) 
+[Play the Game](https://tgruby.github.io/catacomb/)
 
-```
- Status: Currently Out-of-Order...
-```
+> [Game Development Status](#development-status)
 
 An ASCII "work of art" :).  I enjoy games, and growing up in the 80's I spent probably hundreds of hours playing _Michael Cranford's_ **The Bard's Tale** on the Apple ][ computer.  Recently, I had the idea of working on a throwback game: looking for opportunities to make it feel old, but incorporate newer patterns and ideas in more current games.  I played with a few different ideas and decided to lean into an ASCII only UI, mainly green-screen, roll-playing game.  It seems to strik the right balance to feeling like an older game while allowing to leverage more modern sound and music, which I believes help be more engaging.
 
@@ -58,8 +56,14 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 | Close Journal | `J`
 | Close Journal | `Esc`
 
-## Development Status
+## [Development Status](#development-status)
 
 ![alt text](/out-of-order.png "Status")
 
 > Currently the first level is "playable", but otherwise locks up when finishing it.
+
+## Thanks
+Lots of people to thank here, as I build on top of other's work.  Please ping me if you feel I missed someone.
+
+* [Lordol1](https://freesound.org/people/Lordol1/) for the [intro sequence theme music](https://freesound.org/people/Lordol1/sounds/677665/)
+* [patorjk and contributors](https://github.com/patorjk/figlet.js?tab=readme-ov-file#contributors) of the [Figlet JS](https://github.com/patorjk/figlet.js) library.

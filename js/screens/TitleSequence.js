@@ -20,7 +20,7 @@ export default class TitleSequence extends Screen {
     figlet.defaults({ fontPath: "figlet/fonts" });
     super({ id: 'TitleSequence', width: 80, height: 50, border: false })
     this.add({ x: 'center', y: 18, block: this.startTitleSequence.split('\n') })
-    this.audio = new AudioPlayer('sounds/theme-music.mp3')
+    this.audio = new AudioPlayer('sounds/fenras-theme-trailer-music-intro-music-by-oliver-weckauf.mp3')
     figlet.preloadFonts(['Standard', 'Crawford2', 'Slant', 'Star Wars', 'Soft'], this.ready)
     this.ranTitleSequency = false
   }
@@ -47,23 +47,23 @@ export default class TitleSequence extends Screen {
     setTimeout(() => {
       this.removeGrid('AsciiArcade')
       this.showInAssociationWith()
-    }, 4000)
+    }, 5000)
     setTimeout(() => {
       this.removeGrid('InAssociationWith')
       this.showGrubyStudios()
-    }, 8000)
+    }, 9000)
     setTimeout(() => {
       this.removeGrid('GrubStudios')
       this.add({ x: 1, y: 12, grid: new CatacombTitleAnimation() })
-    }, 12000)
+    }, 17000)
     setTimeout(() => {
       this.add({ x: 'center', y: 32, string: 'T H E   T O M B   O F   T A H A R A' })
       memory.set({ key: 'request.screen.draw', value: true })
-    }, 16000)
+    }, 19000)
     setTimeout(() => {
       this.add({ x: 'center', y: 36, block: this.startGame.split('\n') })
       memory.set({ key: 'request.screen.draw', value: true })
-    }, 20000)
+    }, 22000)
   }
 
   showGrubyStudios () {

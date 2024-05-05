@@ -43,8 +43,8 @@ export default class GameSetup extends Screen {
     const names = []
     for (let i = 0; i < 8; i++) names.push(this.generateName())
     this.add({ x: 'center', y: 4, grid: new SelectionArray({ id: 'SelectName', width: 60, height: 19, border: true, items: names }) })
-    this.add({ x: 'center', y: 2, string: 'Select a renown archaeologist to begin their journey:' })
-    this.add({ x: 'center', y: 24, string: 'Press [Space Bar] to search for more options' })
+    this.add({ x: 'center', y: 2, string: 'Select your protagonist to begin their journey:' })
+    this.add({ x: 'center', y: 24, string: 'Press [Space Bar] to find more options' })
   }
 
   keyPressed (e) {
