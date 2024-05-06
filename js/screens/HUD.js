@@ -15,6 +15,7 @@ import Inventory from '../modals/Inventory.js'
 import LevelComplete from '../modals/LevelComplete.js'
 import FadeIn from '../animations/FadeIn.js'
 import Journal from '../modals/Journal.js'
+import HelpMenu from '../modals/Help.js'
 
 export default class HUD extends Screen {
   constructor () {
@@ -57,6 +58,11 @@ export default class HUD extends Screen {
       return
     }
 
+    if (this.getGrid('HelpMenu')) {
+      this.getGrid('HelpMenu').keyPressed(e)
+      return
+    }
+
     if (e.key === 'w' || e.key === 'ArrowUp') {
       this.movement.moveForward()
       memory.set({ key: 'request.screen.draw', value: true })
@@ -75,8 +81,8 @@ export default class HUD extends Screen {
         this.add({ grid: new LevelComplete({ parent: this }), x: 0, y: 0 })
         memory.set({ key: 'request.screen.draw', value: true })
       }
-    } else if (e.key === 'esc') {
-      // hud.closeAllMenus()
+    } else if (e.key === 'Escape') {
+      this.add({ grid: new HelpMenu({ parent: this }), x: 'center', y: 2 })
       memory.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'f') {
       this.hero.attack()
@@ -92,8 +98,6 @@ export default class HUD extends Screen {
       memory.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'm') {
       // open full map
-    } else if (e.key === 'F1') {
-      this.showHelp()
     } else {
       console.log('key', e.key)
     }

@@ -29,6 +29,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 | Open Inventory | `I`
 | Meelee Attack | `F`
 | Credits Window | `C`
+| Command List | `Esc`
 
 ### Inventory (Backpack) Window
 
@@ -41,8 +42,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 | Use Item (if item is usable) | `Enter`
 | Equip Item (if item is equipable) | `Enter`
 | Craft Item (if you have enough supplies to craft) | `Enter`
-| Close Inventory | `I`
-| Close Inventory | `Esc`
+| Close Inventory | `I` or `Esc`
 
 
 ### Journal Window
@@ -53,8 +53,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 | --- | :---:
 | Turn to Next Page | `D`
 | Turn to Previous Page | `A`
-| Close Journal | `J`
-| Close Journal | `Esc`
+| Close Journal | `J` or `Esc`
 
 ## [Development Status](#development-status)
 
