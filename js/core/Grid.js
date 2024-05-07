@@ -1,5 +1,14 @@
 import Cell from './Cell.js'
 
+figlet.defaults({ fontPath: "figlet/fonts" })
+figlet.preloadFonts(['Standard', 'Crawford2', 'Slant', 'Star Wars', 'Soft', 'Bloody', 'Elite'], function (err) {
+  if (err) {
+    console.log('figlet preloadFonts error:', err)
+  } else {
+    console.log('figlet fonts preload.')
+  }
+})
+
 /*
   Basic UI Grid that renders our ascii experience.
   You can add other Grids, Blocks, Strings, or Cells to the Grid and
@@ -27,6 +36,8 @@ export default class Grid {
   add (props) {
     if (props.grid) {
       this._addGrid(props)
+    } else if (props.fig) {
+      this._addFig(props)
     } else if (props.block) {
       this._addBlock(props)
     } else if (props.string) {
@@ -179,6 +190,19 @@ export default class Grid {
       // call addString for each row in the block
       this._addString({ x, y: y + i, string: block[i], color, highlight, force })
     }
+  }
+
+  _addFig (props) {
+    let { fig } = props
+    let { text, font } = fig
+    if (!font) font = 'Crawford2'
+    props.block = figlet.textSync(text, {
+      font,
+      horizontalLayout: 'full',
+      verticalLayout: 'default',
+      whitespaceBreak: true
+    }).split('\n')
+    this._addBlock(props)
   }
 
   _addGrid (props) {

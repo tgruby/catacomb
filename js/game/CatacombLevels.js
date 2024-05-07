@@ -137,7 +137,8 @@ const CatacombLevels = {
     width: 4,
     height: 4,
     entities: [
-      { id: 'item.grass', count: 4 }
+      { id: 'item.grass', count: 4 },
+      { id: 'feature.campfire', count: 1 }
     ]
   },
   2: {

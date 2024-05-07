@@ -2,15 +2,8 @@ export default class Cell {
   constructor (props) {
     const { value, color, highlight } = props
     this.value = value
-    this.color = color || null
+    this.color = color || '#2cd03a'
     this.highlight = highlight || false
-
-    if (this.value === '@') this.color = 'transparent'
-  }
-
-  _color (text) {
-    if (this.color === 'transparent') return null
-    return `<span style="color:${this.color}">${text}</span>`
   }
 
   _highlight (text) {
@@ -32,7 +25,10 @@ export default class Cell {
     let output = this.value
     if (this.value === '@') return null
     if (this.highlight) output = this._highlight(output)
-    if (this.color) output = this._color(output)
+
+    // Use a monospace font and center the content
+    const style = `display: inline-block; width: 14px; height: 16px; overflow: hidden; text-align: center; vertical-align: middle; color: ${this.color};`;
+    output = `<span style="${style}">${output}</span>`;
     return output
   }
 }

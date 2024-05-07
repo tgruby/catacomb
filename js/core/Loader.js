@@ -15,6 +15,7 @@ class Loader {
     'feature.down': undefined,
     'feature.up': undefined,
     'feature.entrance': undefined,
+    'feature.campfire': undefined,
     'container.sarcophagus': undefined,
     'container.carcass': undefined,
     'food.mushroom': undefined,

@@ -17,11 +17,9 @@ export default class TitleSequence extends Screen {
          ╰─────────╯        
 `
   constructor () {
-    figlet.defaults({ fontPath: "figlet/fonts" });
     super({ id: 'TitleSequence', width: 80, height: 50, border: false })
     this.add({ x: 'center', y: 18, block: this.startTitleSequence.split('\n') })
     this.audio = new AudioPlayer('sounds/fenras-theme-trailer-music-intro-music-by-oliver-weckauf.mp3')
-    figlet.preloadFonts(['Standard', 'Crawford2', 'Slant', 'Star Wars', 'Soft'], this.ready)
     this.ranTitleSequency = false
   }
 
@@ -68,37 +66,28 @@ export default class TitleSequence extends Screen {
 
   showGrubyStudios () {
     const grid = new Grid({ id: 'GrubStudios', width: 76, height: 28, border: false })
-    grid.add({ x: 'center', y: 1, block: this.figFont('Gruby') })
-    grid.add({ x: 'center', y: 9, block: this.figFont('Studios') })
+    grid.add({ x: 'center', y: 1, fig: { text: 'Gruby', font: 'Crawford2' } })
+    grid.add({ x: 'center', y: 9, fig: { text: 'Studios', font: 'Crawford2' } })
     this.add({ x: 2, y: 6, grid })
     memory.set({ key: 'request.screen.draw', value: true })
   }
 
   showInAssociationWith () {
     const grid = new Grid({ id: 'InAssociationWith', width: 76, height: 28, border: false })
-    grid.add({ x: 'center', y: 1, block: this.figFont('In', 'Standard') })
-    grid.add({ x: 'center', y: 9, block: this.figFont('Association', 'Standard') })
-    grid.add({ x: 'center', y: 17, block: this.figFont('With', 'Standard') })
+    grid.add({ x: 'center', y: 1, fig: { text: 'In', font: 'Standard' } })
+    grid.add({ x: 'center', y: 9, fig: { text: 'Association', font: 'Standard' } })
+    grid.add({ x: 'center', y: 17, fig: { text: 'With', font: 'Standard' } })
     this.add({ x: 2, y: 6, grid })
     memory.set({ key: 'request.screen.draw', value: true })
   }
 
   showAsciiArcade () {
     const grid = new Grid({ id: 'AsciiArcade', width: 76, height: 28, border: false })
-    grid.add({ x: 'center', y: 1, block: this.figFont('Ascii') })
-    grid.add({ x: 'center', y: 9, block: this.figFont('Arcade') })
-    grid.add({ x: 'center', y: 19, block: this.figFont('presents...', 'Slant') })
+    grid.add({ x: 'center', y: 1, fig: { text: 'Ascii', font: 'Crawford2' } })
+    grid.add({ x: 'center', y: 9, fig: { text: 'Arcade', font: 'Crawford2' } })
+    grid.add({ x: 'center', y: 19, fig: { text: 'presents...', font: 'Slant' } })
     this.add({ x: 2, y: 10, grid })
     memory.set({ key: 'request.screen.draw', value: true })
   }
 
-  // TODO: eventually move this to grid
-  figFont (text, font = 'Crawford2') {
-    return figlet.textSync(text, {
-      font,
-      horizontalLayout: 'full',
-      verticalLayout: 'default',
-      whitespaceBreak: true
-    }).split('\n')
-  }
 }

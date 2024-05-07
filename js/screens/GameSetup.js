@@ -62,7 +62,7 @@ export default class GameSetup extends Screen {
       console.log('Selected:', selection)
       memory.set({ key: 'hero.first.name', value: selection.first })
       memory.set({ key: 'hero.last.name', value: selection.last })
-      memory.set({ key: 'game.state', value: 'in-game' })
+      memory.set({ key: 'game.state', value: 'wake-up' })
     } else {
       console.log('GameSetup keyPressed:', e.key)
     }

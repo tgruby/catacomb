@@ -3,6 +3,7 @@ import HUD from './screens/HUD.js'
 import GameSetup from './screens/GameSetup.js'
 import memory from './core/Memory.js'
 import TitleSequence from './screens/TitleSequence.js'
+import WakeUp from './screens/WakeUp.js'
 
 const canvas = document.getElementById('canvas')
 canvas.style.fontFamily = 'PrintChar21'
@@ -17,6 +18,9 @@ loader.load(() => {
         canvas.innerHTML = screen.draw()
       } else if (state === 'setup-game') {
         screen = new GameSetup()
+        canvas.innerHTML = screen.draw()
+      } else if (state === 'wake-up') {
+        screen = new WakeUp()
         canvas.innerHTML = screen.draw()
       } else if (state === 'in-game') {
         screen = new HUD()
