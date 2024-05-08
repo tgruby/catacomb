@@ -26,8 +26,8 @@ export default class Cell {
     if (this.value === '@') return null
     if (this.highlight) output = this._highlight(output)
 
-    // Use a monospace font and center the content
-    const style = `display: inline-block; width: 14px; height: 16px; overflow: hidden; text-align: center; vertical-align: middle; color: ${this.color};`;
+    // This creates little lines that I don't like... we may have to limit the character set we use...
+    const style = `display: inline-block; width: 14px; overflow: hidden; text-align: center; vertical-align: middle; color: ${this.color};`;
     output = `<span style="${style}">${output}</span>`;
     return output
   }
