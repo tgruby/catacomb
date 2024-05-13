@@ -1,6 +1,6 @@
 # Catacomb
 
-![alt text](/catacomb-title.png "Title Screen")
+![alt text](/images/logo.png "Logo")
 
 [Play the Game](https://tgruby.github.io/catacomb/)
 
@@ -18,7 +18,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ### Main Game Window
 
-![alt text](/game-play.png "Game Screen")
+![alt text](/images/game-play.png "Game Screen")
 
 | Action | Key Binding
 | --- | :---:
@@ -33,7 +33,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ### Inventory (Backpack) Window
 
-![alt text](/inventory.png "Inventory Screen")
+![alt text](/images/inventory.png "Inventory Screen")
 
 | Action | Key Binding
 | --- | :---:
@@ -47,7 +47,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ### Journal Window
 
-![alt text](/journal.png "Journal Screen")
+![alt text](/images/journal.png "Journal Screen")
 
 | Action | Key Binding
 | --- | :---:
@@ -57,7 +57,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ## [Development Status](#development-status)
 
-![alt text](/out-of-order.png "Status")
+![alt text](/images/out-of-order.png "Status")
 
 > Currently the first level is "playable", but otherwise locks up when finishing it.
 
