@@ -1,23 +1,18 @@
 { 
-    "id": "item.map",
-    "name": "Map",
+    "id": "item.cloth",
+    "name": "Cloth",
     "type": "item",
-    "description": "An old map of this catacomb!",
+    "description": "Cloth from a riped garment.",
     "obstructsMovement": false,
     "allowsPickup": true,
     "image": 
     [
-        "․⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼․",
-        "│                   │",
-        "│   ┼---┼---┼---┼   │",
-        "│   │           │   │",
-        "│   ┼---┼   ┼---┼   │",
-        "│   │       | x │   │",
-        "│   ┼   ┼---┼   ┼   │",
-        "│   │           │   │",
-        "│   ┼---┼---┼---┼   │",
-        "│                   │",
-        "'⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼'"
+     "      .-.         ",
+     "   _.'   `.       ",
+     " ,'   ~    `.     ",
+     ":        ~   `-.  ",
+     ":   _.-.    ~  `,",
+     " `-'    `._.-._.' "
     ],
     "far": {
         "position": "floor",
@@ -39,8 +34,8 @@
         "position": "floor",
         "frames": [
             [
-                "/--╮",
-                "╰--/"
+                "/--.",
+                ".--."
             ]
         ]
     },
