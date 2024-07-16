@@ -64,11 +64,14 @@ export default class Hero {
     // remove the item from the inventory
     const inventory = memory.get('hero.inventory')
     const index = inventory.findIndex(item => item.id === itemId)
-    if (index === -1) return
-    const item = inventory.splice(index, 1)[0]
-    memory.set({ key: 'hero.inventory', value: inventory })
-    console.log('removed item from inventory', item)
+    if (index === -1) {
+      new Audio('sounds/nope.mp3').play()
+      console.log('item not found in inventory')
+      return
+    }
+    const item = inventory[index]
     if (item.type === 'food') this._eat(item)
+    else new Audio('sounds/nope.mp3').play() // item unusable
   }
 
   _eat (item) {
@@ -83,6 +86,9 @@ export default class Hero {
     if (health.current > health.max) health.current = health.max
     memory.set({ key: 'hero.health', value: health })
     new AudioPlayer('sounds/eating.mp3').play()
+    inventory.splice(index, 1)[0]
+    memory.set({ key: 'hero.inventory', value: inventory })
+    console.log('removed item from inventory', item)
   }
 
   moved () {

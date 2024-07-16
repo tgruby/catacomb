@@ -82,7 +82,7 @@ export default class HUD extends Screen {
         memory.set({ key: 'request.screen.draw', value: true })
       }
     } else if (e.key === 'Escape') {
-      this.add({ grid: new HelpMenu({ parent: this }), x: 'center', y: 2 })
+      this.add({ grid: new HelpMenu({ parent: this }), x: 'center', y: 5 })
       memory.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'f') {
       this.hero.attack()
