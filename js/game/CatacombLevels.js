@@ -139,7 +139,8 @@ const CatacombLevels = {
     entities: [
       { id: 'item.grass', count: 4 },
       { id: 'item.map', count: 1 },
-      { id: 'item.torch', count: 1 }
+      { id: 'item.torch', count: 1 },
+      { id: 'weapon.bone.knife', count: 1 }
     ]
   },
   2: {

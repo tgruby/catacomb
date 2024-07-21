@@ -26,7 +26,8 @@ class Loader {
     'item.torch': undefined,
     'item.journal': undefined,
     'item.map': undefined,
-    'item.watch': undefined
+    'item.watch': undefined,
+    'weapon.bone.knife': undefined
   }
 
   loaded = 0
