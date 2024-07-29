@@ -1,5 +1,5 @@
-// Class to download and init features and actions for use.
-class Loader {
+// Class to download and store all the mods. This class is responsible for loading all the mods and storing them in memory.
+class Mods {
   TYPES = {
     Feature: 'feature',
     Item: 'item',
@@ -34,7 +34,7 @@ class Loader {
   toLoad = Object.keys(this.entities).length
   completionCallback = undefined
 
-  load (completionCallback) {
+  async load () {
     this.completionCallback = completionCallback
     for (const [key] of Object.entries(this.entities)) {
       if (!this.entities[key]) {
@@ -44,7 +44,7 @@ class Loader {
   }
 
   fetchMod (id) {
-    fetch('js/entities/' + id + '.json')
+    fetch('mods/' + id + '.json')
       .then(response => response.json())
       .then(data => {
         this.entities[id] = data
@@ -59,15 +59,17 @@ class Loader {
   }
 
   // Get a copy of the mod object. We return copies so that the original mod objects are not modified.
-  get (id) {
+  async get (id) {
+    if (this.loaded !== this.toLoad) await this.load()
     return JSON.parse(JSON.stringify(this.entities[id]))
   }
 
-  getName (id) {
+  async getName (id) {
+    if (this.loaded !== this.toLoad) await this.load()
     return this.entities[id].name
   }
 };
 
-const loader = new Loader()
+const mods = new Mods()
 
-export default loader
+export default mods

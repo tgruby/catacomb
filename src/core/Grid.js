@@ -1,4 +1,5 @@
 import Cell from './Cell.js'
+import figlet from 'figlet'
 
 figlet.defaults({ fontPath: "figlet/fonts" })
 figlet.preloadFonts(['Standard', 'Crawford2', 'Slant', 'Star Wars', 'Soft', 'Bloody', 'Elite'], function (err) {
