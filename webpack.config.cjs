@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.js', // Your main JS file
+  devtool: 'source-map',
   output: {
     filename: 'bundle.js', // The name of the bundled file
     path: path.resolve(__dirname, 'dist'), // The output directory
@@ -23,7 +24,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, '/'),
+      directory: path.join(__dirname, '/dist'),
     },
     compress: true,
     port: 9000,

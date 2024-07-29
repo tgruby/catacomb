@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "![alt text](/images/logo.png \"Logo\")",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --open"

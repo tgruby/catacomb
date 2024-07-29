@@ -1,6 +1,9 @@
 import Cell from './Cell.js'
-import figlet from 'figlet'
+// import figlet from 'figlet'
+// import standard from "figlet/importable-fonts/Standard.js";
+// figlet.parseFont("Standard", standard);
 
+figlet.defaults({ fontPath: "figlet/fonts" });
 figlet.preloadFonts(['Bloody', 'Crawford2', 'Elite', 'Slant', 'Soft', 'Standard', 'Star Wars'], function (err) {
   if (err) {
     console.log('figlet preloadFonts error:', err)
@@ -192,41 +195,24 @@ export default class Grid {
     }
   }
 
-  async _addFig (props) {
+  _addFig (props) {
     let { fig } = props
     let { text, font } = fig
-    props.block = await this._genFiglet(text, font).split('\n')
+    props.block = figlet.textSync(
+      text,
+      {
+        font: font || "Crawford2",
+        horizontalLayout: "full",
+        verticalLayout: "default",
+        whitespaceBreak: true,
+      }).split('\n')
     this._addBlock(props)
-  }
-
-
-  async _genFiglet(text, font) {
-    return new Promise((resolve, reject) => {
-      figlet.text(
-        text,
-        {
-          font: font || "Crawford2",
-          horizontalLayout: "full",
-          verticalLayout: "default",
-          whitespaceBreak: true,
-        },
-        function (err, data) {
-          if (err) {
-            console.log(err)
-            reject(err);
-            return;
-          }
-          resolve(data);
-        }
-      );
-    });
   }
   
   _addGrid (props) {
     let { x, y, grid } = props
     if (x === 'center') {
       x = Math.floor((this.width - grid.width) / 2)
-      console.log('props.x', props.x)
     } else if (x === 'right') {
       x = this.width - grid.width - 1
     } else if (x === 'left') {

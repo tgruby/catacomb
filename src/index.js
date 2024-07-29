@@ -43,12 +43,13 @@ let lastDraw = new Date().getTime();
   memory.subscribe({
     key: "request.screen.draw",
     callback: (draw) => {
-      // throttle the draw to only every 10ms
-      let now = new Date().getTime();
-      if (draw && lastDraw > now + 10) {
-        canvas.innerHTML = screen.draw();
-        lastDraw = now;
-      }
+      canvas.innerHTML = screen.draw();
+      // // throttle the draw to only every 10ms
+      // let now = new Date().getTime();
+      // if (draw && lastDraw > now + 10) {
+      //   canvas.innerHTML = screen.draw();
+      //   lastDraw = now;
+      // }
     },
   });
 

@@ -2,18 +2,19 @@
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="no-cache, no-store, must-revalidate">
         <meta content="no-cache">
         <meta content="0">
         <title>Catacomb</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/figlet@1.7.0/lib/figlet.min.js"></script>
     </head>
     <body>
+        <script type="module" src="src/index.js"></script>
         <div class="ascii-canvas">
-            <script src="./src/index.js"></script>
             <pre id="canvas"></pre>
         </div>
-        <script src="dist/bundle.js"></script>
     </body>
 </html> 
