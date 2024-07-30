@@ -4,20 +4,14 @@ import SelectionArray from '../core/SelectionArray.js'
 
 export default class GameSetup extends Screen {
   firstNames = [
-    'Zoey', 'Bob', 'Nikki', 'Abby', 'Lilly', 'Mary Rose', 'Jasper', 'Finn', 'Ella',
-    'Eloise', 'Skye', 'Luna', 'Orion', 'Maeve', 'Kai', 'Aria', 'Theo', 'Ella',
-    'Gemma', 'Lucas', 'Ivy', 'Caleb', 'Hazel', 'Ethan', 'Scarlett', 'Milo', 'Ella',
-    'Aurora', 'Leo', 'Violet', 'Julian', 'Olive', 'Nathan', 'Willow', 'Oscar', 'Ella',
-    'Layla', 'Jude', 'Sophia', 'Felix', 'Emma', 'Asher', 'Isabella', 'Rowan', 'Ella',
-    'Ava', 'Silas', 'Mia', 'Wyatt', 'Emily', 'Sawyer', 'Amelia', 'Grayson', 'Ella',
-    'Charlotte', 'Declan', 'Harper', 'Ezra', 'Ella', 'Liam', 'Grace', 'Mason', 'Ella', 'Mara',
-    'Chloe', 'Logan', 'Zara', 'Alexander', 'Molly', 'Henry', 'Jade', 'Sebastian', 'Ella', 'Mara',
-    'Lila', 'Oliver', 'Ruby', 'Samuel', 'Alice', 'Benjamin', 'Lola', 'Noah', 'Ella', 'Mara',
-    'Penny', 'Jacob', 'Rosie', 'Michael', 'Eliza', 'James', 'Tessa', 'Elijah', 'Ella', 'Mara',
-    'Nora', 'Daniel', 'Isla', 'Joseph', 'Lucy', 'William', 'Sadie', 'Matthew', 'Ella', 'Mara',
-    'Giselle', 'Jack', 'Fiona', 'David', 'Stella', 'Luke', 'Bella', 'Isaac', 'Ella', 'Mara',
-    'Daisy', 'Ryan', 'Eve', 'Mara'
-  ]
+    'Zoey', 'Nikki', 'Abby', 'Lilly', 'Mary Rose', 'Ella', 'Eloise', 'Skye', 'Luna',
+    'Maeve', 'Aria', 'Gemma', 'Ivy', 'Hazel', 'Scarlett', 'Aurora', 'Violet', 'Olive',
+    'Willow', 'Layla', 'Sophia', 'Emma', 'Isabella', 'Ava', 'Mia', 'Emily', 'Amelia',
+    'Charlotte', 'Harper', 'Grace', 'Mara', 'Chloe', 'Zara', 'Molly', 'Jade', 'Lila',
+    'Ruby', 'Alice', 'Lola', 'Penny', 'Rosie', 'Eliza', 'Tessa', 'Nora', 'Isla', 'Lucy',
+    'Sadie', 'Giselle', 'Fiona', 'Stella', 'Bella', 'Daisy', 'Eve'
+]
+
 
   lastNames = [
     'Fireheart', 'Swordspear', 'Thunderforge', 'Stormbringer', 'Shadowbane',
@@ -43,7 +37,7 @@ export default class GameSetup extends Screen {
     const names = []
     for (let i = 0; i < 8; i++) names.push(this.generateName())
     this.add({ x: 'center', y: 4, grid: new SelectionArray({ id: 'SelectName', width: 60, height: 19, border: true, items: names }) })
-    this.add({ x: 'center', y: 2, string: 'Select your protagonist to begin their journey:' })
+    this.add({ x: 'center', y: 2, string: 'Select your protagonist to begin her journey:' })
     this.add({ x: 'center', y: 24, string: 'Press [Space Bar] to find more options' })
   }
 

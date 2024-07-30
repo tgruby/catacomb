@@ -10,7 +10,7 @@ An ASCII "work of art" :).  I enjoy games, and growing up in the 80's I spent pr
 
 ## Backstory
 
-Catacomb is a single player dungeon crawler game. Set in the mid-70s, an anthropologist, searching for the lost tomb of Tahara, finds it by falling into a sink hole. Badly bleeding and unable to leave the way they came, they must search the catacombs for the tomb and an exit, armed with only lore of Tahara and survival skills. Along the way, creatures and traps will block our anthropologist, the mystery surrounding Tahara will unfold, and magic and evil will test our anthropologist to his or her limits.
+Catacomb is a single player dungeon crawler game. Set in the mid-70s, an anthropologist, searching for the lost tomb of Tahara, finds it by falling into a sink hole. Badly bleeding and unable to leave the way she came, she must search the catacombs for the tomb and an exit, armed with only lore of Tahara and survival skills. Along the way, creatures and traps will block our anthropologist, the mystery surrounding Tahara will unfold, and magic and evil will test her to her limits.
 
 ## Game Play
 
