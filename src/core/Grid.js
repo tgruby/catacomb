@@ -1,9 +1,11 @@
 import Cell from './Cell.js'
-// import figlet from 'figlet'
 // import standard from "figlet/importable-fonts/Standard.js";
 // figlet.parseFont("Standard", standard);
 
+// eslint-disable-next-line no-undef
 figlet.defaults({ fontPath: "figlet/fonts" });
+
+// eslint-disable-next-line no-undef
 figlet.preloadFonts(['Bloody', 'Crawford2', 'Elite', 'Slant', 'Soft', 'Standard', 'Star Wars'], function (err) {
   if (err) {
     console.log('figlet preloadFonts error:', err)
@@ -198,6 +200,7 @@ export default class Grid {
   _addFig (props) {
     let { fig } = props
     let { text, font } = fig
+    // eslint-disable-next-line no-undef
     props.block = figlet.textSync(
       text,
       {

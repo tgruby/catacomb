@@ -10,7 +10,7 @@ export default class LevelComplete extends Modal {
     this.add({ x: 1, y: 1, grid: new Confetti({ id: 'Confetti', width: 78, height: 40, frameSpeed: 64, parent: this }) })
   }
 
-  keyPressed (e) {
+  keyPressed () {
     // todo
   }
 

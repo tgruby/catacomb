@@ -32,10 +32,8 @@ class Mods {
 
   loaded = 0
   toLoad = Object.keys(this.entities).length
-  completionCallback = undefined
 
   async load () {
-    this.completionCallback = completionCallback
     for (const [key] of Object.entries(this.entities)) {
       if (!this.entities[key]) {
         this.fetchMod(key)
