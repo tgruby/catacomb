@@ -2,7 +2,7 @@
     "id": "feature.wall",
     "name": "Wall",
     "type": "feature",
-    "obstructs.movement": true,
+    "obstructsMovement": true,
     "far": {
         "position": "floor",
         "frames": [

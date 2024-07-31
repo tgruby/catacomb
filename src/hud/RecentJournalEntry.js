@@ -11,7 +11,6 @@ export default class RecentJournalEntry extends Grid {
 
   _journalUpdated (entries) {
     const entry = entries[entries.length - 1]
-    console.log(this._getFormattedDate(entry.date))
     this.add({ x: 'center', y: 2, string: this._getFormattedDate(entry.date) })
     this.add({ x: 'left', y: 3, block: this._wrapText(entry.text, 76) })
   }

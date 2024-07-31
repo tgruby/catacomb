@@ -1,6 +1,6 @@
 import { locationHash } from "./Catacombs.js";
 import memory from "../core/Memory.js";
-import loader from "../core/Mods.js";
+import mods from "../core/Mods.js";
 
 export default class MovementEngine {
   constructor(hero) {
@@ -124,8 +124,9 @@ export default class MovementEngine {
     if (position.direction === "west") newX = newX - 2;
     const next = this.getFeatureAt({ y: newY, x: newX });
 
+    console.log("next", next);
     // if there is an obstruction, don't move the hero.
-    if (next !== undefined && next["obstructs.movement"]) {
+    if (next !== undefined && next["obstructsMovement"]) {
       const obstruction = next.name;
       memory.set({
         key: "message.center",
@@ -281,7 +282,7 @@ export default class MovementEngine {
     const symbol = map[y][x];
     if (symbol === " ") return undefined;
     if (symbol === "|" || symbol === "+" || symbol === "-")
-      return loader.get("feature.wall");
+      return mods.get("feature.wall");
   }
 
   removeFeatureAt(props) {

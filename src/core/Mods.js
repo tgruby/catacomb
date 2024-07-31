@@ -1,4 +1,3 @@
-// Class to download and store all the mods. This class is responsible for loading all the mods and storing them in memory.
 class Mods {
   TYPES = {
     Feature: 'feature',
@@ -30,44 +29,36 @@ class Mods {
     'weapon.bone.knife': undefined
   }
 
-  loaded = 0
-  toLoad = Object.keys(this.entities).length
+  constructor () {
+    this.loaded = new Map();
+    this.toLoad = Object.keys(this.entities).length;
+  }
 
-  async load () {
-    for (const [key] of Object.entries(this.entities)) {
-      if (!this.entities[key]) {
-        this.fetchMod(key)
-      }
+  async initialize () {
+    const promises = Object.keys(this.entities).map(id => this.#fetchMod(id));
+    await Promise.all(promises);
+    console.log(`Mods loaded: ${this.loaded.size}`);
+  }
+
+  async #fetchMod (id) {
+    const response = await fetch('mods/' + id + '.json');
+    const data = await response.json();
+    this.entities[id] = data;
+    this.loaded.set(id, data);
+  }
+
+  // Get a copy of a mod object. 
+  // Return synchronously since all mods are preloaded.
+  get (id) {
+    const mod = this.loaded.get(id);
+    if (!mod) {
+      throw new Error(`Mod with id ${id} not found.`);
     }
-  }
-
-  fetchMod (id) {
-    fetch('mods/' + id + '.json')
-      .then(response => response.json())
-      .then(data => {
-        this.entities[id] = data
-        this.loaded++
-        if (this.loaded === this.toLoad) {
-          // All entities are loaded, so we can start the game.
-          console.log('All entities loaded.')
-          console.log('Loaded: ' + this.loaded + ' of ' + this.toLoad)
-          this.completionCallback()
-        }
-      })
-  }
-
-  // Get a copy of the mod object. We return copies so that the original mod objects are not modified.
-  async get (id) {
-    if (this.loaded !== this.toLoad) await this.load()
-    return JSON.parse(JSON.stringify(this.entities[id]))
-  }
-
-  async getName (id) {
-    if (this.loaded !== this.toLoad) await this.load()
-    return this.entities[id].name
+    // Return a deep copy of the mod
+    return JSON.parse(JSON.stringify(mod));
   }
 };
 
-const mods = new Mods()
+const mods = new Mods();
 
-export default mods
+export default mods;

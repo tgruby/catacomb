@@ -1,9 +1,11 @@
+import mods from "./core/Mods.js";
 import HUD from "./screens/HUD.js";
-import GameSetup from "./screens/GameSetup.js";
 import memory from "./core/Memory.js";
-import TitleSequence from "./screens/TitleSequence.js";
+import GameSetup from "./screens/GameSetup.js";
 import Intertitle from "./screens/Intertitle.js";
+import TitleSequence from "./screens/TitleSequence.js";
 
+mods.initialize();
 const canvas = document.getElementById("canvas");
 canvas.style.fontFamily = "PrintChar21";
 let screen = null;
@@ -44,12 +46,12 @@ let lastDraw = new Date().getTime();
     key: "request.screen.draw",
     callback: (draw) => {
       if (draw) canvas.innerHTML = screen.draw();
-      // // throttle the draw to only every 10ms
-      // let now = new Date().getTime();
-      // if (draw && lastDraw > now + 10) {
-      //   canvas.innerHTML = screen.draw();
-      //   lastDraw = now;
-      // }
+      // throttle the draw to only every 10ms
+      let now = new Date().getTime();
+      if (draw && lastDraw > now + 10) {
+        canvas.innerHTML = screen.draw();
+        lastDraw = now;
+      }
     },
   });
 

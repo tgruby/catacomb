@@ -9,8 +9,8 @@ export default class Intertitle extends Screen {
     this.intertitleSequence(font, lines, lineHeight)
   }
 
-  keyPressed (e) {
-    console.log('Intertitle keyPressed:', e.key)
+  keyPressed () {
+    // Ignore all key presses
   }
 
   intertitleSequence (font, lines, lineHeight = 8) {

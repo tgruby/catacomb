@@ -5,12 +5,21 @@ import Cell from './Cell.js'
 // eslint-disable-next-line no-undef
 figlet.defaults({ fontPath: "figlet/fonts" });
 
+const fonts = [
+  "Bloody",
+  "Crawford2",
+  "Elite",
+  "Slant",
+  "Soft",
+  "Standard",
+  "Star Wars",
+];
 // eslint-disable-next-line no-undef
-figlet.preloadFonts(['Bloody', 'Crawford2', 'Elite', 'Slant', 'Soft', 'Standard', 'Star Wars'], function (err) {
+figlet.preloadFonts(fonts, function (err) {
   if (err) {
-    console.log('figlet preloadFonts error:', err)
+    console.log('Figlet load fonts error:', err)
   } else {
-    console.log('figlet fonts preload.')
+    console.log(`Figlet fonts load: ${fonts.length}`)
   }
 })
 
