@@ -1,15 +1,15 @@
-import { locationHash } from "./Catacombs.js";
-import memory from "../core/Memory.js";
-import mods from "../core/Mods.js";
+import { locationHash } from "./Catacombs.js"
+import memory from "../core/Memory.js"
+import mods from "../core/Mods.js"
 
 export default class MovementEngine {
   constructor(hero) {
-    this.hero = hero;
+    this.hero = hero
     memory.subscribe({
       key: "hero.position",
-      callback: this.setPointOfView.bind(this),
-    });
-    this.setPointOfView();
+      callback: this.setPointOfView.bind(this)
+    })
+    this.setPointOfView()
   }
   // layers to pov mapping:
 
@@ -34,8 +34,8 @@ export default class MovementEngine {
     ["layer_8_", -1, 2],
     ["layer_1_", 0, -2],
     ["layer_4_", -1, 0],
-    ["layer_9_", 0, 2], // near_right
-  ];
+    ["layer_9_", 0, 2] // near_right
+  ]
 
   SouthView = [
     ["layer_3_", 2, 2],
@@ -46,8 +46,8 @@ export default class MovementEngine {
     ["layer_8_", 1, -2],
     ["layer_1_", 0, 2],
     ["layer_4_", 1, 0],
-    ["layer_9_", 0, -2],
-  ];
+    ["layer_9_", 0, -2]
+  ]
 
   // --- start here ---
 
@@ -60,8 +60,8 @@ export default class MovementEngine {
     ["layer_8_", 1, 2],
     ["layer_1_", -1, 0],
     ["layer_4_", 0, 2],
-    ["layer_9_", 1, 0],
-  ];
+    ["layer_9_", 1, 0]
+  ]
 
   WestView = [
     ["layer_3_", 1, -4],
@@ -72,180 +72,180 @@ export default class MovementEngine {
     ["layer_8_", -1, -2],
     ["layer_1_", 1, 0],
     ["layer_4_", 0, -2],
-    ["layer_9_", -1, 0],
-  ];
+    ["layer_9_", -1, 0]
+  ]
 
   moveDown() {
-    const position = memory.get("hero.position");
-    const current = this.getFeatureAt(position);
+    const position = memory.get("hero.position")
+    const current = this.getFeatureAt(position)
     // first check to see if we are engaged in combat with a creature
     if (current !== undefined) {
       if (current.id === "feature.down") {
         // we can move the hero to the next level
-        memory.set({ key: "catacombs.next.level", value: true });
-        this.hero.moved();
-        new Audio("sounds/level-complete.mp3").play();
-        return true;
+        memory.set({ key: "catacombs.next.level", value: true })
+        this.hero.moved()
+        new Audio("sounds/level-complete.mp3").play()
+        return true
       }
     }
-    return false;
+    return false
   }
 
   moveForward() {
-    const position = memory.get("hero.position");
-    const current = this.getFeatureAt(position);
+    const position = memory.get("hero.position")
+    const current = this.getFeatureAt(position)
     // first check to see if we are engaged in combat with a creature
     if (current !== undefined) {
       if (current.type === "creature" && current.allowsDisengage === false) {
         memory.set({
           key: "message.center",
-          value: `${current.name} blocks your path!`,
-        });
-        return;
+          value: `${current.name} blocks your path!`
+        })
+        return
       }
     }
     // now check to see if we are too tired to move
-    const stamina = memory.get("hero.stamina");
+    const stamina = memory.get("hero.stamina")
     if (stamina.value < 1) {
-      const hero = memory.get({ key: "hero.name" });
+      const hero = memory.get({ key: "hero.name" })
       memory.set({
         key: "message.center",
-        value: `${hero} is too tired to move!`,
-      });
-      return;
+        value: `${hero} is too tired to move!`
+      })
+      return
     }
 
     // get next catacomb feature or entity at the next location.
-    let newX = position.x;
-    let newY = position.y;
-    if (position.direction === "north") newY = newY - 1;
-    if (position.direction === "south") newY = newY + 1;
-    if (position.direction === "east") newX = newX + 2;
-    if (position.direction === "west") newX = newX - 2;
-    const next = this.getFeatureAt({ y: newY, x: newX });
+    let newX = position.x
+    let newY = position.y
+    if (position.direction === "north") newY = newY - 1
+    if (position.direction === "south") newY = newY + 1
+    if (position.direction === "east") newX = newX + 2
+    if (position.direction === "west") newX = newX - 2
+    const next = this.getFeatureAt({ y: newY, x: newX })
 
-    console.log("next", next);
+    console.log("next", next)
     // if there is an obstruction, don't move the hero.
     if (next !== undefined && next["obstructsMovement"]) {
-      const obstruction = next.name;
+      const obstruction = next.name
       memory.set({
         key: "message.center",
-        value: `${obstruction} blocks your path!`,
-      });
-      return;
+        value: `${obstruction} blocks your path!`
+      })
+      return
     }
 
     // we can move the hero...
-    position.x = newX;
-    position.y = newY;
-    memory.set({ key: "hero.position", value: position });
-    this.hero.moved();
-    new Audio("sounds/footstep.mp3").play();
+    position.x = newX
+    position.y = newY
+    memory.set({ key: "hero.position", value: position })
+    this.hero.moved()
+    new Audio("sounds/footstep.mp3").play()
   }
 
   turnLeft() {
-    const position = memory.get("hero.position");
-    if (position.direction === "north") position.direction = "west";
-    else if (position.direction === "west") position.direction = "south";
-    else if (position.direction === "south") position.direction = "east";
-    else if (position.direction === "east") position.direction = "north";
-    memory.set({ key: "hero.position", value: position });
+    const position = memory.get("hero.position")
+    if (position.direction === "north") position.direction = "west"
+    else if (position.direction === "west") position.direction = "south"
+    else if (position.direction === "south") position.direction = "east"
+    else if (position.direction === "east") position.direction = "north"
+    memory.set({ key: "hero.position", value: position })
   }
 
   turnRight() {
-    const position = memory.get("hero.position");
-    if (position.direction === "north") position.direction = "east";
-    else if (position.direction === "east") position.direction = "south";
-    else if (position.direction === "south") position.direction = "west";
-    else if (position.direction === "west") position.direction = "north";
-    memory.set({ key: "hero.position", value: position });
+    const position = memory.get("hero.position")
+    if (position.direction === "north") position.direction = "east"
+    else if (position.direction === "east") position.direction = "south"
+    else if (position.direction === "south") position.direction = "west"
+    else if (position.direction === "west") position.direction = "north"
+    memory.set({ key: "hero.position", value: position })
   }
 
   setPointOfView() {
-    const position = memory.get("hero.position");
-    let background = [];
-    let offsets = this.NorthView;
+    const position = memory.get("hero.position")
+    let background = []
+    let offsets = this.NorthView
 
-    if (position.direction === "south") offsets = this.SouthView;
-    if (position.direction === "east") offsets = this.EastView;
-    if (position.direction === "west") offsets = this.WestView;
+    if (position.direction === "south") offsets = this.SouthView
+    if (position.direction === "east") offsets = this.EastView
+    if (position.direction === "west") offsets = this.WestView
 
     for (let i = 0; i < offsets.length; i++) {
       const backgroundFeature = this.getBackgroundFeatureAt(
         position.y + offsets[i][1],
         position.x + offsets[i][2]
-      );
-      if (backgroundFeature) background.push(offsets[i][0] + backgroundFeature);
+      )
+      if (backgroundFeature) background.push(offsets[i][0] + backgroundFeature)
     }
-    background = background.sort();
+    background = background.sort()
 
     // remove center hallways
     background = background.filter(
       (element) => !element.startsWith("layer_4_hall")
-    );
+    )
     background = background.filter(
       (element) => !element.startsWith("layer_5_hall")
-    );
+    )
 
     // if we have a layer_4, we cannot have a layer_3, layer_5, layer_6, layer_7
     if (background.some((element) => element.startsWith("layer_4_"))) {
       background = background.filter(
         (element) => !element.startsWith("layer_2_")
-      );
+      )
       background = background.filter(
         (element) => !element.startsWith("layer_3_")
-      );
+      )
       background = background.filter(
         (element) => !element.startsWith("layer_5_")
-      );
+      )
       background = background.filter(
         (element) => !element.startsWith("layer_6_")
-      );
+      )
       background = background.filter(
         (element) => !element.startsWith("layer_7_")
-      );
+      )
       background = background.filter(
         (element) => !element.startsWith("layer_8_")
-      );
+      )
     } else if (background.some((element) => element.startsWith("layer_5_"))) {
       background = background.filter(
         (element) => !element.startsWith("layer_3_")
-      );
+      )
       background = background.filter(
         (element) => !element.startsWith("layer_6_")
-      );
+      )
       background = background.filter(
         (element) => !element.startsWith("layer_7_")
-      );
+      )
     }
 
-    const response = { background };
+    const response = { background }
 
     // Now look for objects in the viewable area and add them to the response
-    const near = this.getLayer(offsets, "layer_4_");
-    const middle = this.getLayer(offsets, "layer_5_");
-    const far = this.getLayer(offsets, "layer_6_");
-    const hereEntity = this.getFeatureAt({ y: position.y, x: position.x });
+    const near = this.getLayer(offsets, "layer_4_")
+    const middle = this.getLayer(offsets, "layer_5_")
+    const far = this.getLayer(offsets, "layer_6_")
+    const hereEntity = this.getFeatureAt({ y: position.y, x: position.x })
     const nearEntity = this.getFeatureAt({
       y: position.y + near[1],
-      x: position.x + near[2],
-    });
+      x: position.x + near[2]
+    })
     const midEntity = this.getFeatureAt({
       y: position.y + middle[1],
-      x: position.x + middle[2],
-    });
+      x: position.x + middle[2]
+    })
     const farEntity = this.getFeatureAt({
       y: position.y + far[1],
-      x: position.x + far[2],
-    });
-    if (hereEntity) response.here = hereEntity.here;
-    if (nearEntity) response.near = nearEntity.near;
-    if (midEntity) response.mid = midEntity.mid;
-    if (farEntity) response.far = farEntity.far;
+      x: position.x + far[2]
+    })
+    if (hereEntity) response.here = hereEntity.here
+    if (nearEntity) response.near = nearEntity.near
+    if (midEntity) response.mid = midEntity.mid
+    if (farEntity) response.far = farEntity.far
 
     if (response.hereEntity) {
-      let nameArticle = "a";
-      const name = response.hereEntity.name;
+      let nameArticle = "a"
+      const name = response.hereEntity.name
       if (
         name.startsWith("a") ||
         name.startsWith("e") ||
@@ -253,57 +253,57 @@ export default class MovementEngine {
         name.startsWith("o") ||
         name.startsWith("u")
       ) {
-        nameArticle = "an";
+        nameArticle = "an"
       }
       memory.set({
         key: "message.center",
-        value: `You see ${nameArticle} ${name}`,
-      });
+        value: `You see ${nameArticle} ${name}`
+      })
     }
 
-    memory.set({ key: "hero.viewpoint", value: response });
+    memory.set({ key: "hero.viewpoint", value: response })
   }
 
   getLayer(offsets, name) {
     for (let i = 0; i < offsets.length; i++) {
-      if (offsets[i][0] === name) return offsets[i];
+      if (offsets[i][0] === name) return offsets[i]
     }
-    return undefined;
+    return undefined
   }
 
   getFeatureAt(props) {
-    const { y, x } = props;
-    const map = memory.get("catacombs.map");
-    const entities = memory.get("catacombs.entities");
-    if (y < 0 || y >= map.length) return undefined;
-    if (x < 0 || x >= map[y].length) return undefined;
+    const { y, x } = props
+    const map = memory.get("catacombs.map")
+    const entities = memory.get("catacombs.entities")
+    if (y < 0 || y >= map.length) return undefined
+    if (x < 0 || x >= map[y].length) return undefined
 
-    if (locationHash(y, x) in entities) return entities[locationHash(y, x)];
-    const symbol = map[y][x];
-    if (symbol === " ") return undefined;
+    if (locationHash(y, x) in entities) return entities[locationHash(y, x)]
+    const symbol = map[y][x]
+    if (symbol === " ") return undefined
     if (symbol === "|" || symbol === "+" || symbol === "-")
-      return mods.get("feature.wall");
+      return mods.get("feature.wall")
   }
 
   removeFeatureAt(props) {
-    const { y, x } = props;
-    const entities = memory.get("catacombs.entities");
-    if (locationHash(y, x) in entities) delete entities[locationHash(y, x)];
-    memory.set({ key: "catacombs.entities", value: entities });
-    this.setPointOfView();
+    const { y, x } = props
+    const entities = memory.get("catacombs.entities")
+    if (locationHash(y, x) in entities) delete entities[locationHash(y, x)]
+    memory.set({ key: "catacombs.entities", value: entities })
+    this.setPointOfView()
   }
 
   getBackgroundFeatureAt(y, x) {
-    const map = memory.get("catacombs.map");
-    if (y < 0 || y >= map.length) return undefined;
-    if (x < 0 || x >= map[y].length) return undefined;
+    const map = memory.get("catacombs.map")
+    if (y < 0 || y >= map.length) return undefined
+    if (x < 0 || x >= map[y].length) return undefined
 
-    const symbol = map[y][x];
-    if (symbol === "|") return "wall";
-    if (symbol === "+") return "wall";
-    if (symbol === "-") return "wall";
-    if (symbol === "o") return "door";
-    if (symbol === " ") return "hall";
-    else return "hall";
+    const symbol = map[y][x]
+    if (symbol === "|") return "wall"
+    if (symbol === "+") return "wall"
+    if (symbol === "-") return "wall"
+    if (symbol === "o") return "door"
+    if (symbol === " ") return "hall"
+    else return "hall"
   }
 }

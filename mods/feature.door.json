@@ -1,57 +1,38 @@
-{ 
-    "id": "feature.door",
-    "name": "Door",
-    "type": "feature",
-    "obstructsMovement": false,
-    "far": {
-        "position": "floor",
-        "frames": [
-            [
-                "__",
-                "::",
-                "::"
-            ]
-        ]
-    },
-    "mid": {
-        "position": "floor",
-        "frames": [
-            [
-                "______",
-                ".  . .",
-                " .--. ",
-                ".|::| ",
-                " |::|.",
-                "_|::|_"
-            ]
-        ]
-    },
-    "near": {
-        "position": "floor",
-        "frames": [
-            [
-                "____________",
-                " .     .  . ",
-                ".  .----.   ",
-                "  /::::::╲ .",
-                ".|::....::| ",
-                " |::....::|.",
-                ".|:......:| ",
-                " |:......:|.",
-                ".|:......:| ",
-                " |:......:|.",
-                ".|:......:| ",
-                "_|:......:|_"
-            ]
-        ]
-    },
-    "here": {
-        "position": "floor",
-        "frames": [
-            [
-                "@"
-            ]
-        ],
-        "useSound": "mods/open.door.mp3"
-    }
+{
+  "id": "feature.door",
+  "name": "Door",
+  "type": "feature",
+  "obstructsMovement": false,
+  "far": {
+    "position": "floor",
+    "frames": [["__", "::", "::"]]
+  },
+  "mid": {
+    "position": "floor",
+    "frames": [["______", ".  . .", " .--. ", ".|::| ", " |::|.", "_|::|_"]]
+  },
+  "near": {
+    "position": "floor",
+    "frames": [
+      [
+        "____________",
+        " .     .  . ",
+        ".  .----.   ",
+        "  /::::::╲ .",
+        ".|::....::| ",
+        " |::....::|.",
+        ".|:......:| ",
+        " |:......:|.",
+        ".|:......:| ",
+        " |:......:|.",
+        ".|:......:| ",
+        "_|:......:|_"
+      ]
+    ]
+  },
+  "here": {
+    "position": "floor",
+    "frames": [["@"]],
+    "useSound": "mods/open.door.mp3"
+  }
 }

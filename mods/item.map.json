@@ -1,59 +1,45 @@
-{ 
-    "id": "item.map",
-    "name": "Map",
-    "type": "item",
-    "description": "An old map of this catacomb!",
-    "obstructsMovement": false,
-    "allowsPickup": true,
-    "image": 
-    [
-        "․⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼․",
-        "│                   │",
-        "│   ┼---┼---┼---┼   │",
-        "│   │           │   │",
-        "│   ┼---┼   ┼---┼   │",
-        "│   │       | x │   │",
-        "│   ┼   ┼---┼   ┼   │",
-        "│   │           │   │",
-        "│   ┼---┼---┼---┼   │",
-        "│                   │",
-        "'⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼'"
-    ],
-    "far": {
-        "position": "floor",
-        "frames": [
-            [
-                "@"
-            ]
-       ]
-    },
-    "mid": {
-        "position": "floor",
-        "frames": [
-            [
-                "="
-            ]
-       ]
-    },
-    "near": {
-        "position": "floor",
-        "frames": [
-            [
-                "/--╮",
-                "╰--/"
-            ]
-        ]
-    },
-    "here": {
-        "position": "floor",
-        "frames": [
-            [
-                "@@@․⎼⎼⎼⎼⎼⎼⎼⎼⎼․@",
-                "@@╱  -----  ╱@",
-                "@│  ------ │@",
-                "@│   ․⎼⎼⎼⎼⎼⎼․",
-                "@@╲_╱_______╱"
-            ]
-       ]
-    }
+{
+  "id": "item.map",
+  "name": "Map",
+  "type": "item",
+  "description": "An old map of this catacomb!",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "image": [
+    "․⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼․",
+    "│                   │",
+    "│   ┼---┼---┼---┼   │",
+    "│   │           │   │",
+    "│   ┼---┼   ┼---┼   │",
+    "│   │       | x │   │",
+    "│   ┼   ┼---┼   ┼   │",
+    "│   │           │   │",
+    "│   ┼---┼---┼---┼   │",
+    "│                   │",
+    "'⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼'"
+  ],
+  "far": {
+    "position": "floor",
+    "frames": [["@"]]
+  },
+  "mid": {
+    "position": "floor",
+    "frames": [["="]]
+  },
+  "near": {
+    "position": "floor",
+    "frames": [["/--╮", "╰--/"]]
+  },
+  "here": {
+    "position": "floor",
+    "frames": [
+      [
+        "@@@․⎼⎼⎼⎼⎼⎼⎼⎼⎼․@",
+        "@@╱  -----  ╱@",
+        "@│  ------ │@",
+        "@│   ․⎼⎼⎼⎼⎼⎼․",
+        "@@╲_╱_______╱"
+      ]
+    ]
+  }
 }

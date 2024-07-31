@@ -1,14 +1,14 @@
 class Memory {
-  constructor () {
+  constructor() {
     this.data = {}
     this.listeners = {}
   }
 
-  get (key) {
+  get(key) {
     return this.data[key]
   }
 
-  remove (key) {
+  remove(key) {
     this.unsubscribe({ key })
     delete this.data[key]
   }
@@ -18,7 +18,7 @@ class Memory {
     If value is a primative and doesn't change don't notify
     If value is a complex object notify every time as we don't know if a containing value has changed
   */
-  set (props) {
+  set(props) {
     const { key, value } = props
     this.data[key] = value
     this._notify(key, value)
@@ -27,11 +27,11 @@ class Memory {
   /*
     Dump memory
   */
-  dump () {
+  dump() {
     return this.data
   }
 
-  subscribe (props) {
+  subscribe(props) {
     const { key, callback } = props
     if (!this.listeners[key]) {
       this.listeners[key] = []
@@ -40,20 +40,22 @@ class Memory {
     this.listeners[key].push(callback)
   }
 
-  unsubscribe (props) {
+  unsubscribe(props) {
     const { key, callback } = props
     if (this.listeners[key]) {
       if (callback) {
-        this.listeners[key] = this.listeners[key].filter(listener => listener !== callback)
+        this.listeners[key] = this.listeners[key].filter(
+          (listener) => listener !== callback
+        )
       } else {
         delete this.listeners[key]
       }
     }
   }
 
-  _notify (key, value) {
+  _notify(key, value) {
     if (this.listeners[key]) {
-      this.listeners[key].forEach(callback => callback(value))
+      this.listeners[key].forEach((callback) => callback(value))
     }
   }
 }

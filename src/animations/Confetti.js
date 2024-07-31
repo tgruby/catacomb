@@ -1,7 +1,7 @@
-import Animation from '../core/Animation.js'
+import Animation from "../core/Animation.js"
 
 export default class Confetti extends Animation {
-  constructor (props = {}) {
+  constructor(props = {}) {
     const { width, height } = props
 
     let confettiProbability = 0.16 // Initial dense confetti
@@ -24,17 +24,23 @@ export default class Confetti extends Animation {
   }
 }
 
-const confettiChars = ['/', '≡', '│', '\\', '-']
-function buildFrame (props) {
+const confettiChars = ["/", "≡", "│", "\\", "-"]
+function buildFrame(props) {
   const { prevFrame, width, height, confettiProbability } = props
   const frame = []
   // first row of the frame is new each time
-  frame.push(Array(width).fill().map(() => {
-    return Math.random() < confettiProbability ? confettiChars[Math.floor(Math.random() * confettiChars.length)] : '@'
-  }))
+  frame.push(
+    Array(width)
+      .fill()
+      .map(() => {
+        return Math.random() < confettiProbability
+          ? confettiChars[Math.floor(Math.random() * confettiChars.length)]
+          : "@"
+      })
+  )
   // rest of the rows should be based on the previous frame, sliding the confetti down
   for (let i = 1; i < height; i++) {
-    let nextRow = ''
+    let nextRow = ""
     for (let j = 0; j < width; j++) {
       if (prevFrame) {
         const prevCell = prevFrame[i - 1][j]
@@ -45,10 +51,10 @@ function buildFrame (props) {
           nextRow += prevCell
         }
       } else {
-        nextRow += '@'
+        nextRow += "@"
       }
     }
-    frame.push(nextRow.split(''))
+    frame.push(nextRow.split(""))
   }
   return frame
 }

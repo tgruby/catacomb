@@ -132,26 +132,28 @@
 
 const CatacombLevels = {
   1: {
-    objective: 'Stop the bleeding.',
-    journalEntry: 'I seem to have fallen down a hole.  My leg is badly lacerated. I need to find something to stop the bleeding.',
+    objective: "Stop the bleeding.",
+    journalEntry:
+      "I seem to have fallen down a hole.  My leg is badly lacerated. I need to find something to stop the bleeding.",
     width: 4,
     height: 4,
     entities: [
-      { id: 'item.grass', count: 4 },
-      { id: 'item.map', count: 1 },
-      { id: 'item.torch', count: 1 },
-      { id: 'weapon.bone.knife', count: 1 }
+      { id: "item.grass", count: 4 },
+      { id: "item.map", count: 1 },
+      { id: "item.torch", count: 1 },
+      { id: "weapon.bone.knife", count: 1 }
     ]
   },
   2: {
-    objective: 'Find a light source.',
-    journalEntry: 'Its aweful dark down here... I need to find a light source to explore this place.',
+    objective: "Find a light source.",
+    journalEntry:
+      "Its aweful dark down here... I need to find a light source to explore this place.",
     width: 4,
     height: 5,
     entities: [
-      { id: 'item.grass', count: 4 },
-      { id: 'item.map', count: 1 },
-      { id: 'item.torch', count: 1 }
+      { id: "item.grass", count: 4 },
+      { id: "item.map", count: 1 },
+      { id: "item.torch", count: 1 }
     ]
   }
 }

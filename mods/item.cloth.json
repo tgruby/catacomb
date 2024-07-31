@@ -1,54 +1,40 @@
-{ 
-    "id": "item.cloth",
-    "name": "Cloth",
-    "type": "item",
-    "description": "Cloth from a riped garment.",
-    "obstructsMovement": false,
-    "allowsPickup": true,
-    "image": 
-    [
-     "      .-.         ",
-     "   _.'   `.       ",
-     " ,'   ~    `.     ",
-     ":        ~   `-.  ",
-     ":   _.-.    ~  `,",
-     " `-'    `._.-._.' "
-    ],
-    "far": {
-        "position": "floor",
-        "frames": [
-            [
-                "@"
-            ]
-       ]
-    },
-    "mid": {
-        "position": "floor",
-        "frames": [
-            [
-                "="
-            ]
-       ]
-    },
-    "near": {
-        "position": "floor",
-        "frames": [
-            [
-                "/--.",
-                ".--."
-            ]
-        ]
-    },
-    "here": {
-        "position": "floor",
-        "frames": [
-            [
-                "@@@․⎼⎼⎼⎼⎼⎼⎼⎼⎼․@",
-                "@@╱  -----  ╱@",
-                "@│  ------ │@",
-                "@│   ․⎼⎼⎼⎼⎼⎼․",
-                "@@╲_╱_______╱"
-            ]
-       ]
-    }
+{
+  "id": "item.cloth",
+  "name": "Cloth",
+  "type": "item",
+  "description": "Cloth from a riped garment.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "image": [
+    "      .-.         ",
+    "   _.'   `.       ",
+    " ,'   ~    `.     ",
+    ":        ~   `-.  ",
+    ":   _.-.    ~  `,",
+    " `-'    `._.-._.' "
+  ],
+  "far": {
+    "position": "floor",
+    "frames": [["@"]]
+  },
+  "mid": {
+    "position": "floor",
+    "frames": [["="]]
+  },
+  "near": {
+    "position": "floor",
+    "frames": [["/--.", ".--."]]
+  },
+  "here": {
+    "position": "floor",
+    "frames": [
+      [
+        "@@@․⎼⎼⎼⎼⎼⎼⎼⎼⎼․@",
+        "@@╱  -----  ╱@",
+        "@│  ------ │@",
+        "@│   ․⎼⎼⎼⎼⎼⎼․",
+        "@@╲_╱_______╱"
+      ]
+    ]
+  }
 }

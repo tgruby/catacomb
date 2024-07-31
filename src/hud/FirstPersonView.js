@@ -1,7 +1,7 @@
-import Grid from '../core/Grid.js'
-import memory from '../core/Memory.js'
-import Animation from '../core/Animation.js'
-import CatacombsBackground from '../animations/CatacombsBackground.js'
+import Grid from "../core/Grid.js"
+import memory from "../core/Memory.js"
+import Animation from "../core/Animation.js"
+import CatacombsBackground from "../animations/CatacombsBackground.js"
 
 const verticalPositions = {
   far: { overhead: 12, floor: 14 },
@@ -10,27 +10,27 @@ const verticalPositions = {
   here: { overhead: 5, floor: 25 }
 }
 
-const darkness = [
-  [
-    '      ',
-    '      ',
-    '      ',
-    '      ',
-    '      ',
-    '      '
-  ]
-]
+const darkness = [["      ", "      ", "      ", "      ", "      ", "      "]]
 
 export default class FirstPersonView extends Grid {
-  constructor () {
-    super({ id: 'FirstPersonView', width: 28, height: 29, fill: ' ', border: true })
-    this.add({ x: 2, y: 0, string: ' View ', force: true })
-    this.updateViewpoint(memory.get('hero.viewpoint'))
+  constructor() {
+    super({
+      id: "FirstPersonView",
+      width: 28,
+      height: 29,
+      fill: " ",
+      border: true
+    })
+    this.add({ x: 2, y: 0, string: " View ", force: true })
+    this.updateViewpoint(memory.get("hero.viewpoint"))
 
-    memory.subscribe({ key: 'hero.viewpoint', callback: this.updateViewpoint.bind(this) })
+    memory.subscribe({
+      key: "hero.viewpoint",
+      callback: this.updateViewpoint.bind(this)
+    })
   }
 
-  updateViewpoint (viewpoint) {
+  updateViewpoint(viewpoint) {
     this.clear()
     viewpoint.background.sort()
 
@@ -43,16 +43,16 @@ export default class FirstPersonView extends Grid {
     }
 
     // add foreground images
-    this.removeGrid('FarViewableEntity')
-    this.removeGrid('MidViewableEntity')
-    this.removeGrid('NearViewableEntity')
-    this.removeGrid('HereViewableEntity')
+    this.removeGrid("FarViewableEntity")
+    this.removeGrid("MidViewableEntity")
+    this.removeGrid("NearViewableEntity")
+    this.removeGrid("HereViewableEntity")
     if (viewpoint.here) {
       const hereAnimation = new Animation({
-        id: 'HereViewableEntity',
+        id: "HereViewableEntity",
         width: 26,
         height: 25,
-        fill: '@',
+        fill: "@",
         zIndex: 4,
         frames: viewpoint.here.frames
       })
@@ -62,18 +62,18 @@ export default class FirstPersonView extends Grid {
         const yPosition = verticalPositions.here[viewpoint.here.position]
         y = yPosition - frameHeight + 1
       } else {
-        console.log('no position specified: ', viewpoint.here)
+        console.log("no position specified: ", viewpoint.here)
       }
       this.add({ x: 1, y, grid: hereAnimation })
     }
-    const inventory = memory.get('hero.inventory')
-    const torch = inventory.find(item => item.id === 'item.torch')
+    const inventory = memory.get("hero.inventory")
+    const torch = inventory.find((item) => item.id === "item.torch")
     if (viewpoint.near) {
       const nearAnimation = new Animation({
-        id: 'NearViewableEntity',
+        id: "NearViewableEntity",
         width: 26,
         height: 25,
-        fill: '@',
+        fill: "@",
         zIndex: 3,
         frames: viewpoint.near.frames
       })
@@ -85,10 +85,10 @@ export default class FirstPersonView extends Grid {
 
     if (!torch) {
       const midAnimation = new Animation({
-        id: 'MidViewableEntity',
+        id: "MidViewableEntity",
         width: 26,
         height: 25,
-        fill: '@',
+        fill: "@",
         zIndex: 2,
         frames: darkness
       })
@@ -98,10 +98,10 @@ export default class FirstPersonView extends Grid {
       this.add({ x: 1, y, grid: midAnimation })
     } else if (viewpoint.mid) {
       const midAnimation = new Animation({
-        id: 'MidViewableEntity',
+        id: "MidViewableEntity",
         width: 26,
         height: 25,
-        fill: '@',
+        fill: "@",
         zIndex: 2,
         frames: viewpoint.mid.frames
       })
@@ -111,10 +111,10 @@ export default class FirstPersonView extends Grid {
       this.add({ x: 1, y, grid: midAnimation })
     } else if (viewpoint.far) {
       const farAnimation = new Animation({
-        id: 'FarViewableEntity',
+        id: "FarViewableEntity",
         width: 26,
         height: 25,
-        fill: '@',
+        fill: "@",
         zIndex: 1,
         frames: viewpoint.far.frames
       })

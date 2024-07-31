@@ -1,9 +1,9 @@
 export default class AudioPlayer {
-  constructor (audio) {
+  constructor(audio) {
     this.audio = new Audio(audio)
   }
 
-  play (props) {
+  play(props) {
     if (!props) props = {}
     const { loop, volume } = props
     this.audio.loop = loop || false
@@ -11,11 +11,11 @@ export default class AudioPlayer {
     this.audio.play()
   }
 
-  stop () {
+  stop() {
     this.audio.pause()
   }
 
-  fadeOut (duration) {
+  fadeOut(duration) {
     const audioElement = this.audio
     const originalVolume = audioElement.volume // Store the original volume
     const fadeOutInterval = 50 // Milliseconds for interval

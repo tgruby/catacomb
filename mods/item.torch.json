@@ -1,41 +1,24 @@
-{ 
-    "id": "item.torch",
-    "name": "Torch",
-    "type": "item",
-    "description": "A torch! This should help you see better in this place!",
-    "obstructsMovement": false,
-    "allowsPickup": true,
-    "far": {
-        "position": "floor",
-        "frames": [
-            [
-                "--"
-            ]
-       ]
-    },
-    "mid": {
-        "position": "floor",
-        "frames": [
-            [
-                ".--'"
-            ]
-       ]
-    },
-    "near": {
-        "position": "floor",
-        "frames": [
-            [
-                ".--''"
-            ]
-        ]
-    },
-    "here": {
-        "position": "floor",
-        "frames": [
-            [
-                "@@@@@@@@/\\@@",
-                ".------###~'"
-            ]
-       ]
-    }
+{
+  "id": "item.torch",
+  "name": "Torch",
+  "type": "item",
+  "description": "A torch! This should help you see better in this place!",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "far": {
+    "position": "floor",
+    "frames": [["--"]]
+  },
+  "mid": {
+    "position": "floor",
+    "frames": [[".--'"]]
+  },
+  "near": {
+    "position": "floor",
+    "frames": [[".--''"]]
+  },
+  "here": {
+    "position": "floor",
+    "frames": [["@@@@@@@@/\\@@", ".------###~'"]]
+  }
 }

@@ -1,56 +1,37 @@
-{ 
-    "id": "feature.wall",
-    "name": "Wall",
-    "type": "feature",
-    "obstructsMovement": true,
-    "far": {
-        "position": "floor",
-        "frames": [
-            [           
-                "__",
-                ". ",
-                "__"
-            ]
-        ]
-    },
-    "mid": {
-        "position": "floor",
-        "frames": [
-            [
-                "______",
-                ".  . .",
-                " .  . ",
-                ". . . ",
-                " . . .",
-                "______"
-            ]
-        ]
-    },
-    "near": {
-        "position": "floor",
-        "frames": [
-            [   
-                "____________",
-                " .    .   . ",
-                "  .     .   ",
-                "    .       ",
-                " .     .  . ",
-                "   .  .     ",
-                " .        . ",
-                ".   .   .   ",
-                "     .      ",
-                "  .    .  . ",
-                " .  .    .  ",
-                "____________"
-            ]
-        ]
-    },
-    "here": {
-        "position": "floor",
-        "frames": [
-            [
-                "@"
-            ]
-        ]
-    }
+{
+  "id": "feature.wall",
+  "name": "Wall",
+  "type": "feature",
+  "obstructsMovement": true,
+  "far": {
+    "position": "floor",
+    "frames": [["__", ". ", "__"]]
+  },
+  "mid": {
+    "position": "floor",
+    "frames": [["______", ".  . .", " .  . ", ". . . ", " . . .", "______"]]
+  },
+  "near": {
+    "position": "floor",
+    "frames": [
+      [
+        "____________",
+        " .    .   . ",
+        "  .     .   ",
+        "    .       ",
+        " .     .  . ",
+        "   .  .     ",
+        " .        . ",
+        ".   .   .   ",
+        "     .      ",
+        "  .    .  . ",
+        " .  .    .  ",
+        "____________"
+      ]
+    ]
+  },
+  "here": {
+    "position": "floor",
+    "frames": [["@"]]
+  }
 }
