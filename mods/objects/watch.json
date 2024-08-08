@@ -1,0 +1,25 @@
+{
+  "name": "Digital Watch",
+  "description": "Top of the line digital casio watch. Cost you a fortune but it was worth it.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 10,
+  "animations": {
+    "farAway": {
+      "position": "floor",
+      "frames": [["@"]]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [["@"]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [["::"]]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [["@╭―――╮@", "╭―――――╮", "⏐12:00⏐", "╰―――――╯", "@╰―――╯@"]]
+    }
+  }
+}

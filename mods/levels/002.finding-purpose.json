@@ -1,0 +1,11 @@
+{
+  "name": "Finding Purpose",
+  "objective": "Now What?",
+  "journalEntry": "I've stopped the bleeding. Now what?",
+  "mapWidth": 5,
+  "mapHeight": 4,
+  "objects": [
+    { "id": "bone", "count": 4 },
+    { "id": "bandage", "count": 1 }
+  ]
+}

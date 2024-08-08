@@ -1,7 +1,7 @@
-import globals from "globals"
-import pluginJs from "@eslint/js"
-import pluginPrettier from "eslint-plugin-prettier"
-import configPrettier from "eslint-config-prettier"
+import globals from 'globals'
+import pluginJs from '@eslint/js'
+import pluginPrettier from 'eslint-plugin-prettier'
+import configPrettier from 'eslint-config-prettier'
 
 export default [
   {
@@ -9,7 +9,7 @@ export default [
   },
   pluginJs.configs.recommended,
   {
-    ignores: ["**/dist/"]
+    ignores: ['**/dist/']
   },
   // Add Prettier plugin and config
   {
@@ -18,11 +18,13 @@ export default [
     },
     rules: {
       ...configPrettier.rules, // Disable ESLint rules that might conflict with Prettier
-      "prettier/prettier": [
-        "error",
+      'prettier/prettier': [
+        'error',
         {
           semi: false,
-          trailingComma: "none"
+          trailingComma: 'none',
+          singleQuote: true,
+          printWidth: 80
         }
       ]
     }

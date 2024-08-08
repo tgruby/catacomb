@@ -1,0 +1,32 @@
+{
+  "name": "Ladder Going Up",
+  "obstructsMovement": false,
+  "allowsPickup": false,
+  "health": 10000,
+  "animations": {
+    "farAway": {
+      "position": "ceiling",
+      "frames": [[".."]]
+    },
+    "midRange": {
+      "position": "ceiling",
+      "frames": [["::"]]
+    },
+    "nearby": {
+      "position": "ceiling",
+      "frames": [[".==.", "'⏐⏐'"]]
+    },
+    "here": {
+      "position": "ceiling",
+      "frames": [
+        [
+          "@.-'⎺⎺⎺⎺⎺⎺'-.@",
+          "(  ⏐⏐====⏐⏐  )",
+          "@'-⏐⏐----⏐⏐-'@",
+          "@@@⏐⏐====⏐⏐@@@",
+          "@@@└┘@@@@└┘@@@"
+        ]
+      ]
+    }
+  }
+}

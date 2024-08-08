@@ -1,0 +1,41 @@
+{
+  "name": "Door",
+  "description": "A door to somewhere.",
+  "obstructsMovement": false,
+  "allowsPickup": false,
+  "health": 1000,
+  "animations": {
+    "farAway": {
+      "position": "floor",
+      "frames": [["__", "::", "::"]]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [["______", ".  . .", " .--. ", ".|::| ", " |::|.", "_|::|_"]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [
+        [
+          "____________",
+          " .     .  . ",
+          ".  .----.   ",
+          "  /::::::╲ .",
+          ".|::....::| ",
+          " |::....::|.",
+          ".|:......:| ",
+          " |:......:|.",
+          ".|:......:| ",
+          " |:......:|.",
+          ".|:......:| ",
+          "_|:......:|_"
+        ]
+      ]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [["@"]],
+      "useSound": "mods/open.door.mp3"
+    }
+  }
+}

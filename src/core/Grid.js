@@ -1,25 +1,25 @@
-import Cell from "./Cell.js"
+import Cell from './Cell.js'
 // import standard from "figlet/importable-fonts/Standard.js";
 // figlet.parseFont("Standard", standard);
 
 // eslint-disable-next-line no-undef
-figlet.defaults({ fontPath: "figlet/fonts" })
+figlet.defaults({ fontPath: 'figlet/fonts' })
 
 const fonts = [
-  "Bloody",
-  "Crawford2",
-  "Elite",
-  "Slant",
-  "Soft",
-  "Standard",
-  "Star Wars"
+  'Bloody',
+  'Crawford2',
+  'Elite',
+  'Slant',
+  'Soft',
+  'Standard',
+  'Star Wars'
 ]
 // eslint-disable-next-line no-undef
 figlet.preloadFonts(fonts, function (err) {
   if (err) {
-    console.log("Figlet load fonts error:", err)
+    console.log('Figlet load fonts error:', err)
   } else {
-    console.log(`Figlet fonts load: ${fonts.length}`)
+    console.log(`Figlet fonts loaded: ${fonts.length}`)
   }
 })
 
@@ -30,12 +30,18 @@ figlet.preloadFonts(fonts, function (err) {
 */
 export default class Grid {
   constructor(props) {
+    if (!props || typeof props !== 'object') {
+      throw new Error('Invalid props provided')
+    }
     const { id, width, height, fill, border, zIndex } = props
+    if (width <= 0 || height <= 0) {
+      throw new Error('Width and height must be positive numbers')
+    }
     // random unique id
     this.id = id || Math.random().toString(36).substring(7)
     this.width = width || 3
     this.height = height || 3
-    this.fill = fill || " "
+    this.fill = fill || ' '
     this.border = border || false
     this.zIndex = zIndex || 0
     this.edge = 0
@@ -48,6 +54,9 @@ export default class Grid {
 
   /* Adds a grid, block, string, or cell to the grid */
   add(props) {
+    if (!props || typeof props !== 'object') {
+      throw new Error('Invalid props provided')
+    }
     if (props.grid) {
       this._addGrid(props)
     } else if (props.fig) {
@@ -59,12 +68,15 @@ export default class Grid {
     } else if (props.cell) {
       this._addCell(props)
     } else {
-      throw new Error("add requires a grid, block, string, or cell")
+      throw new Error('add requires a grid, block, string, or cell')
     }
   }
 
   getCell(props) {
     const { x, y } = props
+    if (typeof x !== 'number' || typeof y !== 'number') {
+      throw new Error('Invalid x or y provided')
+    }
     if (x < 0 || x > this.width - 1 || y < 0 || y > this.height - 1) return null
     return this.grid[y][x]
   }
@@ -73,6 +85,9 @@ export default class Grid {
     Removes a grid from the children
   */
   removeGrid(id) {
+    if (typeof id !== 'string') {
+      throw new Error('Invalid id provided')
+    }
     const index = this.children.findIndex((g) => g.grid.id === id)
     if (index !== -1) this.children.splice(index, 1)
   }
@@ -81,6 +96,9 @@ export default class Grid {
     Gets a grid from the children
   */
   getGrid(id) {
+    if (typeof id !== 'string') {
+      throw new Error('Invalid id provided')
+    }
     const index = this.children.findIndex((g) => g.grid.id === id)
     if (index === -1) return null
     return this.children[index].grid
@@ -101,14 +119,17 @@ export default class Grid {
     Create Output HTML that can be rendered within a <p/> tag
   */
   draw() {
+    if (!Array.isArray(this.grid) || this.grid.length !== this.height) {
+      throw new Error('Grid is not properly initialized')
+    }
     const flat = this._flatten({ grid: this })
-    let output = ""
+    let output = ''
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         const cell = flat[y][x].draw()
         if (cell) output += cell
       }
-      output += "\n"
+      output += '\n'
     }
     return output
   }
@@ -123,21 +144,21 @@ export default class Grid {
   }
 
   _border() {
-    this._addCell({ x: 0, y: 0, cell: new Cell({ value: "╭" }) })
-    this._addCell({ x: this.width - 1, y: 0, cell: new Cell({ value: "╮" }) })
-    this._addCell({ x: 0, y: this.height - 1, cell: new Cell({ value: "╰" }) })
+    this._addCell({ x: 0, y: 0, cell: new Cell({ value: '╭' }) })
+    this._addCell({ x: this.width - 1, y: 0, cell: new Cell({ value: '╮' }) })
+    this._addCell({ x: 0, y: this.height - 1, cell: new Cell({ value: '╰' }) })
     this._addCell({
       x: this.width - 1,
       y: this.height - 1,
-      cell: new Cell({ value: "╯" })
+      cell: new Cell({ value: '╯' })
     })
     for (let x = 1; x < this.width - 1; x++) {
-      this._addCell({ x, y: 0, cell: new Cell({ value: "─" }) })
-      this._addCell({ x, y: this.height - 1, cell: new Cell({ value: "─" }) })
+      this._addCell({ x, y: 0, cell: new Cell({ value: '─' }) })
+      this._addCell({ x, y: this.height - 1, cell: new Cell({ value: '─' }) })
     }
     for (let y = 1; y < this.height - 1; y++) {
-      this._addCell({ x: 0, y, cell: new Cell({ value: "│" }) })
-      this._addCell({ x: this.width - 1, y, cell: new Cell({ value: "│" }) })
+      this._addCell({ x: 0, y, cell: new Cell({ value: '│' }) })
+      this._addCell({ x: this.width - 1, y, cell: new Cell({ value: '│' }) })
     }
     this.edge = 1
   }
@@ -148,6 +169,13 @@ export default class Grid {
   */
   _addCell(props) {
     const { x, y, cell, force } = props
+    if (
+      typeof x !== 'number' ||
+      typeof y !== 'number' ||
+      !(cell instanceof Cell)
+    ) {
+      throw new Error('Invalid x, y, or cell provided')
+    }
     if (force) {
       // force the cell to be added even if its in the border region
       if (x < 0 || x > this.width - 1 || y < 0 || y > this.height - 1) return
@@ -173,18 +201,18 @@ export default class Grid {
       for (let i = 0; i < this.width; i++)
         this._addCell({ x: i, y, cell: new Cell({ value: this.fill }) })
     }
-    if (x === "left") {
+    if (x === 'left') {
       x = 2
-    } else if (x === "center") {
+    } else if (x === 'center') {
       x = Math.floor((this.width - string.length) / 2)
-    } else if (x === "right") {
+    } else if (x === 'right') {
       x = this.width - (string.length + 2)
     }
-    if (y === "top") {
+    if (y === 'top') {
       y = 2
-    } else if (y === "center") {
+    } else if (y === 'center') {
       y = Math.floor((this.height - 1) / 2)
-    } else if (y === "bottom") {
+    } else if (y === 'bottom') {
       y = this.height - 2
     }
     const tokens = [...string]
@@ -204,18 +232,21 @@ export default class Grid {
   */
   _addBlock(props) {
     let { x, y, block, color, highlight, force, backfill } = props
-    if (y === "center") {
+    if (!Array.isArray(block)) {
+      throw new Error('Invalid block provided:', block)
+    }
+    if (y === 'center') {
       y =
         Math.floor((this.height - block.length) / 2) -
         Math.floor(block.length / 2)
-    } else if (y === "bottom") {
+    } else if (y === 'bottom') {
       y = this.height - block.length - 2
-    } else if (y === "top") {
+    } else if (y === 'top') {
       y = 2
     }
     if (backfill) {
       for (let i = 0; i < this.height; i++) {
-        this._addString({ x: 0, y: i, string: "", force, backfill })
+        this._addString({ x: 0, y: i, string: '', force, backfill })
       }
     }
     for (let i = 0; i < block.length; i++) {
@@ -233,33 +264,44 @@ export default class Grid {
 
   _addFig(props) {
     let { fig } = props
+    if (
+      !fig ||
+      typeof fig !== 'object' ||
+      typeof fig.text !== 'string' ||
+      typeof fig.font !== 'string'
+    ) {
+      throw new Error('Invalid fig provided')
+    }
     let { text, font } = fig
     // eslint-disable-next-line no-undef
     props.block = figlet
       .textSync(text, {
-        font: font || "Crawford2",
-        horizontalLayout: "full",
-        verticalLayout: "default",
+        font: font || 'Crawford2',
+        horizontalLayout: 'full',
+        verticalLayout: 'default',
         whitespaceBreak: true
       })
-      .split("\n")
+      .split('\n')
     this._addBlock(props)
   }
 
   _addGrid(props) {
     let { x, y, grid } = props
-    if (x === "center") {
+    if (!(grid instanceof Grid)) {
+      throw new Error('Invalid grid provided')
+    }
+    if (x === 'center') {
       x = Math.floor((this.width - grid.width) / 2)
-    } else if (x === "right") {
+    } else if (x === 'right') {
       x = this.width - grid.width - 1
-    } else if (x === "left") {
+    } else if (x === 'left') {
       x = 2
     }
-    if (y === "center") {
+    if (y === 'center') {
       y = Math.floor((this.height - grid.height) / 2)
-    } else if (y === "bottom") {
+    } else if (y === 'bottom') {
       y = this.height - grid.height - 2
-    } else if (y === "top") {
+    } else if (y === 'top') {
       y = 2
     }
     this.children.push({ x, y, grid })
@@ -271,6 +313,9 @@ export default class Grid {
     This allows us to calculate the final ascii UI before rendering.
   */ _flatten(props) {
     const { grid } = props
+    if (!(grid instanceof Grid)) {
+      throw new Error('Invalid grid provided')
+    }
     // Initialize a copy of the grid to work with
     const copy = []
     for (let y = 0; y < grid.height; y++) {

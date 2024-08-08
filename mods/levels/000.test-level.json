@@ -1,0 +1,11 @@
+{
+  "name": "Test",
+  "objective": "Test",
+  "journalEntry": "Test",
+  "mapWidth": 4,
+  "mapHeight": 4,
+  "objects": [
+    { "id": "bone", "count": 1 },
+    { "id": "bandage", "count": 1 }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Torch",
+  "description": "A torch! This should help you see better down here!",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 10,
+  "animations": {
+    "farAway": {
+      "position": "floor",
+      "frames": [["‧‧"]]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [["‧--'"]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [["‧--''"]]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [
+        [
+        "@@@@@@@@/\\@@",
+        "‧------###~'"
+        ]
+      ]
+    }
+  }
+}

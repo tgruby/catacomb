@@ -1,0 +1,36 @@
+{
+  "name": "Wall",
+  "description": "A wall to keep you in.",
+  "obstructsMovement": true,
+  "allowsPickup": false,
+  "health": 10000,
+  "animations": {
+    "farAway": {
+      "position": "floor",
+      "frames": [["__", ". ", "__"]]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [["______", ".  . .", " .  . ", ". . . ", " . . .", "______"]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [
+        [
+          "____________",
+          " .    .   . ",
+          "  .     .   ",
+          "    .       ",
+          " .     .  . ",
+          "   .  .     ",
+          " .        . ",
+          ".   .   .   ",
+          "     .      ",
+          "  .    .  . ",
+          " .  .    .  ",
+          "____________"
+        ]
+      ]
+    }
+  }
+}

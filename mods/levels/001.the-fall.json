@@ -1,0 +1,12 @@
+{
+  "name": "The Fall",
+  "objective": "Stop the bleeding.",
+  "journalEntry": "I seem to have fallen down a hole.  My leg is badly lacerated. I need to find something to stop the bleeding.",
+  "mapWidth": 4,
+  "mapHeight": 4,
+  "objects": [
+    { "id": "bone", "count": 1 },
+    { "id": "bandage", "count": 1 },
+    { "id": "torch", "count": 1 }
+  ]
+}

@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
-const path = require("path")
+const path = require('path')
 
 module.exports = {
-  entry: "./src/index.js", // Your main JS file
-  devtool: "source-map",
+  entry: './src/index.js', // Your main JS file
+  devtool: 'source-map',
   output: {
-    filename: "bundle.js", // The name of the bundled file
-    path: path.resolve(__dirname, "dist"), // The output directory
+    filename: 'bundle.js', // The name of the bundled file
+    path: path.resolve(__dirname, 'dist'), // The output directory
     clean: true // Clean the output directory before each build
   },
   module: {
@@ -15,9 +15,9 @@ module.exports = {
         test: /\.js$/, // Apply this rule to .js files
         exclude: /node_modules/, // Exclude dependencies in node_modules
         use: {
-          loader: "babel-loader", // Use Babel loader for ES6+ support
+          loader: 'babel-loader', // Use Babel loader for ES6+ support
           options: {
-            presets: ["@babel/preset-env"]
+            presets: ['@babel/preset-env']
           }
         }
       }
@@ -25,11 +25,11 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, "/dist")
+      directory: path.join(__dirname, '/dist')
     },
     compress: true,
     port: 9000,
     open: true
   },
-  mode: "development"
+  mode: 'development'
 }

@@ -1,3 +1,38 @@
+class LevelLoader {
+  static ACTIVE_LEVELS_FILE = 'mods/levels/_active.json'
+  constructor() {
+    this.initialized = false
+    this.levels = []
+  }
+
+  async initialize() {
+    if (!this.initialized) {
+      const response = await fetch(LevelLoader.ACTIVE_LEVELS_FILE)
+      const levelsJson = await response.json()
+      for (let i = 0; i < levelsJson.levels.length; i++) {
+        const levelAsString = await fetch(
+          `mods/levels/${levelsJson.levels[i]}.json`
+        )
+        const levelJson = await levelAsString.json()
+        this.levels.push(levelJson)
+      }
+      console.log(`Levels Loaded: ${this.levels.length}`)
+      this.initialized = true
+    }
+  }
+
+  get(index) {
+    if (index < 0 || index >= this.levels.length) {
+      throw new Error(`Level index ${index} out of bounds.`)
+    }
+    return this.levels[index]
+  }
+}
+
+const levels = new LevelLoader()
+export default levels
+
+// Level Ideas:
 // const objectives = [
 //   'Stop the bleeding.',
 //   'Find the map of the current level.',
@@ -129,33 +164,3 @@
 //   "Use the keys to unlock the gate to Tahara's sanctum.",
 //   'Defeat Tahara, sealing away the ancient evil forever.'
 // ]
-
-const CatacombLevels = {
-  1: {
-    objective: "Stop the bleeding.",
-    journalEntry:
-      "I seem to have fallen down a hole.  My leg is badly lacerated. I need to find something to stop the bleeding.",
-    width: 4,
-    height: 4,
-    entities: [
-      { id: "item.grass", count: 4 },
-      { id: "item.map", count: 1 },
-      { id: "item.torch", count: 1 },
-      { id: "weapon.bone.knife", count: 1 }
-    ]
-  },
-  2: {
-    objective: "Find a light source.",
-    journalEntry:
-      "Its aweful dark down here... I need to find a light source to explore this place.",
-    width: 4,
-    height: 5,
-    entities: [
-      { id: "item.grass", count: 4 },
-      { id: "item.map", count: 1 },
-      { id: "item.torch", count: 1 }
-    ]
-  }
-}
-
-export default CatacombLevels

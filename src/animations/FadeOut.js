@@ -1,4 +1,4 @@
-import Animation from "../core/Animation.js"
+import Animation from '../core/Animation.js'
 
 export default class FadeOut extends Animation {
   constructor(props = {}) {
@@ -23,18 +23,18 @@ function buildFrame(props) {
   const frame = []
   // rest of the rows should be based on the previous frame, sliding the confetti down
   for (let i = 1; i < height; i++) {
-    let nextRow = ""
+    let nextRow = ''
     for (let j = 0; j < width; j++) {
       const distance = Math.sqrt(
         Math.pow(centerX - j, 2) + Math.pow(centerY - i, 2)
       )
       if (distance < size) {
-        nextRow += "@"
+        nextRow += '@'
       } else {
-        nextRow += " "
+        nextRow += ' '
       }
     }
-    frame.push(nextRow.split(""))
+    frame.push(nextRow.split(''))
   }
   return frame
 }

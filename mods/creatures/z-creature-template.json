@@ -1,0 +1,62 @@
+{
+  "Id": "wolf",
+  "Name": "Night Wolf",
+  "Description": "A dark, menancing wolf.",
+  "ObstructsMovement": true,
+  "AppearsOnLevel": 5,
+  "RadomPlacement": true,
+  "AllowsPickup": false,
+  "Health": 20,
+  "Tameable": [{ "Id": "raw.meat", "Quantity": 2 }],
+  "AttackImpact": {
+    "Health": 10
+  },
+  "Animations": {
+    "FarAway": {
+      "Sound": "mods/cloth.rustle.mp3",
+      "SoundFrame": 0,
+      "Position": "bottom",
+      "Frames": [["@"]]
+    },
+    "MidDistance": {
+      "Position": "bottom",
+      "Frames": [["="]]
+    },
+    "Nearby": {
+      "Position": "bottom",
+      "Frames": [["/--.", ".--."]]
+    },
+    "Here": {
+      "Position": "bottom",
+      "Message": "You see a wolf standing before you.",
+      "Frames": [
+        [
+          "@@@․⎼⎼⎼⎼⎼⎼⎼⎼⎼․@",
+          "@@╱  -----  ╱@",
+          "@│  ------ │@",
+          "@│   ․⎼⎼⎼⎼⎼⎼․",
+          "@@╲_╱_______╱"
+        ]
+      ]
+    },
+    "Usage": {
+      "Sound": "mods/cloth.rustle.mp3"
+    },
+    "Attack": {
+      "Sound": "mods/cloth.rustle.mp3"
+    },
+    "InventoryImage": {
+      "Position": "bottom",
+      "Frames": [
+        [
+          "      .-.         ",
+          "   _.'   `.       ",
+          " ,'   ~    `.     ",
+          ":        ~   `-.  ",
+          ":   _.-.    ~  `,",
+          " `-'    `._.-._.' "
+        ]
+      ]
+    }
+  }
+}

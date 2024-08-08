@@ -8,9 +8,9 @@
  */
 /******/ ;(() => {
   // webpackBootstrap
-  /******/ "use strict"
+  /******/ 'use strict'
   /******/ var __webpack_modules__ = {
-    /***/ "./node_modules/figlet/importable-fonts/Standard.js":
+    /***/ './node_modules/figlet/importable-fonts/Standard.js':
       /*!**********************************************************!*\
   !*** ./node_modules/figlet/importable-fonts/Standard.js ***!
   \**********************************************************/
@@ -26,7 +26,7 @@
         /***/
       },
 
-    /***/ "./node_modules/figlet/lib/figlet.js":
+    /***/ './node_modules/figlet/lib/figlet.js':
       /*!*******************************************!*\
   !*** ./node_modules/figlet/lib/figlet.js ***!
   \*******************************************/
@@ -38,7 +38,7 @@
         /***/
       },
 
-    /***/ "./src/animations/CatacombTitleAnimation.js":
+    /***/ './src/animations/CatacombTitleAnimation.js':
       /*!**************************************************!*\
   !*** ./src/animations/CatacombTitleAnimation.js ***!
   \**************************************************/
@@ -54,7 +54,7 @@
         /***/
       },
 
-    /***/ "./src/animations/CatacombsBackground.js":
+    /***/ './src/animations/CatacombsBackground.js':
       /*!***********************************************!*\
   !*** ./src/animations/CatacombsBackground.js ***!
   \***********************************************/
@@ -70,7 +70,7 @@
         /***/
       },
 
-    /***/ "./src/animations/Confetti.js":
+    /***/ './src/animations/Confetti.js':
       /*!************************************!*\
   !*** ./src/animations/Confetti.js ***!
   \************************************/
@@ -86,7 +86,7 @@
         /***/
       },
 
-    /***/ "./src/animations/FadeIn.js":
+    /***/ './src/animations/FadeIn.js':
       /*!**********************************!*\
   !*** ./src/animations/FadeIn.js ***!
   \**********************************/
@@ -102,7 +102,7 @@
         /***/
       },
 
-    /***/ "./src/animations/FireCracker.js":
+    /***/ './src/animations/FireCracker.js':
       /*!***************************************!*\
   !*** ./src/animations/FireCracker.js ***!
   \***************************************/
@@ -118,7 +118,7 @@
         /***/
       },
 
-    /***/ "./src/core/Animation.js":
+    /***/ './src/core/Animation.js':
       /*!*******************************!*\
   !*** ./src/core/Animation.js ***!
   \*******************************/
@@ -134,7 +134,7 @@
         /***/
       },
 
-    /***/ "./src/core/AudioPlayer.js":
+    /***/ './src/core/AudioPlayer.js':
       /*!*********************************!*\
   !*** ./src/core/AudioPlayer.js ***!
   \*********************************/
@@ -150,7 +150,7 @@
         /***/
       },
 
-    /***/ "./src/core/Cell.js":
+    /***/ './src/core/Cell.js':
       /*!**************************!*\
   !*** ./src/core/Cell.js ***!
   \**************************/
@@ -166,7 +166,7 @@
         /***/
       },
 
-    /***/ "./src/core/Grid.js":
+    /***/ './src/core/Grid.js':
       /*!**************************!*\
   !*** ./src/core/Grid.js ***!
   \**************************/
@@ -182,7 +182,7 @@
         /***/
       },
 
-    /***/ "./src/core/Memory.js":
+    /***/ './src/core/Memory.js':
       /*!****************************!*\
   !*** ./src/core/Memory.js ***!
   \****************************/
@@ -198,7 +198,7 @@
         /***/
       },
 
-    /***/ "./src/core/Modal.js":
+    /***/ './src/core/Modal.js':
       /*!***************************!*\
   !*** ./src/core/Modal.js ***!
   \***************************/
@@ -214,7 +214,7 @@
         /***/
       },
 
-    /***/ "./src/core/Mods.js":
+    /***/ './src/core/Mods.js':
       /*!**************************!*\
   !*** ./src/core/Mods.js ***!
   \**************************/
@@ -230,7 +230,7 @@
         /***/
       },
 
-    /***/ "./src/core/Screen.js":
+    /***/ './src/core/Screen.js':
       /*!****************************!*\
   !*** ./src/core/Screen.js ***!
   \****************************/
@@ -246,7 +246,7 @@
         /***/
       },
 
-    /***/ "./src/core/SelectionArray.js":
+    /***/ './src/core/SelectionArray.js':
       /*!************************************!*\
   !*** ./src/core/SelectionArray.js ***!
   \************************************/
@@ -262,7 +262,7 @@
         /***/
       },
 
-    /***/ "./src/game/CatacombLevels.js":
+    /***/ './src/game/CatacombLevels.js':
       /*!************************************!*\
   !*** ./src/game/CatacombLevels.js ***!
   \************************************/
@@ -278,7 +278,7 @@
         /***/
       },
 
-    /***/ "./src/game/Catacombs.js":
+    /***/ './src/game/Catacombs.js':
       /*!*******************************!*\
   !*** ./src/game/Catacombs.js ***!
   \*******************************/
@@ -294,7 +294,7 @@
         /***/
       },
 
-    /***/ "./src/game/Hero.js":
+    /***/ './src/game/Hero.js':
       /*!**************************!*\
   !*** ./src/game/Hero.js ***!
   \**************************/
@@ -310,7 +310,7 @@
         /***/
       },
 
-    /***/ "./src/game/MovementEngine.js":
+    /***/ './src/game/MovementEngine.js':
       /*!************************************!*\
   !*** ./src/game/MovementEngine.js ***!
   \************************************/
@@ -326,7 +326,7 @@
         /***/
       },
 
-    /***/ "./src/game/Time.js":
+    /***/ './src/game/Time.js':
       /*!**************************!*\
   !*** ./src/game/Time.js ***!
   \**************************/
@@ -342,7 +342,7 @@
         /***/
       },
 
-    /***/ "./src/hud/CompanionVitals.js":
+    /***/ './src/hud/CompanionVitals.js':
       /*!************************************!*\
   !*** ./src/hud/CompanionVitals.js ***!
   \************************************/
@@ -358,7 +358,7 @@
         /***/
       },
 
-    /***/ "./src/hud/EnemyVitals.js":
+    /***/ './src/hud/EnemyVitals.js':
       /*!********************************!*\
   !*** ./src/hud/EnemyVitals.js ***!
   \********************************/
@@ -374,7 +374,7 @@
         /***/
       },
 
-    /***/ "./src/hud/FirstPersonView.js":
+    /***/ './src/hud/FirstPersonView.js':
       /*!************************************!*\
   !*** ./src/hud/FirstPersonView.js ***!
   \************************************/
@@ -390,7 +390,7 @@
         /***/
       },
 
-    /***/ "./src/hud/GameStats.js":
+    /***/ './src/hud/GameStats.js':
       /*!******************************!*\
   !*** ./src/hud/GameStats.js ***!
   \******************************/
@@ -406,7 +406,7 @@
         /***/
       },
 
-    /***/ "./src/hud/HeroVitals.js":
+    /***/ './src/hud/HeroVitals.js':
       /*!*******************************!*\
   !*** ./src/hud/HeroVitals.js ***!
   \*******************************/
@@ -422,7 +422,7 @@
         /***/
       },
 
-    /***/ "./src/hud/MapView.js":
+    /***/ './src/hud/MapView.js':
       /*!****************************!*\
   !*** ./src/hud/MapView.js ***!
   \****************************/
@@ -438,7 +438,7 @@
         /***/
       },
 
-    /***/ "./src/hud/RecentJournalEntry.js":
+    /***/ './src/hud/RecentJournalEntry.js':
       /*!***************************************!*\
   !*** ./src/hud/RecentJournalEntry.js ***!
   \***************************************/
@@ -454,7 +454,7 @@
         /***/
       },
 
-    /***/ "./src/index.js":
+    /***/ './src/index.js':
       /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
@@ -470,7 +470,7 @@
         /***/
       },
 
-    /***/ "./src/modals/Help.js":
+    /***/ './src/modals/Help.js':
       /*!****************************!*\
   !*** ./src/modals/Help.js ***!
   \****************************/
@@ -486,7 +486,7 @@
         /***/
       },
 
-    /***/ "./src/modals/Inventory.js":
+    /***/ './src/modals/Inventory.js':
       /*!*********************************!*\
   !*** ./src/modals/Inventory.js ***!
   \*********************************/
@@ -502,7 +502,7 @@
         /***/
       },
 
-    /***/ "./src/modals/Journal.js":
+    /***/ './src/modals/Journal.js':
       /*!*******************************!*\
   !*** ./src/modals/Journal.js ***!
   \*******************************/
@@ -518,7 +518,7 @@
         /***/
       },
 
-    /***/ "./src/modals/LevelComplete.js":
+    /***/ './src/modals/LevelComplete.js':
       /*!*************************************!*\
   !*** ./src/modals/LevelComplete.js ***!
   \*************************************/
@@ -534,7 +534,7 @@
         /***/
       },
 
-    /***/ "./src/screens/GameSetup.js":
+    /***/ './src/screens/GameSetup.js':
       /*!**********************************!*\
   !*** ./src/screens/GameSetup.js ***!
   \**********************************/
@@ -550,7 +550,7 @@
         /***/
       },
 
-    /***/ "./src/screens/HUD.js":
+    /***/ './src/screens/HUD.js':
       /*!****************************!*\
   !*** ./src/screens/HUD.js ***!
   \****************************/
@@ -566,7 +566,7 @@
         /***/
       },
 
-    /***/ "./src/screens/Intertitle.js":
+    /***/ './src/screens/Intertitle.js':
       /*!***********************************!*\
   !*** ./src/screens/Intertitle.js ***!
   \***********************************/
@@ -582,7 +582,7 @@
         /***/
       },
 
-    /***/ "./src/screens/TitleSequence.js":
+    /***/ './src/screens/TitleSequence.js':
       /*!**************************************!*\
   !*** ./src/screens/TitleSequence.js ***!
   \**************************************/
@@ -656,23 +656,25 @@
   })()
   /******/
   /******/ /* webpack/runtime/hasOwnProperty shorthand */
-  /******/ ;(() => {
+  /******/
+  ;(() => {
     /******/ __webpack_require__.o = (obj, prop) =>
       Object.prototype.hasOwnProperty.call(obj, prop)
     /******/
   })()
   /******/
   /******/ /* webpack/runtime/make namespace object */
-  /******/ ;(() => {
+  /******/
+  ;(() => {
     /******/ // define __esModule on exports
     /******/ __webpack_require__.r = (exports) => {
-      /******/ if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+      /******/ if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
         /******/ Object.defineProperty(exports, Symbol.toStringTag, {
-          value: "Module"
+          value: 'Module'
         })
         /******/
       }
-      /******/ Object.defineProperty(exports, "__esModule", { value: true })
+      /******/ Object.defineProperty(exports, '__esModule', { value: true })
       /******/
     }
     /******/
@@ -683,7 +685,7 @@
   /******/ // startup
   /******/ // Load entry module and return exports
   /******/ // This entry module can't be inlined because the eval devtool is used.
-  /******/ var __webpack_exports__ = __webpack_require__("./src/index.js")
+  /******/ var __webpack_exports__ = __webpack_require__('./src/index.js')
   /******/
   /******/
 })()

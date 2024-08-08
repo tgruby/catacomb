@@ -1,0 +1,15 @@
+{
+  "objects": [
+    "journal",
+    "bone",
+    "bandage",
+    "door",
+    "wall",
+    "watch",
+    "torch",
+    "ladder-down",
+    "ladder-up",
+    "hole-in-ceiling",
+    "sarcophagus"
+  ]
+}

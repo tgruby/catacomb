@@ -1,19 +1,19 @@
-import Grid from "../core/Grid.js"
-import memory from "../core/Memory.js"
+import Grid from '../core/Grid.js'
+import memory from '../core/Memory.js'
 
 export default class MapView extends Grid {
   constructor() {
-    super({ id: "MapView", width: 26, height: 21, fill: "·", border: true })
-    this.add({ x: "left", y: 0, string: " Map ", force: true })
-    this.mapUpdate(memory.get("catacombs.map"))
-    this.positionUpdate(memory.get("hero.position"))
+    super({ id: 'MapView', width: 26, height: 21, fill: '·', border: true })
+    this.add({ x: 'left', y: 0, string: ' Map ', force: true })
+    this.mapUpdate(memory.get('catacombs.map'))
+    this.positionUpdate(memory.get('hero.position'))
 
     memory.subscribe({
-      key: "hero.position",
+      key: 'hero.position',
       callback: this.positionUpdate.bind(this)
     })
     memory.subscribe({
-      key: "catacombs.map",
+      key: 'catacombs.map',
       callback: this.mapUpdate.bind(this)
     })
   }
@@ -23,8 +23,8 @@ export default class MapView extends Grid {
     in the center, marking them with a direction arrow.
   */
   positionUpdate(position) {
-    const inventory = memory.get("hero.inventory")
-    const map = inventory.find((item) => item.id === "item.map")
+    const inventory = memory.get('hero.inventory')
+    const map = inventory.find((item) => item.id === 'item.map')
     if (!map) return
     const { x, y, direction } = position
     if (this.map) {
@@ -51,16 +51,16 @@ export default class MapView extends Grid {
   }
 
   _getDirectionMarker(direction) {
-    if (direction === "north") {
-      return "↑"
-    } else if (direction === "south") {
-      return "↓"
+    if (direction === 'north') {
+      return '↑'
+    } else if (direction === 'south') {
+      return '↓'
     }
-    if (direction === "east") {
-      return "→"
+    if (direction === 'east') {
+      return '→'
     }
-    if (direction === "west") {
-      return "←"
+    if (direction === 'west') {
+      return '←'
     }
   }
 }

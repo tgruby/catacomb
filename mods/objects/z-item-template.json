@@ -1,0 +1,68 @@
+{
+  "name": "Bandage",
+  "description": "A roll of disinfected cloth to bandage wounds.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 10,
+  "craftingRequirements": [
+    { "id": "cloth", "quantity": 2 },
+    { "id": "vodka", "quantity": 1 }
+  ],
+  "usageType": "Equipable | Consumable",
+  "usageImpact": {
+    "stamina": 0,
+    "health": 10,
+    "hunger": 0
+  },
+  "attackImpact": {
+    "stamina": 0,
+    "enemyHealth": 0
+  },
+  "animations": {
+    "farAway": {
+      "sound": "mods/cloth.rustle.mp3",
+      "soundFrame": 0,
+      "position": "floor",
+      "frames": [["@"]]
+    },
+    "midRange": {
+      "position": "ceiling",
+      "frames": [["="]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [["/--.", ".--."]]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [
+        [
+          "@@@․⎼⎼⎼⎼⎼⎼⎼⎼⎼․@",
+          "@@╱  -----  ╱@",
+          "@│  ------ │@",
+          "@│   ․⎼⎼⎼⎼⎼⎼․",
+          "@@╲_╱_______╱"
+        ]
+      ]
+    },
+    "usage": {
+      "sound": "mods/cloth.rustle.mp3"
+    },
+    "attack": {
+      "sound": "mods/cloth.rustle.mp3"
+    },
+    "inventoryImage": {
+      "position": "bottom",
+      "frames": [
+        [
+          "      .-.         ",
+          "   _.'   `.       ",
+          " ,'   ~    `.     ",
+          ":        ~   `-.  ",
+          ":   _.-.    ~  `,",
+          " `-'    `._.-._.' "
+        ]
+      ]
+    }
+  }
+}

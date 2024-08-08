@@ -1,0 +1,25 @@
+{
+  "name": "Bone",
+  "description": "A bone. A dirty, creepy, bone.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 5,
+  "animations": {
+    "midRange": {
+      "position": "floor",
+      "frames": [[".."]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [[":‧‧:"]]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [["@_@@@@@@@_@", "(_'-----'_)", "(_.'''''._)"]]
+    },
+    "inventoryImage": {
+      "position": "floor",
+      "frames": [["@_@@@@@@@_@", "(_'-----'_)", "(_.'''''._)"]]
+    }
+  }
+}

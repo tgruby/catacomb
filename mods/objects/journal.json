@@ -1,0 +1,40 @@
+{
+  "name": "Journal",
+  "description": "Your journal. The best survival skills require tracking and remembering. Never lose it!",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 100,
+  "inventoryImage": [
+    "@@@@@@⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼@@@@@@",
+    "@@@@_╱ ~~~~ Y ~~~~ ╲_@@@@",
+    "@@@╱╱ ~~ ~~ | ~~ ~  ╲╲@@@",
+    "@@╱╱ ~ ~ ~~ | ~~~ ~~ ╲╲@@",
+    "@╱╱________.|.________╲╲@",
+    "`----------`-'----------'"
+  ],
+  "animations": {
+    "farAway": {
+      "position": "floor",
+      "frames": [["@"]]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [[".."]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [[":..:"]]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [
+        [
+          "@@@@@_____ _____@@@@@",
+          "@@╱╱ ~ ~~ | ~~ ~ ╲╲@@",
+          "@╱╱______.|.______╲╲@",
+          "`--------`-'--------'"
+        ]
+      ]
+    }
+  }
+}

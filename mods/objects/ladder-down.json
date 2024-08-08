@@ -1,0 +1,27 @@
+{
+  "name": "Ladder Going Down",
+  "description": "A ladder going down...",
+  "obstructsMovement": false,
+  "allowsPickup": false,
+  "health": 10000,
+  "animations": {
+    "farAway": {
+      "position": "floor",
+      "frames": [[".."]]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [["::"]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [[".||.", "'=='"]]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [
+        ["@@@┌┐@@@@┌┐@@@", "@.-⏐⏐⎺⎺⎺⎺⏐⏐-.@", "(  ⏐⏐====⏐⏐  )", "@`·.¸____¸.·´@"]
+      ]
+    }
+  }
+}

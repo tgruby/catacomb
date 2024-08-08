@@ -1,0 +1,41 @@
+{
+  "name": "Bandage",
+  "description": "A cloth bandage to patch yourself up.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 1,
+  "craftingRequirements": [
+    { "id": "cloth", "quantity": 2 },
+    { "id": "vodka", "quantity": 1 }
+  ],
+  "usageType": "Consumable",
+  "usageImpact": {
+    "stamina": 0,
+    "health": 10,
+    "hunger": 0
+  },
+  "animations": {
+    "midRange": {
+      "position": "floor",
+      "frames": [["="]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [["/--.", ".--."]]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [
+        [
+          "@@_________@",
+          "@╱ ╲       ╲",
+          "│() │~~~~~~│",
+          "@╲_╱_______╱"
+        ]
+      ]
+    },
+    "usage": {
+      "sound": "sounds/cha-ching.mp3"
+    }
+  }
+}

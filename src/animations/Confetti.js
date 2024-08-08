@@ -1,4 +1,4 @@
-import Animation from "../core/Animation.js"
+import Animation from '../core/Animation.js'
 
 export default class Confetti extends Animation {
   constructor(props = {}) {
@@ -24,7 +24,7 @@ export default class Confetti extends Animation {
   }
 }
 
-const confettiChars = ["/", "≡", "│", "\\", "-"]
+const confettiChars = ['/', '≡', '│', '\\', '-']
 function buildFrame(props) {
   const { prevFrame, width, height, confettiProbability } = props
   const frame = []
@@ -35,12 +35,12 @@ function buildFrame(props) {
       .map(() => {
         return Math.random() < confettiProbability
           ? confettiChars[Math.floor(Math.random() * confettiChars.length)]
-          : "@"
+          : '@'
       })
   )
   // rest of the rows should be based on the previous frame, sliding the confetti down
   for (let i = 1; i < height; i++) {
-    let nextRow = ""
+    let nextRow = ''
     for (let j = 0; j < width; j++) {
       if (prevFrame) {
         const prevCell = prevFrame[i - 1][j]
@@ -51,10 +51,10 @@ function buildFrame(props) {
           nextRow += prevCell
         }
       } else {
-        nextRow += "@"
+        nextRow += '@'
       }
     }
-    frame.push(nextRow.split(""))
+    frame.push(nextRow.split(''))
   }
   return frame
 }

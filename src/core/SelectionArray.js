@@ -1,5 +1,5 @@
-import Grid from "./Grid.js"
-import memory from "./Memory.js"
+import Grid from './Grid.js'
+import memory from './Memory.js'
 
 export default class SelectionArray extends Grid {
   // Example:
@@ -29,7 +29,7 @@ export default class SelectionArray extends Grid {
     this.items = items
     this.itemInFocus = 0
     this.build()
-    memory.set({ key: "request.screen.draw", value: true })
+    memory.set({ key: 'request.screen.draw', value: true })
   }
 
   build() {
@@ -56,10 +56,10 @@ export default class SelectionArray extends Grid {
       const highlight = item === focusItem
       let repeat = this.width - item.value.length - 4
       if (repeat < 0) repeat = 0
-      const string = item.value + " ".repeat(repeat)
-      this.add({ x: "right", y: 2 + index * 2, string, highlight })
+      const string = item.value + ' '.repeat(repeat)
+      this.add({ x: 'right', y: 2 + index * 2, string, highlight })
     })
-    memory.set({ key: "request.screen.draw", value: true })
+    memory.set({ key: 'request.screen.draw', value: true })
   }
 
   up() {

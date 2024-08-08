@@ -1,26 +1,26 @@
 @font-face {
-  font-family: "PrintChar21";
+  font-family: 'PrintChar21';
   src:
-    url("../fonts/PrintChar21.woff2") format("woff2"),
-    url("../fonts/PrintChar21.woff") format("woff"),
-    url("../fonts/PrintChar21.ttf") format("truetype");
+    url('../fonts/PrintChar21.woff2') format('woff2'),
+    url('../fonts/PrintChar21.woff') format('woff'),
+    url('../fonts/PrintChar21.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "PRNumber3";
+  font-family: 'PRNumber3';
   src:
-    url("../fonts/PRNumber3.woff2") format("woff2"),
-    url("../fonts/PRNumber3.woff") format("woff"),
-    url("../fonts/PRNumber3.ttf") format("truetype");
+    url('../fonts/PRNumber3.woff2') format('woff2'),
+    url('../fonts/PRNumber3.woff') format('woff'),
+    url('../fonts/PRNumber3.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 html,
 body {
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   background-color: black;
   color: #2cd03a;
   font-size: 1em;
@@ -35,4 +35,24 @@ body {
   position: absolute;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+dark {
+  color: #082208;
+}
+
+dim {
+  color: #145214;
+}
+
+normal {
+  color: #1e6f1e;
+}
+
+light {
+  color: #27a327;
+}
+
+bright {
+  color: #2cd03a;
 }

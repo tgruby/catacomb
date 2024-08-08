@@ -1,12 +1,12 @@
 # Catacomb
 
-![alt text](/images/logo.png "Logo")
+![alt text](/images/logo.png 'Logo')
 
 [Play the Game](https://tgruby.github.io/catacomb/)
 
 > [Game Development Status](#development-status)
 
-An ASCII "work of art" :). I enjoy games, and growing up in the 80's I spent probably hundreds of hours playing _Michael Cranford's_ **The Bard's Tale** on the Apple ][ computer. Recently, I had the idea of working on a throwback game: looking for opportunities to make it feel old, but incorporate newer patterns and ideas in more current games. I played with a few different ideas and decided to lean into an ASCII only UI, mainly green-screen, roll-playing game. It seems to strik the right balance to feeling like an older game while allowing to leverage more modern sound and music, which I believes help be more engaging.
+An ASCII "work of art" :). I enjoy games, and growing up in the 80's I spent probably hundreds of hours playing [_Michael Cranford's_ **The Bard's Tale**](https://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)) on the Apple ][ computer. Recently, I had the idea of working on a throwback game: looking for opportunities to make it feel old, but incorporate newer patterns and ideas in more current games. I played with a few different ideas and decided to lean into an ASCII only UI, mainly green-screen, roll-playing game. It seems to strik the right balance to feeling like an older game while allowing to leverage more modern sound and music, which I believes help be more engaging.
 
 ## Backstory
 
@@ -18,7 +18,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ### Main Game Window
 
-![alt text](/images/game-play.png "Game Screen")
+![alt text](/images/game-play.png 'Game Screen')
 
 | Action         | Key Binding |
 | -------------- | :---------: |
@@ -33,7 +33,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ### Inventory (Backpack) Window
 
-![alt text](/images/inventory.png "Inventory Screen")
+![alt text](/images/inventory.png 'Inventory Screen')
 
 | Action                                            | Key Binding  |
 | ------------------------------------------------- | :----------: |
@@ -46,7 +46,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ### Journal Window
 
-![alt text](/images/journal.png "Journal Screen")
+![alt text](/images/journal.png 'Journal Screen')
 
 | Action                | Key Binding  |
 | --------------------- | :----------: |
@@ -56,7 +56,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ## [Development Status](#development-status)
 
-![alt text](/images/out-of-order.png "Status")
+![alt text](/images/out-of-order.png 'Status')
 
 > Currently the first level is "playable", but otherwise locks up when finishing it.
 
@@ -64,5 +64,6 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 Lots of people to thank here, as I build on top of other's work. Please ping me if you feel I missed someone.
 
+- [KreativeKorp](https://www.kreativekorp.com) for their [Apple 2](https://www.kreativekorp.com/software/fonts/apple2/) fonts.
 - [Lordol1](https://freesound.org/people/Lordol1/) for the [intro sequence theme music](https://freesound.org/people/Lordol1/sounds/677665/)
 - [patorjk and contributors](https://github.com/patorjk/figlet.js?tab=readme-ov-file#contributors) of the [Figlet JS](https://github.com/patorjk/figlet.js) library.

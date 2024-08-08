@@ -1,9 +1,9 @@
-import Grid from "./Grid.js"
+import Grid from './Grid.js'
 
 export default class Screen extends Grid {
   constructor(props) {
     const { id, width, height } = props
-    if (!id) props.id = "Screen"
+    if (!id) props.id = 'Screen'
     if (!width) props.width = 80
     if (!height) props.height = 42
     super(props)

@@ -1,5 +1,5 @@
-import memory from "../core/Memory.js"
-import Modal from "../core/Modal.js"
+import memory from '../core/Memory.js'
+import Modal from '../core/Modal.js'
 
 const content = `
 
@@ -28,20 +28,20 @@ const content = `
 export default class Help extends Modal {
   constructor(props) {
     super({
-      id: "HelpMenu",
+      id: 'HelpMenu',
       width: 78,
       height: 28,
       border: true,
       parent: props.parent
     })
-    this.add({ x: "center", y: 2, string: "--=≡≣ Help Menu ≣≡=--" })
-    this.add({ x: "center", y: 4, block: content.split("\n") })
+    this.add({ x: 'center', y: 2, string: '--=≡≣ Help Menu ≣≡=--' })
+    this.add({ x: 'center', y: 4, block: content.split('\n') })
   }
 
   keyPressed(e) {
-    if (e.key === "Enter" || e.key === "Escape" || e.key === " ") {
+    if (e.key === 'Enter' || e.key === 'Escape' || e.key === ' ') {
       this.close()
-      memory.set({ key: "request.screen.draw", value: true })
+      memory.set({ key: 'request.screen.draw', value: true })
     }
   }
 }
