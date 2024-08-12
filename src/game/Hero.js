@@ -53,10 +53,10 @@ export default class Hero {
   pickUp() {
     const position = memory.get('hero.position')
     const movement = memory.get('movement')
-    const item = movement.getFeatureAt(position)
+    const item = movement.getGameObjectAt(position)
     if (!item) return
-    if (!item.allowsPickup) return
-    if (this.getInventoryItemsByType(item.type).length >= 10) {
+    if (!item.allowsPickup()) return
+    if (this.getInventoryItemsByType(item.getType()).length >= 10) {
       console.log('Inventory is full')
       return
     }

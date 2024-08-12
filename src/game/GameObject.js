@@ -23,6 +23,12 @@ export default class GameObject {
     return this.data?.description || '???'
   }
 
+  getImage() {
+    if (this.data?.image) return this.data.image
+    else if (this.data?.animations?.here) return this.data.animations.here.frames[0]
+    return this.data?.image || undefined
+  }
+
   obstructsMovement() {
     return this.data?.obstructsMovement ?? false
   }

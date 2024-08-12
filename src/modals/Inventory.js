@@ -15,85 +15,81 @@ export default class Inventory extends Modal {
 
     this.add({ x: 'center', y: 2, string: ' Inventory' })
 
-    const items = this.getInventorySummary()
-    const inventoryItems = new SelectionArray({
-      id: 'InventoryItems',
+    const summaryOfItems = this.getInventorySummary()
+    const inventoryItemList = new SelectionArray({
+      id: 'InventoryItemList',
       width: 32,
       height: 30,
       border: true,
-      items
+      items: summaryOfItems
     })
-    inventoryItems.add({ x: 'left', y: 0, string: ' Items ', force: true })
-    this.add({ x: 1, y: 4, grid: inventoryItems })
+    inventoryItemList.add({ x: 'left', y: 0, string: ' Items ', force: true })
+    this.add({ x: 1, y: 4, grid: inventoryItemList })
 
-    const itemImage = new Grid({
-      id: 'ItemImage',
+    const itemImagePanel = new Grid({
+      id: 'SelectedItemImage',
       width: 30,
       height: 18,
       border: true
     })
-    itemImage.add({ x: 'left', y: 0, string: ' Image ', force: true })
-    this.add({ x: 'right', y: 4, grid: itemImage })
+    itemImagePanel.add({ x: 'left', y: 0, string: ' Image ', force: true })
+    this.add({ x: 'right', y: 4, grid: itemImagePanel })
 
-    const itemDescription = new Grid({
-      id: 'ItemDescription',
+    const itemDescriptionPanel = new Grid({
+      id: 'SelectedItemDescription',
       width: 30,
       height: 12,
       border: true
     })
-    itemDescription.add({
+    itemDescriptionPanel.add({
       x: 'left',
       y: 0,
       string: ' Description ',
       force: true
     })
-    this.add({ x: 'right', y: 22, grid: itemDescription })
+    this.add({ x: 'right', y: 22, grid: itemDescriptionPanel })
 
     // set the initial item image and description
-    this.setImageAndDescription(items[0])
+    this.setImageAndDescription(summaryOfItems[0])
   }
 
   // Return a list of items in the inventory with a count by id
   getInventorySummary() {
-    const items = []
+    const summarizedItems = []
     const inventory = memory.get('hero.inventory')
     for (let i = 0; i < inventory.length; i++) {
-      // item format: { id: id, name: name, type: type, description: description, here: here }
       const item = inventory[i]
-      const itemSummary = items.find(
-        (summaryItem) => summaryItem.id === item.id
-      )
-      if (!itemSummary) {
-        const image = item.image ? item.image : item.here.frames[0]
-        items.push({
-          id: item.id,
-          value: item.name,
-          name: item.name,
-          type: item.type,
-          image,
-          description: item.description,
+      const summarizedItem = summarizedItems.find((summaryItem) => summaryItem.id === item.getType())
+      if (!summarizedItem) {
+        summarizedItems.push({
+          id: item.getType(),
+          value: item.getName(),
+          name: item.getName(),
+          image: item.getImage(),
+          description: item.getDescription(),
           count: 1
         })
       } else {
-        itemSummary.count++
-        itemSummary.value = `${itemSummary.name} (x${itemSummary.count})`
+        summarizedItem.count++
+        summarizedItem.value = `${summarizedItem.name} (x${summarizedItem.count})`
       }
     }
-    return items
+    console.log('summarizedItems:', summarizedItems)
+    return summarizedItems
   }
 
   keyPressed(e) {
     if (e.key === 'w' || e.key === 'ArrowUp') {
-      const selected = this.getGrid('InventoryItems').up()
+      const selected = this.getGrid('InventoryItemList').up()
       this.setImageAndDescription(selected)
     } else if (e.key === 's' || e.key === 'ArrowDown') {
-      const selected = this.getGrid('InventoryItems').down()
+      const selected = this.getGrid('InventoryItemList').down()
       this.setImageAndDescription(selected)
     } else if (e.key === 'i' || e.key === 'Escape') {
       this.close()
       memory.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'Enter') {
-      const inventoryItems = this.getGrid('InventoryItems')
+      const inventoryItems = this.getGrid('InventoryItemList')
       const selected = inventoryItems.selectItem()
       const hero = memory.get('hero')
       hero.useItem(selected.id)
@@ -104,19 +100,20 @@ export default class Inventory extends Modal {
     }
   }
 
-  setImageAndDescription(item) {
-    const imageGrid = this.getGrid('ItemImage')
+  setImageAndDescription(summarizedItem) {
+    const imageGrid = this.getGrid('SelectedItemImage')
     imageGrid.clear()
-    const descriptionGrid = this.getGrid('ItemDescription')
+    const descriptionGrid = this.getGrid('SelectedItemDescription')
     descriptionGrid.clear()
-    if (!item) return
+    if (!summarizedItem) return
+
     // center the image vertically
-    const imageYOffset = Math.floor((imageGrid.height - item.image.length) / 2)
-    imageGrid.add({ x: 'center', y: imageYOffset, block: item.image })
+    const imageYOffset = Math.floor((imageGrid.height - summarizedItem.image.length) / 2)
+    imageGrid.add({ x: 'center', y: imageYOffset, block: summarizedItem.image })
     descriptionGrid.add({
       x: 'left',
       y: 2,
-      block: this.wrapText(item.description, descriptionGrid.width - 2)
+      block: this.wrapText(summarizedItem.description, descriptionGrid.width - 2)
     })
     memory.set({ key: 'request.screen.draw', value: true })
   }

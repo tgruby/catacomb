@@ -46,11 +46,15 @@ memory.subscribe({
   key: 'request.screen.draw',
   callback: (draw) => {
     if (draw) canvas.innerHTML = screen.draw()
-    // throttle the draw to only every 8ms
+    //TODO: Throttle should wait to draw... current behavior is to draw immediately, but then we just miss some updates that happen rapidly behind it.
+    // instead it would be good to wait until the next frame to draw, but only if there are no other updates in the queue.
+    // throttle the draw to only every 8ms.  This should create a top-end of 125fps
     // let now = new Date().getTime()
-    // if (draw && lastDraw > now + 8) {
+    // if (draw && lastDraw + 10 <= now) {
     //   canvas.innerHTML = screen.draw()
     //   lastDraw = now
+    // } else if (draw) {
+    //   console.log('throttling draw')
     // }
   }
 })

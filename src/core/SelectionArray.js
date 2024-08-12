@@ -44,10 +44,7 @@ export default class SelectionArray extends Grid {
         visibleItems = this.items.slice(0, availableSlots)
       } else {
         // if the selected item is not within the first available slots, then show the selected item at the bottom of slots.
-        visibleItems = this.items.slice(
-          this.itemInFocus - availableSlots + 1,
-          this.itemInFocus + 1
-        )
+        visibleItems = this.items.slice(this.itemInFocus - availableSlots + 1, this.itemInFocus + 1)
       }
     }
 

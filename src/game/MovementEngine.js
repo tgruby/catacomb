@@ -113,7 +113,6 @@ export default class MovementEngine {
     if (position.direction === 'west') newX = newX - 2
     const next = this.getGameObjectAt({ y: newY, x: newX })
 
-    console.log('next', next)
     // if there is an obstruction, don't move the hero.
     if (next !== undefined && next.obstructsMovement()) {
       const obstruction = next.getName()
