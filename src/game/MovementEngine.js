@@ -96,10 +96,9 @@ export default class MovementEngine {
     // now check to see if we are too tired to move
     const stamina = memory.get('hero.stamina')
     if (stamina.value < 1) {
-      const hero = memory.get({ key: 'hero.name' })
       memory.set({
         key: 'message.center',
-        value: `${hero} is too tired to move!`
+        value: `you are too tired to move`
       })
       return
     }
@@ -114,14 +113,7 @@ export default class MovementEngine {
     const next = this.getGameObjectAt({ y: newY, x: newX })
 
     // if there is an obstruction, don't move the hero.
-    if (next !== undefined && next.obstructsMovement()) {
-      const obstruction = next.getName()
-      memory.set({
-        key: 'message.center',
-        value: `${obstruction} blocks your path!`
-      })
-      return
-    }
+    if (next !== undefined && next.obstructsMovement()) return
 
     // we can move the hero...
     position.x = newX
@@ -159,52 +151,27 @@ export default class MovementEngine {
     if (position.direction === 'west') offsets = this.WestView
 
     for (let i = 0; i < offsets.length; i++) {
-      const backgroundFeature = this.getBackgroundFeatureAt(
-        position.y + offsets[i][1],
-        position.x + offsets[i][2]
-      )
+      const backgroundFeature = this.getBackgroundFeatureAt(position.y + offsets[i][1], position.x + offsets[i][2])
       if (backgroundFeature) background.push(offsets[i][0] + backgroundFeature)
     }
     background = background.sort()
 
     // remove center hallways
-    background = background.filter(
-      (element) => !element.startsWith('layer_4_hall')
-    )
-    background = background.filter(
-      (element) => !element.startsWith('layer_5_hall')
-    )
+    background = background.filter((element) => !element.startsWith('layer_4_hall'))
+    background = background.filter((element) => !element.startsWith('layer_5_hall'))
 
     // if we have a layer_4, we cannot have a layer_3, layer_5, layer_6, layer_7
     if (background.some((element) => element.startsWith('layer_4_'))) {
-      background = background.filter(
-        (element) => !element.startsWith('layer_2_')
-      )
-      background = background.filter(
-        (element) => !element.startsWith('layer_3_')
-      )
-      background = background.filter(
-        (element) => !element.startsWith('layer_5_')
-      )
-      background = background.filter(
-        (element) => !element.startsWith('layer_6_')
-      )
-      background = background.filter(
-        (element) => !element.startsWith('layer_7_')
-      )
-      background = background.filter(
-        (element) => !element.startsWith('layer_8_')
-      )
+      background = background.filter((element) => !element.startsWith('layer_2_'))
+      background = background.filter((element) => !element.startsWith('layer_3_'))
+      background = background.filter((element) => !element.startsWith('layer_5_'))
+      background = background.filter((element) => !element.startsWith('layer_6_'))
+      background = background.filter((element) => !element.startsWith('layer_7_'))
+      background = background.filter((element) => !element.startsWith('layer_8_'))
     } else if (background.some((element) => element.startsWith('layer_5_'))) {
-      background = background.filter(
-        (element) => !element.startsWith('layer_3_')
-      )
-      background = background.filter(
-        (element) => !element.startsWith('layer_6_')
-      )
-      background = background.filter(
-        (element) => !element.startsWith('layer_7_')
-      )
+      background = background.filter((element) => !element.startsWith('layer_3_'))
+      background = background.filter((element) => !element.startsWith('layer_6_'))
+      background = background.filter((element) => !element.startsWith('layer_7_'))
     }
 
     const response = { background }
@@ -226,28 +193,16 @@ export default class MovementEngine {
       y: position.y + far[1],
       x: position.x + far[2]
     })
-    if (hereEntity) response.here = hereEntity.getAnimation('here')
+    if (hereEntity) {
+      response.here = hereEntity.getAnimation('here')
+      memory.set({
+        key: 'message.center',
+        value: `you see ${hereEntity.getNameWithArticle()}`
+      })
+    }
     if (nearEntity) response.nearby = nearEntity.getAnimation('nearby')
     if (midEntity) response.midRange = midEntity.getAnimation('midRange')
     if (farEntity) response.farAway = farEntity.getAnimation('farAway')
-
-    if (response.hereEntity) {
-      let nameArticle = 'a'
-      const name = response.hereEntity.getName()
-      if (
-        name.startsWith('a') ||
-        name.startsWith('e') ||
-        name.startsWith('i') ||
-        name.startsWith('o') ||
-        name.startsWith('u')
-      ) {
-        nameArticle = 'an'
-      }
-      memory.set({
-        key: 'message.center',
-        value: `You see ${nameArticle} ${name}`
-      })
-    }
 
     memory.set({ key: 'hero.viewpoint', value: response })
   }
@@ -269,8 +224,7 @@ export default class MovementEngine {
     if (locationHash(y, x) in entities) return entities[locationHash(y, x)]
     const symbol = map[y][x]
     if (symbol === ' ') return undefined
-    if (symbol === '|' || symbol === '+' || symbol === '-')
-      return objectsLoader.getInstanceOf('wall')
+    if (symbol === '|' || symbol === '+' || symbol === '-') return objectsLoader.getInstanceOf('wall')
   }
 
   removeFeatureAt(props) {

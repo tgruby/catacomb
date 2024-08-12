@@ -21,6 +21,8 @@ export default class Hero {
     const inventory = []
     inventory.push(objectLoader.getInstanceOf('watch'))
     inventory.push(objectLoader.getInstanceOf('torch'))
+    inventory.push(objectLoader.getInstanceOf('bandage'))
+    inventory.push(objectLoader.getInstanceOf('bone'))
     // inventory.push(itemsLoader.get("journal"))
     memory.set({ key: 'hero.inventory', value: inventory })
     memory.set({ key: 'hero.xp', value: { current: 10, nextLevel: 1000 } })
@@ -122,10 +124,7 @@ export default class Hero {
           stamina.current = stamina.max
         }
         // Reduce the recovery threshold to increase frequency, down to a minimum
-        this.recoveryTimeThreshold = Math.max(
-          this.minimumRecoveryThreshold,
-          this.recoveryTimeThreshold - 200
-        )
+        this.recoveryTimeThreshold = Math.max(this.minimumRecoveryThreshold, this.recoveryTimeThreshold - 200)
         memory.set({ key: 'hero.stamina', value: stamina })
       } else {
         this.recoveryTimeThreshold = 2000
@@ -159,10 +158,7 @@ const HeroLevelTitles = [
 
 function getHeroLevelTitle(level) {
   for (let i = 0; i < HeroLevelTitles.length; i++) {
-    if (
-      level >= HeroLevelTitles[i].levelRange[0] &&
-      level <= HeroLevelTitles[i].levelRange[1]
-    )
+    if (level >= HeroLevelTitles[i].levelRange[0] && level <= HeroLevelTitles[i].levelRange[1])
       return HeroLevelTitles[i].name
   }
   return 'Eternal Explorer'

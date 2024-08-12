@@ -4,7 +4,7 @@ import MapView from '../hud/MapView.js'
 import GameStats from '../hud/GameStats.js'
 import HeroVitals from '../hud/HeroVitals.js'
 import EnemyVitals from '../hud/EnemyVitals.js'
-import RecentJournalEntry from '../hud/RecentJournalEntry.js'
+import Messages from '../hud/Messages.js'
 import CompanionVitals from '../hud/CompanionVitals.js'
 import FirstPersonView from '../hud/FirstPersonView.js'
 import Hero from '../game/Hero.js'
@@ -37,7 +37,7 @@ export default class HUD extends Screen {
     this.add({ grid: new FirstPersonView(), x: 26, y: 7 })
     this.add({ grid: new MapView(), x: 54, y: 7 })
     this.add({ grid: new EnemyVitals(), x: 54, y: 28 })
-    this.add({ grid: new RecentJournalEntry(), x: 0, y: 36 })
+    this.add({ grid: new Messages(), x: 0, y: 36 })
 
     this.add({
       x: 0,

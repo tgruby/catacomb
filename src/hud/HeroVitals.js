@@ -53,7 +53,7 @@ export default class HeroVitals extends Grid {
       this.add({
         x: 'left',
         y: 10,
-        string: ' ' + '◇'.repeat(bar) + ' '.repeat(20 - bar)
+        string: ' ' + '»'.repeat(bar) + ' '.repeat(20 - bar)
       })
     }
     if (stamina.modifier) {

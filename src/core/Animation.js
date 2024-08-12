@@ -11,16 +11,7 @@ export default class Animation extends Grid {
 
     super(props)
 
-    const {
-      frames,
-      loop,
-      frameSpeed,
-      backfill,
-      color,
-      sound,
-      autoPlay,
-      parent
-    } = props
+    const { frames, loop, frameSpeed, backfill, color, sound, autoPlay, parent } = props
     this.color = color || undefined
     this.sound = sound || undefined
     this.frames = frames || [] // frames for this animation.
@@ -45,8 +36,7 @@ export default class Animation extends Grid {
         })
         memory.set({ key: 'request.screen.draw', value: true })
         // Pause the functioning thread
-        if (this.frameSpeed > 0)
-          await new Promise((resolve) => setTimeout(resolve, this.frameSpeed))
+        if (this.frameSpeed > 0) await new Promise((resolve) => setTimeout(resolve, this.frameSpeed))
       }
       this.loop--
     }

@@ -5,15 +5,7 @@ import Cell from './Cell.js'
 // eslint-disable-next-line no-undef
 figlet.defaults({ fontPath: 'figlet/fonts' })
 
-const fonts = [
-  'Bloody',
-  'Crawford2',
-  'Elite',
-  'Slant',
-  'Soft',
-  'Standard',
-  'Star Wars'
-]
+const fonts = ['Bloody', 'Crawford2', 'Elite', 'Slant', 'Soft', 'Standard', 'Star Wars']
 // eslint-disable-next-line no-undef
 figlet.preloadFonts(fonts, function (err) {
   if (err) {
@@ -108,6 +100,7 @@ export default class Grid {
     Clears the grid, ignore the border
   */
   clear() {
+    this.children = []
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         this._addCell({ x, y, cell: new Cell({ value: this.fill }) })
@@ -169,24 +162,14 @@ export default class Grid {
   */
   _addCell(props) {
     const { x, y, cell, force } = props
-    if (
-      typeof x !== 'number' ||
-      typeof y !== 'number' ||
-      !(cell instanceof Cell)
-    ) {
+    if (typeof x !== 'number' || typeof y !== 'number' || !(cell instanceof Cell)) {
       throw new Error('Invalid x, y, or cell provided')
     }
     if (force) {
       // force the cell to be added even if its in the border region
       if (x < 0 || x > this.width - 1 || y < 0 || y > this.height - 1) return
     } else {
-      if (
-        x < this.edge ||
-        x > this.width - 1 - this.edge ||
-        y < this.edge ||
-        y > this.height - 1 - this.edge
-      )
-        return
+      if (x < this.edge || x > this.width - 1 - this.edge || y < this.edge || y > this.height - 1 - this.edge) return
     }
     this.grid[y][x] = cell
   }
@@ -198,8 +181,7 @@ export default class Grid {
   _addString(props) {
     let { x, y, string, highlight, color, force, backfill } = props
     if (backfill) {
-      for (let i = 0; i < this.width; i++)
-        this._addCell({ x: i, y, cell: new Cell({ value: this.fill }) })
+      for (let i = 0; i < this.width; i++) this._addCell({ x: i, y, cell: new Cell({ value: this.fill }) })
     }
     if (x === 'left') {
       x = 2
@@ -236,9 +218,7 @@ export default class Grid {
       throw new Error('Invalid block provided:', block)
     }
     if (y === 'center') {
-      y =
-        Math.floor((this.height - block.length) / 2) -
-        Math.floor(block.length / 2)
+      y = Math.floor((this.height - block.length) / 2) - Math.floor(block.length / 2)
     } else if (y === 'bottom') {
       y = this.height - block.length - 2
     } else if (y === 'top') {
@@ -264,12 +244,7 @@ export default class Grid {
 
   _addFig(props) {
     let { fig } = props
-    if (
-      !fig ||
-      typeof fig !== 'object' ||
-      typeof fig.text !== 'string' ||
-      typeof fig.font !== 'string'
-    ) {
+    if (!fig || typeof fig !== 'object' || typeof fig.text !== 'string' || typeof fig.font !== 'string') {
       throw new Error('Invalid fig provided')
     }
     let { text, font } = fig

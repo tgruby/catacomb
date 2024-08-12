@@ -15,8 +15,26 @@ export default class GameObject {
     return this.data.type
   }
 
+  getNameArticle() {
+    let nameArticle = 'a'
+    if (
+      this.data.name.startsWith('a') ||
+      this.data.name.startsWith('e') ||
+      this.data.name.startsWith('i') ||
+      this.data.name.startsWith('o') ||
+      this.data.name.startsWith('u')
+    ) {
+      nameArticle = 'an'
+    }
+    return nameArticle
+  }
+
   getName() {
     return this.data?.name || '???'
+  }
+
+  getNameWithArticle() {
+    return `${this.getNameArticle().toLowerCase()} ${this.getName().toLowerCase()}`
   }
 
   getDescription() {
