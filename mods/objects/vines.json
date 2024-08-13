@@ -1,0 +1,21 @@
+{
+  "name": "Glowing Vines",
+  "description": "Glowing vines... they seem to be alive.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 10,
+  "animations": {
+    "midDistance": {
+      "position": "overhead",
+      "frames": [["':"]]
+    },
+    "nearby": {
+      "position": "overhead",
+      "frames": [["':''"]]
+    },
+    "here": {
+      "position": "overhead",
+      "frames": [["|@|@|@|", "|@|@|@o", "o@|@|@@", "@@|@o@@", "@@o@@@@"]]
+    }
+  }
+}

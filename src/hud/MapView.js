@@ -24,7 +24,7 @@ export default class MapView extends Grid {
   */
   positionUpdate(position) {
     const inventory = memory.get('hero.inventory')
-    const map = inventory.find((item) => item.id === 'item.map')
+    const map = inventory.find((item) => item.getType() === 'map')
     if (!map) return
     const { x, y, direction } = position
     if (this.map) {
