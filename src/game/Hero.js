@@ -6,11 +6,11 @@ export default class Hero {
   constructor() {
     memory.set({
       key: 'hero.stamina',
-      value: { current: 60, max: 100, modifier: 'sprained ankle' }
+      value: { current: 60, max: 100, modifier: null }
     })
     memory.set({
       key: 'hero.health',
-      value: { current: 35, max: 100, modifier: 'bleeding' }
+      value: { current: 35, max: 100, modifier: null }
     })
     memory.set({
       key: 'hero.hunger',
@@ -59,11 +59,11 @@ export default class Hero {
     if (!item) return
     if (!item.allowsPickup()) return
     if (this.getInventoryItemsByType(item.getType()).length >= 10) {
-      console.log('Inventory is full')
+      memory.set({ key: 'message.center', value: `inventory is full` })
       return
     }
     memory.get('hero.inventory').push(item) // the inventory will not notify the UI of the change
-    movement.removeFeatureAt(position)
+    movement.removeGameObjectAt(position)
     new AudioPlayer('sounds/pickup-item.mp3').play()
   }
 
@@ -72,37 +72,54 @@ export default class Hero {
     return inventory.filter((item) => item.type === type)
   }
 
-  useItem(itemId) {
+  useItem(itemType) {
     // remove the item from the inventory
     const inventory = memory.get('hero.inventory')
-    const index = inventory.findIndex((item) => item.id === itemId)
+    const index = inventory.findIndex((item) => item.getType() === itemType)
     if (index === -1) {
       new Audio('sounds/nope.mp3').play()
-      console.log('item not found in inventory')
+      memory.set({ key: 'message.center', value: `item ${itemType} not found in inventory` })
       return
     }
     const item = inventory[index]
-    if (item.type === 'food') this._eat(item)
-    else new Audio('sounds/nope.mp3').play() // item unusable
+    if (item.getUsage() && item.getUsage().type === 'consumable') this._consume(item)
+    else if (item.getUsage() && item.getUsage().type === 'wearable') this._equip(item)
+    else {
+      memory.set({ key: 'message.center', value: `item ${itemType} cannot be used directly from inventory` })
+      new Audio('sounds/nope.mp3').play() // item unusable
+    }
   }
 
-  _eat(item) {
-    console.log('eating', item)
+  _consume(item) {
+    const usage = item.getUsage()
+
     const hunger = memory.get('hero.hunger')
-    hunger.current += item.hungerImpact
+    hunger.current += usage.hunger
     if (hunger.current > hunger.max) hunger.current = hunger.max
     memory.set({ key: 'hero.hunger', value: hunger })
 
+    const stamina = memory.get('hero.stamina')
+    stamina.current += usage.stamina
+    if (stamina.current > stamina.max) stamina.current = stamina.max
+    memory.set({ key: 'hero.stamina', value: stamina })
+
     const health = memory.get('hero.health')
-    health.current += item.healthImpact
+    health.current += usage.health
     if (health.current > health.max) health.current = health.max
     memory.set({ key: 'hero.health', value: health })
-    new AudioPlayer('sounds/eating.mp3').play()
+
+    if (usage.sound) new AudioPlayer(usage.sound).play()
+
     let inventory = memory.get('hero.inventory')
     const index = inventory.findIndex((anItem) => anItem.id === item.id)
     inventory.splice(index, 1)[0]
     memory.set({ key: 'hero.inventory', value: inventory })
-    console.log('removed item from inventory', item)
+  }
+
+  _equip(item) {
+    // unequip an item if already equipped,
+    // then equip the new item
+    // update the hero's armor class or attack damage
   }
 
   moved() {

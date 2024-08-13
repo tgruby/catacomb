@@ -96,10 +96,7 @@ export default class MovementEngine {
     // now check to see if we are too tired to move
     const stamina = memory.get('hero.stamina')
     if (stamina.value < 1) {
-      memory.set({
-        key: 'message.center',
-        value: `you are too tired to move`
-      })
+      memory.set({ key: 'message.center', value: `you are too tired to move` })
       return
     }
 
@@ -118,6 +115,7 @@ export default class MovementEngine {
     // we can move the hero...
     position.x = newX
     position.y = newY
+    memory.set({ key: 'message.center', value: '' })
     memory.set({ key: 'hero.position', value: position })
     this.hero.moved()
     new Audio('sounds/footstep.mp3').play()
@@ -227,7 +225,7 @@ export default class MovementEngine {
     if (symbol === '|' || symbol === '+' || symbol === '-') return objectsLoader.getInstanceOf('wall')
   }
 
-  removeFeatureAt(props) {
+  removeGameObjectAt(props) {
     const { y, x } = props
     const entities = memory.get('catacombs.objects')
     if (locationHash(y, x) in entities) delete entities[locationHash(y, x)]

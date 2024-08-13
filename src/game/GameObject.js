@@ -67,12 +67,8 @@ export default class GameObject {
     return this.data?.craftingRequirements || []
   }
 
-  getUsageType() {
-    return this.data?.usageType || 'Consumable'
-  }
-
-  getUsageImpact() {
-    return this.data?.usageImpact || { stamina: 0, health: 0, hunger: 0 }
+  getUsage() {
+    return this.data?.usage || undefined
   }
 
   getAttackImpact() {

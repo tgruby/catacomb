@@ -1,0 +1,48 @@
+{
+  "name": "Giant Mushroom",
+  "description": "A giant mushroom. Possibly editable... but you have heard they can be poisonous too.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 1,
+  "usage": {
+    "type": "consumable",
+    "stamina": 0,
+    "health": 10,
+    "hunger": 20,
+    "sound": "sounds/eating.mp3"
+  },
+  "animations": {
+    "farAway": {
+      "position": "floor",
+      "frames": [["."]]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [["o"]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [
+        [
+          "(:)", 
+          "@;@"
+      ]
+    ]
+    },
+    "here": {
+      "position": "floor",
+      "frames": [
+        [
+          "@@.-'~~~-.@@@@@@",
+          "@.'        `.@@@",
+          ":~~~-.       `.@",
+          "@`. ╲ ~-.     .@",
+          "@@@`.; / ~.    :",
+          "@@@.'  ;-- `. .'",
+          "@@,'  ; ~~--'~@@",
+          "@@;  ;@@@@@@@@@@"
+        ]
+      ]
+    }
+  }
+}

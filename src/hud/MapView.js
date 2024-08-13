@@ -30,8 +30,7 @@ export default class MapView extends Grid {
     if (this.map) {
       const editedMap = [...this.map]
       const marker = this._getDirectionMarker(direction)
-      editedMap[y] =
-        editedMap[y].substring(0, x) + marker + editedMap[y].substring(x + 1)
+      editedMap[y] = editedMap[y].substring(0, x) + marker + editedMap[y].substring(x + 1)
       const viewCenter = {
         x: Math.round(this.width / 2),
         y: Math.round(this.height / 2)

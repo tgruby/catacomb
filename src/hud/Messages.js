@@ -1,4 +1,3 @@
-import { NoticeMeLeft, NoticeMeRight } from '../animations/NoticeMe.js'
 import Grid from '../core/Grid.js'
 import memory from '../core/Memory.js'
 
@@ -18,21 +17,10 @@ export default class Messages extends Grid {
   }
 
   _showNewMessage(message) {
+    this.clear()
     const messageBlock = this._wrapText(message, 80)
     const y = 4 - messageBlock.length
-    const startNoticeOffset = Math.floor((80 - message.length) / 2) - 4
-    const endNoticeOffset = startNoticeOffset + message.length + 5
-    const left = new NoticeMeLeft()
-    const right = new NoticeMeRight()
-    this.add({ x: startNoticeOffset, y, grid: left })
     this.add({ x: 'center', y, block: messageBlock })
-    this.add({ x: endNoticeOffset, y, grid: right })
-    left.play()
-    right.play()
-    setTimeout(() => {
-      this.clear()
-      memory.set({ key: 'request.screen.draw', value: true })
-    }, 2000)
   }
 
   _wrapText(text, width) {

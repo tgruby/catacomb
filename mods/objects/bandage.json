@@ -8,11 +8,12 @@
     { "id": "cloth", "quantity": 2 },
     { "id": "vodka", "quantity": 1 }
   ],
-  "usageType": "Consumable",
-  "usageImpact": {
+  "usage": {
+    "type": "consumable",
     "stamina": 0,
-    "health": 10,
-    "hunger": 0
+    "health": 30,
+    "hunger": 0,
+    "sound": "sounds/ripping-cloth.mp3"
   },
   "animations": {
     "midRange": {
@@ -38,9 +39,6 @@
           "╲_╱_______╱"
         ]
       ]
-    },
-    "usage": {
-      "sound": "sounds/cha-ching.mp3"
     }
   }
 }
