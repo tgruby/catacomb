@@ -58,7 +58,7 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 
 ![alt text](/images/out-of-order.png 'Status')
 
-> Currently the first level is "playable", but otherwise locks up when finishing it.
+> Currently you can walk around the first level, pick up items, and eat mushrooms and apply bandages (from the Inventory menu).
 
 ## Thanks
 
