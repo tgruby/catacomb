@@ -1,6 +1,7 @@
 import Grid from '../core/Grid.js'
 import memory from '../core/Memory.js'
 import Animation from '../core/Animation.js'
+import ScreenBrightness from '../core/ScreenBrightness.js'
 import CatacombsBackground from '../animations/CatacombsBackground.js'
 
 const verticalPositions = {
@@ -125,6 +126,7 @@ export default class FirstPersonView extends Grid {
         fill: '@',
         zIndex: 2,
         frames: darkness,
+        color: ScreenBrightness.Dark,
         autoPlay: true
       })
       const frameHeight = darkness[0].length
