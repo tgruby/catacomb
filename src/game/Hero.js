@@ -20,9 +20,6 @@ export default class Hero {
     memory.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []
     inventory.push(objectLoader.getInstanceOf('watch'))
-    inventory.push(objectLoader.getInstanceOf('torch'))
-    inventory.push(objectLoader.getInstanceOf('bandage'))
-    inventory.push(objectLoader.getInstanceOf('bone'))
     // inventory.push(itemsLoader.get("journal"))
     memory.set({ key: 'hero.inventory', value: inventory })
     memory.set({ key: 'hero.xp', value: { current: 10, nextLevel: 1000 } })

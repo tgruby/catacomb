@@ -10,7 +10,18 @@ const verticalPositions = {
   here: { ceiling: 5, floor: 25 }
 }
 
-const darkness = [['      ', '      ', '      ', '      ', '      ', '      ']]
+const darkness = [
+  [
+    '.    .', 
+    '  .  .', 
+    '.  .  ', 
+    ' .  . ', 
+    '.  .  ', 
+    ' .  . ', 
+    '  .   ', 
+    '.    .'
+  ]
+]
 
 const hereGameObject = {
   id: 'HereViewableEntity',
@@ -110,14 +121,14 @@ export default class FirstPersonView extends Grid {
       const midRangeAnimation = new Animation({
         id: 'MidViewableEntity',
         width: 26,
-        height: 25,
+        height: 27,
         fill: '@',
         zIndex: 2,
         frames: darkness,
         autoPlay: true
       })
       const frameHeight = darkness[0].length
-      const yPosition = verticalPositions.mid.floor
+      const yPosition = verticalPositions.mid.floor + 1
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: midRangeAnimation })
     } else if (viewpoint.midRange) {

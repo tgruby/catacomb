@@ -10,6 +10,7 @@
     { "id": "grass", "count": 1 },
     { "id": "bone", "count": 1 },
     { "id": "bandage", "count": 1 },
+    { "id": "torch", "count": 1 },
     { "id": "mushroom", "count": 1 }
   ]
 }

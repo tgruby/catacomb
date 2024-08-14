@@ -5,17 +5,30 @@
   "allowsPickup": true,
   "health": 10,
   "animations": {
-    "midDistance": {
-      "position": "overhead",
-      "frames": [["':"]]
+    "farAway": {
+      "position": "ceiling",
+      "frames": [["''"]]
+    },
+    "midRange": {
+      "position": "ceiling",
+      "frames": [["':'"]]
     },
     "nearby": {
-      "position": "overhead",
+      "position": "ceiling",
       "frames": [["':''"]]
     },
     "here": {
-      "position": "overhead",
-      "frames": [["|@|@|@|", "|@|@|@o", "o@|@|@@", "@@|@o@@", "@@o@@@@"]]
+      "position": "ceiling",
+      "frames": [
+        [
+          "@@@@@@@", 
+          "|@|@|@|", 
+          "|@|@|@o", 
+          "o@|@|@@", 
+          "@@|@o@@", 
+          "@@o@@@@"
+          ]
+        ]
     }
   }
 }
