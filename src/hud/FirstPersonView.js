@@ -11,18 +11,8 @@ const verticalPositions = {
   here: { ceiling: 5, floor: 25 }
 }
 
-const darkness = [
-  [
-    '.    .', 
-    '  .  .', 
-    '.  .  ', 
-    ' .  . ', 
-    '.  .  ', 
-    ' .  . ', 
-    '  .   ', 
-    '.    .'
-  ]
-]
+const midDarkness = [['.    .', '  .  .', '.  .  ', ' .  . ', '.  .  ', ' .  . ', '  .   ', '.    .']]
+const farDarkness = [['. ', ' .', '. ']]
 
 const hereGameObject = {
   id: 'HereViewableEntity',
@@ -125,11 +115,11 @@ export default class FirstPersonView extends Grid {
         height: 27,
         fill: '@',
         zIndex: 2,
-        frames: darkness,
+        frames: midDarkness,
         color: ScreenBrightness.Dark,
         autoPlay: true
       })
-      const frameHeight = darkness[0].length
+      const frameHeight = midDarkness[0].length
       const yPosition = verticalPositions.mid.floor + 1
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: midRangeAnimation })
@@ -145,6 +135,21 @@ export default class FirstPersonView extends Grid {
       const farAwayAnimation = new Animation(animationProps)
       const frameHeight = viewpoint.farAway.frames[0].length
       const yPosition = verticalPositions.far[viewpoint.farAway.position]
+      const y = yPosition - frameHeight + 1
+      this.add({ x: 1, y, grid: farAwayAnimation })
+    } else {
+      const farAwayAnimation = new Animation({
+        id: 'FarViewableEntity',
+        width: 26,
+        height: 27,
+        fill: '@',
+        zIndex: 1,
+        frames: farDarkness,
+        color: ScreenBrightness.Dark,
+        autoPlay: true
+      })
+      const frameHeight = farDarkness[0].length
+      const yPosition = verticalPositions.far.floor
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: farAwayAnimation })
     }
