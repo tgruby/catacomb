@@ -54,7 +54,11 @@ export default class Hero {
     const movement = memory.get('movement')
     const item = movement.getGameObjectAt(position)
     if (!item) return
-    if (!item.allowsPickup()) return
+    if (!item.allowsPickup()) {
+      memory.set({ key: 'message.center', value: `cannot pick up ${item.getName().toLowerCase()}` })
+      new Audio('sounds/nope.mp3').play()
+      return
+    }
     if (this.getInventoryItemsByType(item.getType()).length >= 10) {
       memory.set({ key: 'message.center', value: `inventory is full` })
       return

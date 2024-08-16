@@ -12,7 +12,7 @@
     "@╱╱________.|.________╲╲@",
     "`----------`-'----------'"
   ],
-  "animations": {
+  "perspective": {
     "farAway": {
       "position": "floor",
       "frames": [["@"]]

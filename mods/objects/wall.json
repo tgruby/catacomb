@@ -4,7 +4,7 @@
   "obstructsMovement": true,
   "allowsPickup": false,
   "health": 10000,
-  "animations": {
+  "perspective": {
     "farAway": {
       "position": "floor",
       "frames": [["__", ". ", "__"]]

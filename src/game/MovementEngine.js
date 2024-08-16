@@ -192,15 +192,15 @@ export default class MovementEngine {
       x: position.x + far[2]
     })
     if (hereEntity) {
-      response.here = hereEntity.getAnimation('here')
+      response.here = hereEntity.getPerspective('here')
       memory.set({
         key: 'message.center',
         value: `you see ${hereEntity.getNameWithArticle()}`
       })
     }
-    if (nearEntity) response.nearby = nearEntity.getAnimation('nearby')
-    if (midEntity) response.midRange = midEntity.getAnimation('midRange')
-    if (farEntity) response.farAway = farEntity.getAnimation('farAway')
+    if (nearEntity) response.nearby = nearEntity.getPerspective('nearby')
+    if (midEntity) response.midRange = midEntity.getPerspective('midRange')
+    if (farEntity) response.farAway = farEntity.getPerspective('farAway')
 
     memory.set({ key: 'hero.viewpoint', value: response })
   }

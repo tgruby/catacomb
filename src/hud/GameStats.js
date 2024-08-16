@@ -8,12 +8,7 @@ export default class GameStats extends Grid {
     this.add({
       x: 'center',
       y: 0,
-      string:
-        ' ' +
-        memory.get('hero.first.name') +
-        ' ' +
-        memory.get('hero.last.name') +
-        ' ',
+      string: ' ' + memory.get('hero.first.name') + ' ' + memory.get('hero.last.name') + ' ',
       force: true
     })
     this.updateHeroLevel(memory.get('hero.level'))

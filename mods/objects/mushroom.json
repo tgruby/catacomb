@@ -11,7 +11,7 @@
     "hunger": 20,
     "sound": "sounds/eating.mp3"
   },
-  "animations": {
+  "perspective": {
     "farAway": {
       "position": "floor",
       "frames": [["."]]

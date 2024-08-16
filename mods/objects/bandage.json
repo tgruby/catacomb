@@ -13,9 +13,10 @@
     "stamina": 0,
     "health": 30,
     "hunger": 0,
-    "sound": "sounds/ripping-cloth.mp3"
+    "sound": "sounds/ripping-cloth.mp3",
+    "usageLimit": 1
   },
-  "animations": {
+  "perspective": {
     "midRange": {
       "position": "floor",
       "frames": [["--"]]

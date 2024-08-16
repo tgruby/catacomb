@@ -43,7 +43,7 @@ export default class GameObject {
 
   getImage() {
     if (this.data?.image) return this.data.image
-    else if (this.data?.animations?.here) return this.data.animations.here.frames[0]
+    else if (this.data?.perspective?.here) return this.data.perspective.here.frames[0]
     return this.data?.image || undefined
   }
 
@@ -75,9 +75,9 @@ export default class GameObject {
     return this.data?.attackImpact || { stamina: 0, hunger: 0, enemyHealth: 0 }
   }
 
-  getAnimation(name) {
-    if (this.data.animations && name in this.data.animations) {
-      return this.data.animations[name]
+  getPerspective(name) {
+    if (this.data.perspective && name in this.data.perspective) {
+      return this.data.perspective[name]
     }
     return undefined
   }

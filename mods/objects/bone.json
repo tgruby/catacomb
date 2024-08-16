@@ -4,7 +4,7 @@
   "obstructsMovement": false,
   "allowsPickup": true,
   "health": 5,
-  "animations": {
+  "perspective": {
     "midRange": {
       "position": "floor",
       "frames": [[".."]]

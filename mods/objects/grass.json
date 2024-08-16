@@ -11,7 +11,7 @@
     "@╱|╲@", 
     "╱╱|╲╲"
   ],
-  "animations": {
+  "perspective": {
     "midRange": {
       "position": "floor",
       "frames": [[".."]]

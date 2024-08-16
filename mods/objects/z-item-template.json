@@ -18,7 +18,7 @@
     "stamina": 0,
     "enemyHealth": 0
   },
-  "animations": {
+  "perspective": {
     "farAway": {
       "sound": "mods/cloth.rustle.mp3",
       "soundFrame": 0,
