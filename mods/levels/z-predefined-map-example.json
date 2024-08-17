@@ -2,6 +2,7 @@
   "name": "Finding Purpose",
   "objective": "Now What?",
   "journalEntry": "I've stopped the bleeding. Now what?",
+  "doc": "This is an example of a predefined map.  The map is defined in the 'map' property.  The 'objects' property is used to place objects on the map.  The 'x' and 'y' properties are the LOGICAL coordinates of the object on the map, as demonstrated with the numbers below.",
   "map": [
     "+---+---+---+---+---+",
     "| 0 1 2 3 4 5 6 7 8 |",

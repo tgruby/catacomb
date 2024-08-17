@@ -66,6 +66,7 @@ export default class Hero {
     memory.get('hero.inventory').push(item) // the inventory will not notify the UI of the change
     movement.removeGameObjectAt(position)
     new AudioPlayer('sounds/pickup-item.mp3').play()
+    memory.set({ key: 'message.center', value: `you pick up the ${item.getName().toLowerCase()}` })
   }
 
   getInventoryItemsByType(type) {

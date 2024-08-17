@@ -23,7 +23,7 @@ export default class LevelGenerator {
   // only place items and creatures on odd values of y and x
 
   constructor() {
-    this.level = 0
+    this.level = -1
     this.objective = undefined
     this.x = 0
     this.y = 0
@@ -49,12 +49,7 @@ export default class LevelGenerator {
     this.addTombs(levelGuide.mapWidth, levelGuide.mapHeight)
     for (let i = 0; i < levelGuide.objects.length; i++) {
       const gameObject = levelGuide.objects[i]
-      this.addItem(
-        gameObject.id,
-        gameObject.count,
-        levelGuide.mapWidth,
-        levelGuide.mapHeight
-      )
+      this.addItem(gameObject.id, gameObject.count, levelGuide.mapWidth, levelGuide.mapHeight)
     }
 
     const position = {
@@ -80,15 +75,10 @@ export default class LevelGenerator {
     this.x = this.xOffset(0)
     this.direction = 'south'
     const upperLeft = locationHash(this.y, this.x)
-    const lowerRight = locationHash(
-      this.yOffset(mazeHeight - 1),
-      this.xOffset(mazeWidth - 1)
-    )
-    if (this.level % 2 === 1) {
+    const lowerRight = locationHash(this.yOffset(mazeHeight - 1), this.xOffset(mazeWidth - 1))
+    if (this.level % 2 === 0) {
       const up =
-        this.level === 1
-          ? objectLoader.getInstanceOf('hole-in-ceiling')
-          : objectLoader.getInstanceOf('ladder-up')
+        this.level === 0 ? objectLoader.getInstanceOf('hole-in-ceiling') : objectLoader.getInstanceOf('ladder-up')
       this.gameObjects[upperLeft] = up
       this.gameObjects[lowerRight] = objectLoader.getInstanceOf('ladder-down')
     } else {
@@ -118,37 +108,23 @@ export default class LevelGenerator {
     if (this.map[yPos][xPos] != ' ') return
     if (this.gameObjects[locationHash(yPos, xPos)]) return
     const wallDirections = []
-    if (this.map[yPos][xPos - 2] != ' ' && this.map[yPos][xPos - 2] != 'o')
-      wallDirections.push('west')
-    if (this.map[yPos][xPos + 2] != ' ' && this.map[yPos][xPos + 2] != 'o')
-      wallDirections.push('east')
-    if (this.map[yPos - 1][xPos] != ' ' && this.map[yPos - 1][xPos] != 'o')
-      wallDirections.push('north')
-    if (this.map[yPos + 1][xPos] != ' ' && this.map[yPos + 1][xPos] != 'o')
-      wallDirections.push('south')
+    if (this.map[yPos][xPos - 2] != ' ' && this.map[yPos][xPos - 2] != 'o') wallDirections.push('west')
+    if (this.map[yPos][xPos + 2] != ' ' && this.map[yPos][xPos + 2] != 'o') wallDirections.push('east')
+    if (this.map[yPos - 1][xPos] != ' ' && this.map[yPos - 1][xPos] != 'o') wallDirections.push('north')
+    if (this.map[yPos + 1][xPos] != ' ' && this.map[yPos + 1][xPos] != 'o') wallDirections.push('south')
     if (wallDirections.length == 3) {
-      if (
-        wallDirections.includes('north') &&
-        !wallDirections.includes('south')
-      ) {
+      if (wallDirections.includes('north') && !wallDirections.includes('south')) {
         this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos - 1, '-')
         this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos, 'o')
         this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos + 1, '-')
-        this.gameObjects[locationHash(yPos + 1, xPos)] =
-          objectLoader.getInstanceOf('door')
-        this.gameObjects[locationHash(yPos, xPos)] =
-          objectLoader.getInstanceOf('sarcophagus')
-      } else if (
-        !wallDirections.includes('north') &&
-        wallDirections.includes('south')
-      ) {
+        this.gameObjects[locationHash(yPos + 1, xPos)] = objectLoader.getInstanceOf('door')
+        this.gameObjects[locationHash(yPos, xPos)] = objectLoader.getInstanceOf('sarcophagus')
+      } else if (!wallDirections.includes('north') && wallDirections.includes('south')) {
         this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos - 1, '-')
         this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos, 'o')
         this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos + 1, '-')
-        this.gameObjects[locationHash(yPos - 1, xPos)] =
-          objectLoader.getInstanceOf('door')
-        this.gameObjects[locationHash(yPos, xPos)] =
-          objectLoader.getInstanceOf('sarcophagus')
+        this.gameObjects[locationHash(yPos - 1, xPos)] = objectLoader.getInstanceOf('door')
+        this.gameObjects[locationHash(yPos, xPos)] = objectLoader.getInstanceOf('sarcophagus')
       }
     }
   }
@@ -177,11 +153,7 @@ export default class LevelGenerator {
   }
 
   replaceAt(string, index, replacement) {
-    return (
-      string.substr(0, index) +
-      replacement +
-      string.substr(index + replacement.length)
-    )
+    return string.substr(0, index) + replacement + string.substr(index + replacement.length)
   }
 
   createMaze(width, height) {
@@ -208,10 +180,7 @@ export default class LevelGenerator {
     maze[height * 2] += '+'
 
     // Set a random position to start from
-    let current = [
-      Math.floor(Math.random() * height),
-      Math.floor(Math.random() * width)
-    ]
+    let current = [Math.floor(Math.random() * height), Math.floor(Math.random() * width)]
     const path = [current]
     unvisited[current[0]][current[1]] = false
     let visited = 1
@@ -251,29 +220,13 @@ export default class LevelGenerator {
         if (next[2] == 'south') {
           yBorderToRemove = this.yOffset(next[0]) - 1
           xBorderToRemove = this.xOffset(next[1])
-          maze[yBorderToRemove] = this.replaceAt(
-            maze[yBorderToRemove],
-            xBorderToRemove - 1,
-            ' '
-          )
-          maze[yBorderToRemove] = this.replaceAt(
-            maze[yBorderToRemove],
-            xBorderToRemove + 1,
-            ' '
-          )
+          maze[yBorderToRemove] = this.replaceAt(maze[yBorderToRemove], xBorderToRemove - 1, ' ')
+          maze[yBorderToRemove] = this.replaceAt(maze[yBorderToRemove], xBorderToRemove + 1, ' ')
         } else if (next[2] == 'north') {
           yBorderToRemove = this.yOffset(next[0]) + 1
           xBorderToRemove = this.xOffset(next[1])
-          maze[yBorderToRemove] = this.replaceAt(
-            maze[yBorderToRemove],
-            xBorderToRemove - 1,
-            ' '
-          )
-          maze[yBorderToRemove] = this.replaceAt(
-            maze[yBorderToRemove],
-            xBorderToRemove + 1,
-            ' '
-          )
+          maze[yBorderToRemove] = this.replaceAt(maze[yBorderToRemove], xBorderToRemove - 1, ' ')
+          maze[yBorderToRemove] = this.replaceAt(maze[yBorderToRemove], xBorderToRemove + 1, ' ')
         } else if (next[2] == 'east') {
           yBorderToRemove = this.yOffset(next[0])
           xBorderToRemove = this.xOffset(next[1]) - 2
@@ -282,11 +235,7 @@ export default class LevelGenerator {
           xBorderToRemove = this.xOffset(next[1]) + 2
         }
 
-        maze[yBorderToRemove] = this.replaceAt(
-          maze[yBorderToRemove],
-          xBorderToRemove,
-          ' '
-        )
+        maze[yBorderToRemove] = this.replaceAt(maze[yBorderToRemove], xBorderToRemove, ' ')
 
         // Mark the neighbor as visited, and set it as the current cell
         current = next

@@ -1,10 +1,10 @@
 {
   "name": "Journal",
-  "description": "Your journal. The best survival skills require tracking and remembering. Never lose it!",
+  "description": "A journal. Someone has been down here before me...",
   "obstructsMovement": false,
   "allowsPickup": true,
   "health": 100,
-  "inventoryImage": [
+  "image": [
     "@@@@@@⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼@@@@@@",
     "@@@@_╱ ~~~~ Y ~~~~ ╲_@@@@",
     "@@@╱╱ ~~ ~~ | ~~ ~  ╲╲@@@",
@@ -13,24 +13,23 @@
     "`----------`-'----------'"
   ],
   "perspective": {
-    "farAway": {
-      "position": "floor",
-      "frames": [["@"]]
-    },
     "midRange": {
       "position": "floor",
       "frames": [[".."]]
     },
     "nearby": {
       "position": "floor",
-      "frames": [[":..:"]]
+      "frames": [
+        [":..:",
+         "ˋ::ˊ"]
+      ]
     },
     "here": {
       "position": "floor",
       "frames": [
         [
           "@@@@@_____ _____@@@@@",
-          "@@╱╱ ~ ~~ | ~~ ~ ╲╲@@",
+          "@@╱╱      |      ╲╲@@",
           "@╱╱______.|.______╲╲@",
           "`--------`-'--------'"
         ]
