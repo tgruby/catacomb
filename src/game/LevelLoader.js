@@ -1,5 +1,5 @@
 class LevelLoader {
-  static ACTIVE_LEVELS_FILE = 'mods/levels/_active.json'
+  static ACTIVE_LEVELS_FILE = 'mods/levels/active-levels.json'
   constructor() {
     this.initialized = false
     this.levels = []
