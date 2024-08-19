@@ -20,7 +20,8 @@ export default class Hero {
     memory.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []
     inventory.push(objectLoader.getInstanceOf('watch'))
-    // inventory.push(itemsLoader.get("journal"))
+    inventory.push(objectLoader.getInstanceOf('journal'))
+    inventory.push(objectLoader.getInstanceOf('bone-knife'))
     memory.set({ key: 'hero.inventory', value: inventory })
     memory.set({ key: 'hero.xp', value: { current: 10, nextLevel: 1000 } })
     memory.set({ key: 'hero.level', value: 1 })
@@ -34,7 +35,7 @@ export default class Hero {
 
     this.recoveryTimeThreshold = 2000 // Initial recovery time threshold in milliseconds
     this.minimumRecoveryThreshold = 200 // Minimum recovery time threshold to prevent too short intervals
-    setInterval(() => this.recoverStamina(), 500)
+    setInterval(() => this._recoverStamina(), 500)
   }
 
   addJournalEntry(text) {
@@ -46,7 +47,40 @@ export default class Hero {
 
   attack() {
     memory.set({ key: 'hero.lastMoved', value: new Date() })
-    console.log('attack')
+    const weapon = memory.get('hero.equipped.weapon')
+    if (!weapon) {
+      memory.set({ key: 'message.center', value: 'equip a weapon first!' })
+      new Audio('sounds/nope.mp3').play()
+      return
+    } else {
+      const staminaCost = weapon.getAttack().stamina
+      if (memory.get('hero.stamina').current < staminaCost) {
+        memory.set({ key: 'message.center', value: `you are too tired to attack!` })
+        new Audio('sounds/out-of-breath.mp3').play()
+      } else {
+        let stamina = memory.get('hero.stamina')
+        stamina.current -= staminaCost
+        memory.set({ key: 'hero.stamina', value: stamina })
+        // if an item or creature is 'here', do damage to it.
+        const movementEngine = memory.get('movement')
+        const position = memory.get('hero.position')
+        const target = movementEngine.getGameObjectAt(position)
+        if (target) {
+          const damage = weapon.getAttack().damage
+          target.setHealth(target.getHealth() - damage)
+          if (target.getHealth() <= 0) {
+            movementEngine.removeGameObjectAt(position)
+            if (target.getDestroyedSound()) {
+              new Audio(target.getDestroyedSound()).play()
+            } else {
+              new Audio('sounds/break.mp3').play()
+            }
+          }
+        }
+        memory.set({ key: 'hero.action', value: weapon.getAttack() })
+        memory.set({ key: 'message.center', value: `you attack with ${weapon.getName().toLowerCase()}` })
+      }
+    }
   }
 
   pickUp() {
@@ -85,9 +119,12 @@ export default class Hero {
     }
     const item = inventory[index]
     if (item.getUsage() && item.getUsage().type === 'consumable') this._consume(item)
-    else if (item.getUsage() && item.getUsage().type === 'wearable') this._equip(item)
+    else if (item.getUsage() && item.getUsage().type === 'equippable') this._equip(item)
     else {
-      memory.set({ key: 'message.center', value: `item ${itemType} cannot be used directly from inventory` })
+      memory.set({
+        key: 'message.center',
+        value: `${item.getName().toLowerCase()} cannot be used directly from inventory`
+      })
       new Audio('sounds/nope.mp3').play() // item unusable
     }
   }
@@ -119,9 +156,10 @@ export default class Hero {
   }
 
   _equip(item) {
-    // unequip an item if already equipped,
-    // then equip the new item
-    // update the hero's armor class or attack damage
+    if (item.getUsage().slot === 'weapon') {
+      memory.set({ key: 'hero.equipped.weapon', value: item })
+      new AudioPlayer('sounds/item-equip.mp3').play()
+    }
   }
 
   moved() {
@@ -132,7 +170,7 @@ export default class Hero {
   }
 
   // method for stamina recovery
-  recoverStamina() {
+  _recoverStamina() {
     const stamina = memory.get('hero.stamina')
     if (stamina.current < stamina.max) {
       const lastMoved = memory.get('hero.lastMoved')

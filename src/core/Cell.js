@@ -30,8 +30,7 @@ export default class Cell {
       // Calculate the surrogate pair for code points above U+FFFF
       const highSurrogate = Math.floor((hex - 0x10000) / 0x400) + 0xd800
       const lowSurrogate = ((hex - 0x10000) % 0x400) + 0xdc00
-      output +=
-        String.fromCharCode(highSurrogate) + String.fromCharCode(lowSurrogate)
+      output += String.fromCharCode(highSurrogate) + String.fromCharCode(lowSurrogate)
     }
     return output
   }
@@ -43,8 +42,7 @@ export default class Cell {
     let output = this.value
     if (this.value === '@') return null
     if (this.highlight) output = this._highlight(output)
-    if (this.color)
-      output = `<span style="color: ${this.color}">${output}</span>`
+    if (this.color) output = `<span style="color: ${this.color}">${output}</span>`
     return output
   }
 }

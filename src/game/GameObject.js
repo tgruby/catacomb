@@ -56,7 +56,12 @@ export default class GameObject {
   }
 
   getHealth() {
-    return this.data?.health ?? 1
+    if (this.data.health === undefined) this.data.health = 1
+    return this.data.health
+  }
+
+  setHealth(health) {
+    this.data.health = health
   }
 
   updateHealth(newValue) {
@@ -71,8 +76,8 @@ export default class GameObject {
     return this.data?.usage || undefined
   }
 
-  getAttackImpact() {
-    return this.data?.attackImpact || { stamina: 0, hunger: 0, enemyHealth: 0 }
+  getAttack() {
+    return this.data.attack
   }
 
   getPerspective(name) {
@@ -80,5 +85,9 @@ export default class GameObject {
       return this.data.perspective[name]
     }
     return undefined
+  }
+
+  getDestroyedSound() {
+    return this.data.destroyedSound
   }
 }

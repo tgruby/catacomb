@@ -12,6 +12,7 @@
     { "id": "bandage", "count": 1 },
     { "id": "torch", "count": 1 },
     { "id": "journal", "count": 1 },
+    { "id": "bone-knife", "count": 1 },
     { "id": "mushroom", "count": 1 }
   ]
 }

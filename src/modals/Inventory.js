@@ -59,19 +59,23 @@ export default class Inventory extends Modal {
     const inventory = memory.get('hero.inventory')
     for (let i = 0; i < inventory.length; i++) {
       const item = inventory[i]
+      let equipped = '   '
+      const equippedWeapon = memory.get('hero.equipped.weapon')
+      if (equippedWeapon && equippedWeapon.getType() === item.getType()) equipped = ' ◆ '
       const summarizedItem = summarizedItems.find((summaryItem) => summaryItem.id === item.getType())
       if (!summarizedItem) {
         summarizedItems.push({
           id: item.getType(),
-          value: item.getName(),
+          value: equipped + item.getName(),
           name: item.getName(),
           image: item.getImage(),
           description: item.getDescription(),
+          equipped,
           count: 1
         })
       } else {
         summarizedItem.count++
-        summarizedItem.value = `${summarizedItem.name} (x${summarizedItem.count})`
+        summarizedItem.value = `${equipped}${summarizedItem.name} (x${summarizedItem.count})`
       }
     }
     console.log('summarizedItems:', summarizedItems)

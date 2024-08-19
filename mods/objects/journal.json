@@ -3,7 +3,7 @@
   "description": "A journal. Someone has been down here before me...",
   "obstructsMovement": false,
   "allowsPickup": true,
-  "health": 100,
+  "health": 40,
   "image": [
     "@@@@@@⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼@@@@@@",
     "@@@@_╱ ~~~~ Y ~~~~ ╲_@@@@",

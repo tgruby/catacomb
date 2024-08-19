@@ -3,7 +3,7 @@
   "description": "A cloth bandage to patch yourself up.",
   "obstructsMovement": false,
   "allowsPickup": true,
-  "health": 1,
+  "health": 5,
   "craftingRequirements": [
     { "id": "cloth", "quantity": 2 },
     { "id": "vodka", "quantity": 1 }

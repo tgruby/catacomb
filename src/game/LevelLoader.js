@@ -10,9 +10,7 @@ class LevelLoader {
       const response = await fetch(LevelLoader.ACTIVE_LEVELS_FILE)
       const levelsJson = await response.json()
       for (let i = 0; i < levelsJson.levels.length; i++) {
-        const levelAsString = await fetch(
-          `mods/levels/${levelsJson.levels[i]}.json`
-        )
+        const levelAsString = await fetch(`mods/levels/${levelsJson.levels[i]}.json`)
         const levelJson = await levelAsString.json()
         this.levels.push(levelJson)
       }

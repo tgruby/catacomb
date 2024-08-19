@@ -8,13 +8,23 @@ const verticalPositions = {
   far: { ceiling: 12, floor: 14 },
   mid: { ceiling: 11, floor: 15 },
   near: { ceiling: 9, floor: 18 },
-  here: { ceiling: 5, floor: 25 }
+  here: { ceiling: 5, floor: 25 },
+  action: { ceiling: 2, floor: 27 }
 }
 
 const midDarkness = [['.    .', '  .  .', '.  .  ', ' .  . ', '.  .  ', ' .  . ', '  .   ', '.    .']]
 const farDarkness = [['. ', ' .', '. ']]
 
-const hereGameObject = {
+const heroAnimationProps = {
+  id: 'HeroAnimation',
+  width: 26,
+  height: 25,
+  fill: '@',
+  zIndex: 5,
+  autoPlay: true
+}
+
+const hereProps = {
   id: 'HereViewableEntity',
   width: 26,
   height: 25,
@@ -23,7 +33,7 @@ const hereGameObject = {
   autoPlay: true
 }
 
-const nearbyGameObject = {
+const nearbyProps = {
   id: 'NearViewableEntity',
   width: 26,
   height: 25,
@@ -32,7 +42,7 @@ const nearbyGameObject = {
   autoPlay: true
 }
 
-const midRangeGameObject = {
+const midRangeProps = {
   id: 'MidViewableEntity',
   width: 26,
   height: 25,
@@ -41,7 +51,7 @@ const midRangeGameObject = {
   autoPlay: true
 }
 
-const farAwayGameObject = {
+const farAwayProps = {
   id: 'FarViewableEntity',
   width: 26,
   height: 25,
@@ -65,6 +75,10 @@ export default class FirstPersonView extends Grid {
       key: 'hero.viewpoint',
       callback: this.updateViewpoint.bind(this)
     })
+    memory.subscribe({
+      key: 'hero.action',
+      callback: this.showHeroAnimation.bind(this)
+    })
   }
 
   updateViewpoint(viewpoint) {
@@ -85,7 +99,7 @@ export default class FirstPersonView extends Grid {
     this.removeGrid('NearViewableEntity')
     this.removeGrid('HereViewableEntity')
     if (viewpoint.here) {
-      const animationProps = { ...hereGameObject, ...viewpoint.here }
+      const animationProps = { ...hereProps, ...viewpoint.here }
       const hereAnimation = new Animation(animationProps)
       let y = 0
       if (viewpoint.here.position) {
@@ -100,7 +114,7 @@ export default class FirstPersonView extends Grid {
     const inventory = memory.get('hero.inventory')
     const torch = inventory.find((item) => item.getType() === 'torch')
     if (viewpoint.nearby) {
-      const animationProps = { ...nearbyGameObject, ...viewpoint.nearby }
+      const animationProps = { ...nearbyProps, ...viewpoint.nearby }
       const nearAnimation = new Animation(animationProps)
       const frameHeight = viewpoint.nearby.frames[0].length
       const yPosition = verticalPositions.near[viewpoint.nearby.position]
@@ -124,14 +138,14 @@ export default class FirstPersonView extends Grid {
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: midRangeAnimation })
     } else if (viewpoint.midRange) {
-      const animationProps = { ...midRangeGameObject, ...viewpoint.midRange }
+      const animationProps = { ...midRangeProps, ...viewpoint.midRange }
       const midRangeAnimation = new Animation(animationProps)
       const frameHeight = viewpoint.midRange.frames[0].length
       const yPosition = verticalPositions.mid[viewpoint.midRange.position]
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: midRangeAnimation })
     } else if (viewpoint.farAway) {
-      const animationProps = { ...farAwayGameObject, ...viewpoint.farAway }
+      const animationProps = { ...farAwayProps, ...viewpoint.farAway }
       const farAwayAnimation = new Animation(animationProps)
       const frameHeight = viewpoint.farAway.frames[0].length
       const yPosition = verticalPositions.far[viewpoint.farAway.position]
@@ -153,5 +167,15 @@ export default class FirstPersonView extends Grid {
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: farAwayAnimation })
     }
+  }
+
+  showHeroAnimation(heroAction) {
+    this.removeGrid('HeroAnimation')
+    const animationProps = { ...heroAnimationProps, ...heroAction }
+    const action = new Animation(animationProps)
+    const frameHeight = animationProps.frames[0].length
+    const yPosition = verticalPositions.action[animationProps.position]
+    const y = yPosition - frameHeight + 1
+    this.add({ x: 1, y, grid: action })
   }
 }

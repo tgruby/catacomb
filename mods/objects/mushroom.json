@@ -3,7 +3,7 @@
   "description": "A giant mushroom. Possibly editable... but you have heard they can be poisonous too.",
   "obstructsMovement": false,
   "allowsPickup": true,
-  "health": 1,
+  "health": 5,
   "usage": {
     "type": "consumable",
     "stamina": 0,
