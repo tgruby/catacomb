@@ -1,4 +1,4 @@
-import guid from '../core/guid.js'
+import guid from '../core/Guid.js'
 
 export default class GameObject {
   constructor(type, data) {

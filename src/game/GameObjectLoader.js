@@ -1,7 +1,7 @@
 import GameObject from './GameObject.js'
 
 class GameObjectLoader {
-  static ACTIVE_OBJECTS_FILE = 'mods/objects/_active.json'
+  static ACTIVE_OBJECTS_FILE = 'mods/objects/active-objects.json'
   constructor() {
     this.initialized = false
     this.gameObjects = new Map()
