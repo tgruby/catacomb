@@ -22,12 +22,14 @@ export default class EnemyVitals extends Grid {
       const percentage = Math.round((health.current / health.max) * 100)
       const heartCount = Math.round(percentage / 5)
       const blankCount = 20 - heartCount
-      this.add({ x: 2, y: 3, string: 'Health' })
+      this.add({ x: 2, y: 2, string: 'Health' })
+      this.add({ x: 2, y: 3, string: '┌────────────────────┐' })
       this.add({
-        x: 4,
-        y: 5,
-        string: '♡'.repeat(heartCount) + ' '.repeat(blankCount)
+        x: 2,
+        y: 4,
+        string: '│' + '█'.repeat(heartCount) + ' '.repeat(blankCount) + '│'
       })
+      this.add({ x: 2, y: 5, string: '└────────────────────┘' })
     }
   }
 }
