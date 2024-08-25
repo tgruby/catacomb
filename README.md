@@ -26,23 +26,23 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 | Turn Left      |     `A`     |
 | Turn Right     |     `D`     |
 | Pick Up Item   |     `E`     |
-| Open Inventory |     `I`     |
+| Open/Close Menu|     `Q`     |
 | Meelee Attack  |     `F`     |
-| Credits Window |     `C`     |
-| Command List   |    `Esc`    |
 
-### Inventory (Backpack) Window
+### Menus Window
 
-![alt text](/images/inventory.png 'Inventory Screen')
+![alt text](/images/menus.png 'Menus Screen')
 
 | Action                                            | Key Binding  |
 | ------------------------------------------------- | :----------: |
+| Switch Menu Left                                  |     `A`      |
+| Switch Menu Right                                 |     `D`      |
 | Move Focus to Item Above                          |     `W`      |
 | Move Focus to Item Below                          |     `S`      |
 | Use Item (if item is usable)                      |   `Enter`    |
 | Equip Item (if item is equipable)                 |   `Enter`    |
 | Craft Item (if you have enough supplies to craft) |   `Enter`    |
-| Close Inventory                                   | `I` or `Esc` |
+| Close Inventory                                   | `Q` or `Esc` |
 
 ### Journal Window
 
