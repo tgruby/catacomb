@@ -1,6 +1,6 @@
-import Animation from '../core/Animation.js'
+import AnimationPlayer from '../core/AnimationPlayer.js'
 
-export default class CatacombTitleAnimation extends Animation {
+export default class CatacombTitleAnimation extends AnimationPlayer {
   static frame0 = `
     .#####  .####.  ####### .######. .####### .######. ##########. #######.
     ###### .######. ####### ######## ######## ######## ########### ########

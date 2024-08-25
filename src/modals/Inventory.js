@@ -1,19 +1,11 @@
 import Grid from '../core/Grid.js'
 import memory from '../core/Memory.js'
-import Modal from '../core/Modal.js'
 import SelectionArray from '../core/SelectionArray.js'
 
-export default class Inventory extends Modal {
+export default class Inventory extends Grid {
   constructor(props) {
-    super({
-      id: 'InventoryModal',
-      width: 64,
-      height: 35,
-      border: true,
-      parent: props.parent
-    })
-
-    this.add({ x: 'center', y: 2, string: ' Inventory' })
+    // why not have the parent pass width/height/border?
+    super(props)
 
     const summaryOfItems = this.getInventorySummary()
     const inventoryItemList = new SelectionArray({
@@ -24,7 +16,7 @@ export default class Inventory extends Modal {
       items: summaryOfItems
     })
     inventoryItemList.add({ x: 'left', y: 0, string: ' Items ', force: true })
-    this.add({ x: 1, y: 4, grid: inventoryItemList })
+    this.add({ x: 1, y: 0, grid: inventoryItemList })
 
     const itemImagePanel = new Grid({
       id: 'SelectedItemImage',
@@ -33,7 +25,7 @@ export default class Inventory extends Modal {
       border: true
     })
     itemImagePanel.add({ x: 'left', y: 0, string: ' Image ', force: true })
-    this.add({ x: 'right', y: 4, grid: itemImagePanel })
+    this.add({ x: 'right', y: 0, grid: itemImagePanel })
 
     const itemDescriptionPanel = new Grid({
       id: 'SelectedItemDescription',
@@ -47,7 +39,7 @@ export default class Inventory extends Modal {
       string: ' Description ',
       force: true
     })
-    this.add({ x: 'right', y: 22, grid: itemDescriptionPanel })
+    this.add({ x: 'right', y: 18, grid: itemDescriptionPanel })
 
     // set the initial item image and description
     this.setImageAndDescription(summaryOfItems[0])
@@ -89,9 +81,6 @@ export default class Inventory extends Modal {
     } else if (e.key === 's' || e.key === 'ArrowDown') {
       const selected = this.getGrid('InventoryItemList').down()
       this.setImageAndDescription(selected)
-    } else if (e.key === 'i' || e.key === 'Escape') {
-      this.close()
-      memory.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'Enter') {
       const inventoryItems = this.getGrid('InventoryItemList')
       const selected = inventoryItems.selectItem()

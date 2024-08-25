@@ -11,6 +11,7 @@ export default class GameStats extends Grid {
       string: ' ' + memory.get('hero.first.name') + ' ' + memory.get('hero.last.name') + ' ',
       force: true
     })
+
     this.updateHeroLevel(memory.get('hero.level'))
     this.updateXP(memory.get('hero.xp'))
     this.updateTime(memory.get('game.time'))
@@ -48,7 +49,8 @@ export default class GameStats extends Grid {
 
   updateXP(xp) {
     const in50Parts = Math.round((xp.current / xp.nextLevel) * 50)
-    const xpBar = 'XP: ' + ''.repeat(in50Parts) + ' '.repeat(50 - in50Parts)
+    // const xpBar = 'Score: ' + ''.repeat(in50Parts) + ' '.repeat(50 - in50Parts)
+    const xpBar = 'Score: ' + xp.current
     this.add({ x: 'left', y: 4, string: xpBar })
   }
 

@@ -3,7 +3,7 @@ import memory from './Memory.js'
 
 // Class to hold a set of images that make up a moving sprite.  This component can't be changed after
 // being created.  If you need to get rid of it, just remove it from the canvas.
-export default class Animation extends Grid {
+export default class AnimationPlayer extends Grid {
   // When creating an animation, it is assumed to be started.
   constructor(props) {
     // generate an id if it doesn't exist

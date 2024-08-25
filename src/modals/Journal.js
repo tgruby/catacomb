@@ -1,70 +1,20 @@
 import memory from '../core/Memory.js'
 import Modal from '../core/Modal.js'
-
-const dogEaredCorner = [
-  '       ⏐⏐',
-  '       ⏐⏐',
-  '      ⏐⏐⏐',
-  '      ⏐⏐⏐',
-  '     ╭⎯⎯╯',
-  '     ⏐  ╱',
-  '   ⎯⎯⏐ ╱ ',
-  '⎯⎯⎯⎯⎯⏐╱  ',
-  '⎯⎯⎯⎯⎯╯@@@'
-]
-
-const celticUpperLeftBorder = [
-  '╭⎯╮╭⎯⎯⎯⎯⎯',
-  '⏐╭⎯⎯⎯⎯',
-  '╰⎯⏐╯',
-  '╭⏐╯',
-  '⏐⏐',
-  '⏐⏐',
-  '⏐',
-  '⏐'
-]
-
-const celticUpperRightBorder = [
-  '⎯⎯⎯⎯⎯╮╭⎯╮',
-  '  ⎯⎯⎯⎯⎯╮⏐',
-  '     ╰⏐⎯╯',
-  '      ╰⏐╮',
-  '       ⏐⏐',
-  '       ⏐⏐',
-  '        ⏐',
-  '        ⏐'
-]
-
-const celticLowerLeftBorder = [
-  '⏐',
-  '⏐',
-  '⏐⏐',
-  '⏐⏐',
-  '╰⏐╮',
-  '╭⎯⏐╮',
-  '⏐╰⎯⎯⎯⎯⎯',
-  '╰⎯╯╰⎯⎯⎯⎯⎯'
-]
-
-// Border Ideas
-// `¯\`·.¸¸.·´¯\`·.¸¸.·´¯ border ideas ¯\`·.¸¸.·´¯\`·.¸¸.·´¯`
-// `-=≡≣ ${stuff} ≣≡=-` })
+import { upperLeft, upperRight, lowerLeft, lowerRight } from '../core/CelticBorder.js'
 
 export default class Jornal extends Modal {
   constructor(props) {
     super({
       id: 'JournalModal',
-      width: 40,
+      width: 76,
       height: 39,
       border: true,
       parent: props.parent
     })
-    this.add({ x: 'center', y: 2, string: 'Journal' })
-    this.add({ x: 'center', y: 36, string: '- 1 -' })
-    this.add({ x: 1, y: 1, block: celticUpperLeftBorder })
-    this.add({ x: 30, y: 1, block: celticUpperRightBorder })
-    this.add({ x: 1, y: 30, block: celticLowerLeftBorder })
-    this.add({ x: 31, y: 30, block: dogEaredCorner, force: true })
+    this.add({ x: 0, y: 0, block: upperLeft, force: true })
+    this.add({ x: 67, y: 0, block: upperRight, force: true })
+    this.add({ x: 0, y: 31, block: lowerLeft, force: true })
+    this.add({ x: 68, y: 31, block: lowerRight, force: true })
     this.update()
   }
 

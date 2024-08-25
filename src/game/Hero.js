@@ -16,6 +16,10 @@ export default class Hero {
       key: 'hero.hunger',
       value: { current: 85, max: 100, modifier: null }
     })
+    memory.set({
+      key: 'hero.magic',
+      value: { current: 0, max: 100, modifier: null }
+    })
     memory.set({ key: 'hero.armor', value: 0 })
     memory.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []

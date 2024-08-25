@@ -1,25 +1,27 @@
+import FPS from '../hud/FPS.js'
+import Time from '../game/Time.js'
+import Hero from '../game/Hero.js'
+import Menus from '../modals/Menus.js'
 import memory from '../core/Memory.js'
 import Screen from '../core/Screen.js'
 import MapView from '../hud/MapView.js'
+import Messages from '../hud/Messages.js'
 import GameStats from '../hud/GameStats.js'
 import HeroVitals from '../hud/HeroVitals.js'
-import EnemyVitals from '../hud/EnemyVitals.js'
-import Messages from '../hud/Messages.js'
-import CompanionVitals from '../hud/CompanionVitals.js'
-import FirstPersonView from '../hud/FirstPersonView.js'
-import Hero from '../game/Hero.js'
+// import EnemyVitals from '../hud/EnemyVitals.js'
+import LevelComplete from '../modals/LevelComplete.js'
 import LevelGenerator from '../game/LevelGenerator.js'
 import MovementEngine from '../game/MovementEngine.js'
-import Time from '../game/Time.js'
+import CompanionVitals from '../hud/CompanionVitals.js'
+import FirstPersonView from '../hud/FirstPersonView.js'
 import Inventory from '../modals/Inventory.js'
-import LevelComplete from '../modals/LevelComplete.js'
 import FadeIn from '../animations/FadeIn.js'
 import Journal from '../modals/Journal.js'
 import HelpMenu from '../modals/Help.js'
 
 export default class HUD extends Screen {
   constructor() {
-    super({ id: 'HUD', width: 80, height: 50, border: false })
+    super({ id: 'HUD', width: 80, height: 48, border: false })
 
     // create the main game objects
     this.time = new Time()
@@ -33,11 +35,12 @@ export default class HUD extends Screen {
     // add the main game ui components
     this.add({ grid: new GameStats(), x: 0, y: 0 })
     this.add({ grid: new HeroVitals(), x: 0, y: 7 })
-    this.add({ grid: new CompanionVitals(), x: 0, y: 28 })
+    this.add({ grid: new CompanionVitals(), x: 0, y: 29 })
     this.add({ grid: new FirstPersonView(), x: 26, y: 7 })
     this.add({ grid: new MapView(), x: 54, y: 7 })
-    this.add({ grid: new EnemyVitals(), x: 54, y: 28 })
+    // this.add({ grid: new EnemyVitals(), x: 54, y: 28 })
     this.add({ grid: new Messages(), x: 0, y: 36 })
+    this.add({ grid: new FPS(), x: 'right', y: 43 })
 
     this.add({
       x: 0,
@@ -45,7 +48,7 @@ export default class HUD extends Screen {
       grid: new FadeIn({
         id: 'FadeIn',
         width: 80,
-        height: 50,
+        height: 48,
         frameSpeed: 32,
         autoPlay: true
       })
@@ -69,6 +72,11 @@ export default class HUD extends Screen {
 
     if (this.getGrid('HelpMenu')) {
       this.getGrid('HelpMenu').keyPressed(e)
+      return
+    }
+
+    if (this.getGrid('MenusModal')) {
+      this.getGrid('MenusModal').keyPressed(e)
       return
     }
 
@@ -102,16 +110,17 @@ export default class HUD extends Screen {
     } else if (e.key === 'j') {
       this.add({ grid: new Journal({ parent: this }), x: 'center', y: 2 })
       memory.set({ key: 'request.screen.draw', value: true })
+    } else if (e.key === 'q') {
+      this.add({ grid: new Menus({ parent: this }), x: 'center', y: 2 })
+      memory.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'i') {
       this.add({
         id: 'InventoryModal',
         grid: new Inventory({ parent: this }),
         x: 'center',
-        y: 3
+        y: 2
       })
       memory.set({ key: 'request.screen.draw', value: true })
-    } else if (e.key === 'm') {
-      // open full map
     } else {
       console.log('key', e.key)
     }

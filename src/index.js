@@ -9,7 +9,21 @@ mods.initialize()
 const canvas = document.getElementById('canvas')
 canvas.style.fontFamily = 'PrintChar21'
 let screen = null
-// let lastDraw = new Date().getTime()
+
+const fpsCounter = {
+  fps: 0,
+  lastFPSUpdate: new Date().getTime(),
+  update() {
+    this.fps++
+    const now = new Date().getTime()
+    const timeSinceLastUpdate = now - this.lastFPSUpdate
+    if (timeSinceLastUpdate > 1000) {
+      memory.set({ key: 'fps.update', value: { fps: this.fps, lastUpdate: timeSinceLastUpdate } })
+      this.fps = 0
+      this.lastFPSUpdate = now
+    }
+  }
+}
 
 memory.subscribe({
   key: 'game.state',
@@ -46,16 +60,7 @@ memory.subscribe({
   key: 'request.screen.draw',
   callback: (draw) => {
     if (draw) canvas.innerHTML = screen.draw()
-    //TODO: Throttle should wait to draw... current behavior is to draw immediately, but then we just miss some updates that happen rapidly behind it.
-    // instead it would be good to wait until the next frame to draw, but only if there are no other updates in the queue.
-    // throttle the draw to only every 8ms.  This should create a top-end of 125fps
-    // let now = new Date().getTime()
-    // if (draw && lastDraw + 10 <= now) {
-    //   canvas.innerHTML = screen.draw()
-    //   lastDraw = now
-    // } else if (draw) {
-    //   console.log('throttling draw')
-    // }
+    fpsCounter.update()
   }
 })
 

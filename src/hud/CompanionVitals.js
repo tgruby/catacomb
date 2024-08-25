@@ -3,7 +3,7 @@ import memory from '../core/Memory.js'
 
 export default class CompanionVitals extends Grid {
   constructor() {
-    super({ id: 'CompanionVitals', width: 26, height: 8, border: true })
+    super({ id: 'CompanionVitals', width: 26, height: 7, border: true })
     this.add({ x: 2, y: 0, string: ' Companion ', force: true })
     memory.subscribe({
       key: 'companion.health',
@@ -24,13 +24,13 @@ export default class CompanionVitals extends Grid {
       const heartCount = Math.round(percentage / 5)
       const blankCount = 20 - heartCount
       this.add({ x: 2, y: 2, string: 'Health' })
-      this.add({ x: 2, y: 3, string: '┌────────────────────┐' })
+      this.add({ x: 3, y: 3, string: '⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽' })
       this.add({
         x: 2,
         y: 4,
-        string: '│' + '█'.repeat(heartCount) + ' '.repeat(blankCount) + '│'
+        string: '⎹' + '█'.repeat(heartCount) + ' '.repeat(blankCount) + '⎸'
       })
-      this.add({ x: 2, y: 5, string: '└────────────────────┘' })
+      this.add({ x: 3, y: 5, string: '⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺' })
     }
   }
 }

@@ -1,6 +1,6 @@
-import Animation from '../core/Animation.js'
+import AnimationPlayer from '../core/AnimationPlayer.js'
 
-export default class Confetti extends Animation {
+export default class Confetti extends AnimationPlayer {
   constructor(props = {}) {
     const { width, height } = props
 

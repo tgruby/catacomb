@@ -23,7 +23,7 @@ figlet.preloadFonts(fonts, function (err) {
 export default class Grid {
   constructor(props) {
     if (!props || typeof props !== 'object') {
-      throw new Error('Invalid props provided')
+      throw new Error('Invalid props provided, not of type object:', props)
     }
     const { id, width, height, fill, border, zIndex } = props
     if (width <= 0 || height <= 0) {
@@ -175,14 +175,18 @@ export default class Grid {
   }
 
   /*
-    Adds a simple string to the Grid. If the x and y are out of bounds, it will be ignored.
-    The string will be converted to GridCells using the default color and background.
-  */
+  Adds a simple string to the Grid. If the x and y are out of bounds, it will be ignored.
+  The string will be converted to GridCells using the default color and background.
+*/
   _addString(props) {
     let { x, y, string, highlight, color, force, backfill } = props
+
     if (backfill) {
-      for (let i = 0; i < this.width; i++) this._addCell({ x: i, y, cell: new Cell({ value: this.fill }) })
+      for (let i = 0; i < this.width; i++) {
+        this._addCell({ x: i, y, cell: new Cell({ value: this.fill }) })
+      }
     }
+
     if (x === 'left') {
       x = 2
     } else if (x === 'center') {
@@ -190,6 +194,7 @@ export default class Grid {
     } else if (x === 'right') {
       x = this.width - (string.length + 2)
     }
+
     if (y === 'top') {
       y = 2
     } else if (y === 'center') {
@@ -197,26 +202,39 @@ export default class Grid {
     } else if (y === 'bottom') {
       y = this.height - 2
     }
+
     const tokens = [...string]
+
     for (let i = 0; i < tokens.length; i++) {
+      let shouldHighlight = false
+
+      if (typeof highlight === 'boolean') {
+        shouldHighlight = highlight // Highlight entire string if highlight is true
+      } else if (highlight && typeof highlight === 'object') {
+        // Highlight specific area if highlight is an object with x and length
+        shouldHighlight = i >= highlight.x && i < highlight.x + highlight.length
+      }
+
       this._addCell({
         x: x + i,
         y,
         force,
-        cell: new Cell({ value: tokens[i], color, highlight })
+        cell: new Cell({ value: tokens[i], color, highlight: shouldHighlight })
       })
     }
   }
 
   /*
-    Adds a 2D array of chars to the Grid. If the x and y are out of bounds, it will be ignored.
-    The string will be converted to GridCells using the default color and background.
-  */
+  Adds a 2D array of chars to the Grid. If the x and y are out of bounds, it will be ignored.
+  The string will be converted to GridCells using the default color and background.
+*/
   _addBlock(props) {
     let { x, y, block, color, highlight, force, backfill } = props
+
     if (!Array.isArray(block)) {
       throw new Error('Invalid block provided:', block)
     }
+
     if (y === 'center') {
       y = Math.floor((this.height - block.length) / 2) - Math.floor(block.length / 2)
     } else if (y === 'bottom') {
@@ -224,19 +242,31 @@ export default class Grid {
     } else if (y === 'top') {
       y = 2
     }
+
     if (backfill) {
       for (let i = 0; i < this.height; i++) {
         this._addString({ x: 0, y: i, string: '', force, backfill })
       }
     }
+
     for (let i = 0; i < block.length; i++) {
-      // call addString for each row in the block
+      let lineHighlight = false
+
+      if (highlight === true) {
+        // If highlight is true, highlight all lines
+        lineHighlight = true
+      } else if (highlight && typeof highlight === 'object' && i === highlight.y) {
+        // Specific line highlighting based on highlight object
+        lineHighlight = highlight
+      }
+
+      // Call _addString for each row in the block
       this._addString({
         x,
         y: y + i,
         string: block[i],
         color,
-        highlight,
+        highlight: lineHighlight,
         force
       })
     }

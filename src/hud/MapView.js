@@ -3,7 +3,7 @@ import memory from '../core/Memory.js'
 
 export default class MapView extends Grid {
   constructor() {
-    super({ id: 'MapView', width: 26, height: 21, fill: '·', border: true })
+    super({ id: 'MapView', width: 26, height: 29, fill: '·', border: true })
     this.add({ x: 'left', y: 0, string: ' Map ', force: true })
     this.mapUpdate(memory.get('catacombs.map'))
     this.positionUpdate(memory.get('hero.position'))

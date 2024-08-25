@@ -3,19 +3,23 @@ import memory from '../core/Memory.js'
 
 export default class HeroVitals extends Grid {
   constructor() {
-    super({ id: 'HeroVitals', width: 26, height: 21, fill: ' ', border: true })
+    super({ id: 'HeroVitals', width: 26, height: 22, fill: ' ', border: true })
     this.add({ x: 2, y: 0, string: ' Vitals ', force: true })
     this.add({ x: 2, y: 2, string: 'Health' })
-    this.add({ x: 2, y: 3, string: '┌────────────────────┐' })
-    this.add({ x: 2, y: 5, string: '└────────────────────┘' })
+    this.add({ x: 3, y: 3, string: '⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽' })
+    this.add({ x: 3, y: 5, string: '⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺' })
     this.updateHealth(memory.get('hero.health'))
-    this.add({ x: 2, y: 8, string: 'Stamina' })
-    this.add({ x: 2, y: 9, string: '┌────────────────────┐' })
-    this.add({ x: 2, y: 11, string: '└────────────────────┘' })
+    this.add({ x: 2, y: 7, string: 'Stamina' })
+    this.add({ x: 3, y: 8, string: '⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽' })
+    this.add({ x: 3, y: 10, string: '⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺' })
     this.updateStamina(memory.get('hero.stamina'))
-    this.add({ x: 2, y: 14, string: 'Hunger' })
-    this.add({ x: 2, y: 15, string: '┌────────────────────┐' })
-    this.add({ x: 2, y: 17, string: '└────────────────────┘' })
+    this.add({ x: 2, y: 12, string: 'Magic' })
+    this.add({ x: 3, y: 13, string: '⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽' })
+    this.add({ x: 3, y: 15, string: '⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺' })
+    this.updateMagic(memory.get('hero.magic'))
+    this.add({ x: 2, y: 17, string: 'Hunger' })
+    this.add({ x: 3, y: 18, string: '⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽' })
+    this.add({ x: 3, y: 20, string: '⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺' })
     this.updateHunger(memory.get('hero.hunger'))
 
     memory.subscribe({
@@ -27,47 +31,50 @@ export default class HeroVitals extends Grid {
       callback: this.updateStamina.bind(this)
     })
     memory.subscribe({
+      key: 'hero.magic',
+      callback: this.updateMagic.bind(this)
+    })
+    memory.subscribe({
       key: 'hero.hunger',
       callback: this.updateHunger.bind(this)
     })
   }
 
+  _calcBar(current, max) {
+    let bar = Math.round((current / max) * 20)
+    if (bar < 0) bar = 0
+    return '⎹' + '█'.repeat(bar) + ' '.repeat(20 - bar) + '⎸'
+  }    
+
   updateHealth(health) {
-    const bar = Math.round((health.current / health.max) * 20)
-    if (bar <= 0) {
-      this.add({ x: 'left', y: 4, string: '│' + ' '.repeat(20) + '│' })
-    } else {
-      this.add({
-        x: 'left',
-        y: 4,
-        string: '│' + '█'.repeat(bar) + ' '.repeat(20 - bar) + '│'
-      })
-    }
+    this.add({
+      x: 'left',
+      y: 4,
+      string: this._calcBar(health.current, health.max)
+    })
   }
 
   updateStamina(stamina) {
-    const bar = Math.round((stamina.current / stamina.max) * 20)
-    if (bar <= 0) {
-      this.add({ x: 'left', y: 10, string: '│' + ' '.repeat(20) + '│' })
-    } else {
-      this.add({
-        x: 'left',
-        y: 10,
-        string: '│' + '█'.repeat(bar) + ' '.repeat(20 - bar) + '│'
-      })
-    }
+    this.add({
+      x: 'left',
+      y: 9,
+      string: this._calcBar(stamina.current, stamina.max)
+    })
   }
 
   updateHunger(hunger) {
-    const bar = Math.round((hunger.current / hunger.max) * 20)
-    if (bar <= 0) {
-      this.add({ x: 'left', y: 16, string: '│' + ' '.repeat(20) + '│' })
-    } else {
-      this.add({
-        x: 'left',
-        y: 16,
-        string: '│' + '█'.repeat(bar) + ' '.repeat(20 - bar) + '│'
-      })
-    }
+    this.add({
+      x: 'left',
+      y: 19,
+      string: this._calcBar(hunger.current, hunger.max)
+    })
+  }
+
+  updateMagic(magic) {
+    this.add({
+      x: 'left',
+      y: 14,
+      string: this._calcBar(magic.current, magic.max)
+    })
   }
 }

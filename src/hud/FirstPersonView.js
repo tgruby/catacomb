@@ -1,6 +1,6 @@
 import Grid from '../core/Grid.js'
 import memory from '../core/Memory.js'
-import Animation from '../core/Animation.js'
+import AnimationPlayer from '../core/AnimationPlayer.js'
 import ScreenBrightness from '../core/ScreenBrightness.js'
 import CatacombsBackground from '../animations/CatacombsBackground.js'
 
@@ -100,7 +100,7 @@ export default class FirstPersonView extends Grid {
     this.removeGrid('HereViewableEntity')
     if (viewpoint.here) {
       const animationProps = { ...hereProps, ...viewpoint.here }
-      const hereAnimation = new Animation(animationProps)
+      const hereAnimation = new AnimationPlayer(animationProps)
       let y = 0
       if (viewpoint.here.position) {
         const frameHeight = viewpoint.here.frames[0].length
@@ -115,7 +115,7 @@ export default class FirstPersonView extends Grid {
     const torch = inventory.find((item) => item.getType() === 'torch')
     if (viewpoint.nearby) {
       const animationProps = { ...nearbyProps, ...viewpoint.nearby }
-      const nearAnimation = new Animation(animationProps)
+      const nearAnimation = new AnimationPlayer(animationProps)
       const frameHeight = viewpoint.nearby.frames[0].length
       const yPosition = verticalPositions.near[viewpoint.nearby.position]
       const y = yPosition - frameHeight + 1
@@ -123,7 +123,7 @@ export default class FirstPersonView extends Grid {
     }
 
     if (!torch) {
-      const midRangeAnimation = new Animation({
+      const midRangeAnimation = new AnimationPlayer({
         id: 'MidViewableEntity',
         width: 26,
         height: 27,
@@ -139,20 +139,20 @@ export default class FirstPersonView extends Grid {
       this.add({ x: 1, y, grid: midRangeAnimation })
     } else if (viewpoint.midRange) {
       const animationProps = { ...midRangeProps, ...viewpoint.midRange }
-      const midRangeAnimation = new Animation(animationProps)
+      const midRangeAnimation = new AnimationPlayer(animationProps)
       const frameHeight = viewpoint.midRange.frames[0].length
       const yPosition = verticalPositions.mid[viewpoint.midRange.position]
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: midRangeAnimation })
     } else if (viewpoint.farAway) {
       const animationProps = { ...farAwayProps, ...viewpoint.farAway }
-      const farAwayAnimation = new Animation(animationProps)
+      const farAwayAnimation = new AnimationPlayer(animationProps)
       const frameHeight = viewpoint.farAway.frames[0].length
       const yPosition = verticalPositions.far[viewpoint.farAway.position]
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: farAwayAnimation })
     } else {
-      const farAwayAnimation = new Animation({
+      const farAwayAnimation = new AnimationPlayer({
         id: 'FarViewableEntity',
         width: 26,
         height: 27,
@@ -172,7 +172,7 @@ export default class FirstPersonView extends Grid {
   showHeroAnimation(heroAction) {
     this.removeGrid('HeroAnimation')
     const animationProps = { ...heroAnimationProps, ...heroAction }
-    const action = new Animation(animationProps)
+    const action = new AnimationPlayer(animationProps)
     const frameHeight = animationProps.frames[0].length
     const yPosition = verticalPositions.action[animationProps.position]
     const y = yPosition - frameHeight + 1
