@@ -3,7 +3,7 @@ import Modal from '../ui/Modal.js'
 import { upperLeft, upperRight, lowerLeft, lowerRight } from '../ui/CelticBorder.js'
 import Tabs from '../ui/Tabs.js'
 import Inventory from './Inventory.js'
-import Help from './Help.js'
+import TBD from '../menus/TBD.js'
 
 export default class Menus extends Modal {
   constructor(props) {
@@ -28,7 +28,10 @@ export default class Menus extends Modal {
       parent: this,
       tabs: [
         { name: 'Inventory', grid: new Inventory({ width: 64, height: 34, border: false, parent: this }) },
-        { name: 'Help', grid: new Help({ width: 64, height: 34, border: false, parent: this }) }
+        { name: 'Crafting', grid: new TBD('Crafting') },
+        { name: 'Magic', grid: new TBD('Magic') },
+        { name: 'Map', grid: new TBD('Map') },
+        { name: 'Profile', grid: new TBD('Profile') }
       ]
     })
 
