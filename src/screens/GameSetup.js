@@ -1,6 +1,6 @@
-import Screen from '../core/Screen.js'
-import memory from '../core/Memory.js'
-import SelectionArray from '../core/SelectionArray.js'
+import Screen from '../ui/Screen.js'
+import state from '../game/SharedState.js'
+import SelectionList from '../ui/SelectionList.js'
 
 export default class GameSetup extends Screen {
   firstNames = [
@@ -145,7 +145,7 @@ export default class GameSetup extends Screen {
     this.add({
       x: 'center',
       y: 4,
-      grid: new SelectionArray({
+      grid: new SelectionList({
         id: 'SelectName',
         width: 60,
         height: 19,
@@ -177,17 +177,15 @@ export default class GameSetup extends Screen {
       selectName.updateItems(names)
     } else if (e.key === 'Enter') {
       const selection = this.getGrid('SelectName').selectItem()
-      memory.set({ key: 'hero.first.name', value: selection.first })
-      memory.set({ key: 'hero.last.name', value: selection.last })
-      memory.set({ key: 'game.state', value: 'wake-up' })
+      state.set({ key: 'hero.first.name', value: selection.first })
+      state.set({ key: 'hero.last.name', value: selection.last })
+      state.set({ key: 'game.state', value: 'wake-up' })
     }
   }
 
   generateName() {
-    const firstName =
-      this.firstNames[Math.floor(Math.random() * this.firstNames.length)]
-    const lastName =
-      this.lastNames[Math.floor(Math.random() * this.lastNames.length)]
+    const firstName = this.firstNames[Math.floor(Math.random() * this.firstNames.length)]
+    const lastName = this.lastNames[Math.floor(Math.random() * this.lastNames.length)]
     const fullName = `${firstName} ${lastName}`
     return { id: fullName, value: fullName, first: firstName, last: lastName }
   }

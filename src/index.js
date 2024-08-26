@@ -1,6 +1,6 @@
 import mods from './game/GameObjectLoader.js'
 import HUD from './screens/HUD.js'
-import memory from './core/Memory.js'
+import state from './game/SharedState.js'
 import GameSetup from './screens/GameSetup.js'
 import Intertitle from './screens/Intertitle.js'
 import TitleSequence from './screens/TitleSequence.js'
@@ -18,14 +18,14 @@ const fpsCounter = {
     const now = new Date().getTime()
     const timeSinceLastUpdate = now - this.lastFPSUpdate
     if (timeSinceLastUpdate > 1000) {
-      memory.set({ key: 'fps.update', value: { fps: this.fps, lastUpdate: timeSinceLastUpdate } })
+      state.set({ key: 'fps.update', value: { fps: this.fps, lastUpdate: timeSinceLastUpdate } })
       this.fps = 0
       this.lastFPSUpdate = now
     }
   }
 }
 
-memory.subscribe({
+state.subscribe({
   key: 'game.state',
   callback: (state) => {
     if (state === 'title-sequence') {
@@ -56,7 +56,7 @@ document.addEventListener('keyup', (e) => {
 })
 
 // register to listen for updates
-memory.subscribe({
+state.subscribe({
   key: 'request.screen.draw',
   callback: (draw) => {
     if (draw) canvas.innerHTML = screen.draw()
@@ -64,4 +64,4 @@ memory.subscribe({
   }
 })
 
-memory.set({ key: 'game.state', value: 'title-sequence' })
+state.set({ key: 'game.state', value: 'title-sequence' })

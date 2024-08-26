@@ -1,4 +1,4 @@
-import Animation from '../core/Animation.js'
+import Animation from '../ui/Animation.js'
 
 export default class FadeOut extends Animation {
   constructor(props = {}) {

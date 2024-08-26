@@ -2,8 +2,8 @@ import FPS from '../hud/FPS.js'
 import Time from '../game/Time.js'
 import Hero from '../game/Hero.js'
 import Menus from '../modals/Menus.js'
-import memory from '../core/Memory.js'
-import Screen from '../core/Screen.js'
+import state from '../game/SharedState.js'
+import Screen from '../ui/Screen.js'
 import MapView from '../hud/MapView.js'
 import Messages from '../hud/Messages.js'
 import GameStats from '../hud/GameStats.js'
@@ -26,11 +26,11 @@ export default class HUD extends Screen {
     // create the main game objects
     this.time = new Time()
     this.catacombs = new LevelGenerator()
-    memory.set({ key: 'catacombs', value: this.catacombs })
+    state.set({ key: 'catacombs', value: this.catacombs })
     this.hero = new Hero()
-    memory.set({ key: 'hero', value: this.hero })
+    state.set({ key: 'hero', value: this.hero })
     this.movement = new MovementEngine(this.hero)
-    memory.set({ key: 'movement', value: this.movement })
+    state.set({ key: 'movement', value: this.movement })
 
     // add the main game ui components
     this.add({ grid: new GameStats(), x: 0, y: 0 })
@@ -82,37 +82,37 @@ export default class HUD extends Screen {
 
     if (e.key === 'w' || e.key === 'ArrowUp') {
       this.movement.moveForward()
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 's' || e.key === 'ArrowDown') {
       // movement.moveBackward()
       // canvas.innerHTML = hud.draw()
     } else if (e.key === 'a' || e.key === 'ArrowLeft') {
       this.movement.turnLeft()
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'd' || e.key === 'ArrowRight') {
       this.movement.turnRight()
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'Enter') {
       const levelComplete = this.movement.moveDown()
       if (levelComplete) {
         this.add({ grid: new LevelComplete({ parent: this }), x: 0, y: 0 })
-        memory.set({ key: 'request.screen.draw', value: true })
+        state.set({ key: 'request.screen.draw', value: true })
       }
     } else if (e.key === 'Escape') {
       this.add({ grid: new HelpMenu({ parent: this }), x: 'center', y: 5 })
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'f') {
       this.hero.attack()
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'e') {
       this.hero.pickUp()
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'j') {
       this.add({ grid: new Journal({ parent: this }), x: 'center', y: 2 })
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'q') {
       this.add({ grid: new Menus({ parent: this }), x: 'center', y: 2 })
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'i') {
       this.add({
         id: 'InventoryModal',
@@ -120,7 +120,7 @@ export default class HUD extends Screen {
         x: 'center',
         y: 2
       })
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else {
       console.log('key', e.key)
     }

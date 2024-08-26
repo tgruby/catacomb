@@ -1,4 +1,4 @@
-import AnimationPlayer from '../core/AnimationPlayer.js'
+import AnimationPlayer from '../ui/AnimationPlayer.js'
 
 export default class FireCracker extends AnimationPlayer {
   static frame0 = ['@@@@@@@', '@@@@@@@', '@@@@@@@', '@@@o@@@', '@@@@@@@', '@@@@@@@', '@@@@@@@']

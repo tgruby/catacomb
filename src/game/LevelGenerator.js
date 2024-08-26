@@ -1,4 +1,4 @@
-import memory from '../core/Memory.js'
+import state from './SharedState.js'
 import objectLoader from './GameObjectLoader.js'
 import levelLoader from './LevelLoader.js'
 
@@ -32,7 +32,7 @@ export default class LevelGenerator {
     this.gameObjects = {}
     this.startNewLevel()
 
-    memory.subscribe({
+    state.subscribe({
       key: 'catacombs.next.level',
       callback: this.startNewLevel.bind(this)
     })
@@ -58,15 +58,15 @@ export default class LevelGenerator {
       direction: this.direction
     }
 
-    memory.set({ key: 'catacombs.map', value: this.map })
-    memory.set({ key: 'catacombs.objects', value: this.gameObjects })
-    memory.set({
+    state.set({ key: 'catacombs.map', value: this.map })
+    state.set({ key: 'catacombs.objects', value: this.gameObjects })
+    state.set({
       key: 'catacombs.level.objective',
       value: levelGuide.objective
     })
-    memory.set({ key: 'catacombs.level', value: this.level })
-    memory.set({ key: 'hero.position', value: position })
-    const hero = memory.get('hero')
+    state.set({ key: 'catacombs.level', value: this.level })
+    state.set({ key: 'hero.position', value: position })
+    const hero = state.get('hero')
     hero.addJournalEntry(levelGuide.journalEntry)
   }
 

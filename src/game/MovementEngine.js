@@ -1,11 +1,11 @@
 import { locationHash } from './LevelGenerator.js'
-import memory from '../core/Memory.js'
+import state from './SharedState.js'
 import objectsLoader from './GameObjectLoader.js'
 
 export default class MovementEngine {
   constructor(hero) {
     this.hero = hero
-    memory.subscribe({
+    state.subscribe({
       key: 'hero.position',
       callback: this.setPointOfView.bind(this)
     })
@@ -75,13 +75,13 @@ export default class MovementEngine {
   ]
 
   moveDown() {
-    const position = memory.get('hero.position')
+    const position = state.get('hero.position')
     const current = this.getGameObjectAt(position)
     // first check to see if we are engaged in combat with a creature
     if (current !== undefined) {
       if (current.getType() === 'ladder-down') {
         // we can move the hero to the next level
-        memory.set({ key: 'catacombs.next.level', value: true })
+        state.set({ key: 'catacombs.next.level', value: true })
         this.hero.moved()
         new Audio('sounds/level-complete.mp3').play()
         return true
@@ -91,12 +91,12 @@ export default class MovementEngine {
   }
 
   moveForward() {
-    const position = memory.get('hero.position')
+    const position = state.get('hero.position')
 
     // now check to see if we are too tired to move
-    const stamina = memory.get('hero.stamina')
+    const stamina = state.get('hero.stamina')
     if (stamina.value < 1) {
-      memory.set({ key: 'message.center', value: `you are too tired to move` })
+      state.set({ key: 'message.center', value: `you are too tired to move` })
       return
     }
 
@@ -115,32 +115,32 @@ export default class MovementEngine {
     // we can move the hero...
     position.x = newX
     position.y = newY
-    memory.set({ key: 'message.center', value: '' })
-    memory.set({ key: 'hero.position', value: position })
+    state.set({ key: 'message.center', value: '' })
+    state.set({ key: 'hero.position', value: position })
     this.hero.moved()
     new Audio('sounds/footstep.mp3').play()
   }
 
   turnLeft() {
-    const position = memory.get('hero.position')
+    const position = state.get('hero.position')
     if (position.direction === 'north') position.direction = 'west'
     else if (position.direction === 'west') position.direction = 'south'
     else if (position.direction === 'south') position.direction = 'east'
     else if (position.direction === 'east') position.direction = 'north'
-    memory.set({ key: 'hero.position', value: position })
+    state.set({ key: 'hero.position', value: position })
   }
 
   turnRight() {
-    const position = memory.get('hero.position')
+    const position = state.get('hero.position')
     if (position.direction === 'north') position.direction = 'east'
     else if (position.direction === 'east') position.direction = 'south'
     else if (position.direction === 'south') position.direction = 'west'
     else if (position.direction === 'west') position.direction = 'north'
-    memory.set({ key: 'hero.position', value: position })
+    state.set({ key: 'hero.position', value: position })
   }
 
   setPointOfView() {
-    const position = memory.get('hero.position')
+    const position = state.get('hero.position')
     let background = []
     let offsets = this.NorthView
 
@@ -193,7 +193,7 @@ export default class MovementEngine {
     })
     if (hereEntity) {
       response.here = hereEntity.getPerspective('here')
-      memory.set({
+      state.set({
         key: 'message.center',
         value: `you see ${hereEntity.getNameWithArticle()}`
       })
@@ -202,7 +202,7 @@ export default class MovementEngine {
     if (midEntity) response.midRange = midEntity.getPerspective('midRange')
     if (farEntity) response.farAway = farEntity.getPerspective('farAway')
 
-    memory.set({ key: 'hero.viewpoint', value: response })
+    state.set({ key: 'hero.viewpoint', value: response })
   }
 
   getLayer(offsets, name) {
@@ -214,8 +214,8 @@ export default class MovementEngine {
 
   getGameObjectAt(props) {
     const { y, x } = props
-    const map = memory.get('catacombs.map')
-    const entities = memory.get('catacombs.objects')
+    const map = state.get('catacombs.map')
+    const entities = state.get('catacombs.objects')
     if (y < 0 || y >= map.length) return undefined
     if (x < 0 || x >= map[y].length) return undefined
 
@@ -227,14 +227,14 @@ export default class MovementEngine {
 
   removeGameObjectAt(props) {
     const { y, x } = props
-    const entities = memory.get('catacombs.objects')
+    const entities = state.get('catacombs.objects')
     if (locationHash(y, x) in entities) delete entities[locationHash(y, x)]
-    memory.set({ key: 'catacombs.objects', value: entities })
+    state.set({ key: 'catacombs.objects', value: entities })
     this.setPointOfView()
   }
 
   getBackgroundFeatureAt(y, x) {
-    const map = memory.get('catacombs.map')
+    const map = state.get('catacombs.map')
     if (y < 0 || y >= map.length) return undefined
     if (x < 0 || x >= map[y].length) return undefined
 

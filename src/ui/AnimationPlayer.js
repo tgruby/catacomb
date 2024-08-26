@@ -1,5 +1,5 @@
 import Grid from './Grid.js'
-import memory from './Memory.js'
+import state from '../game/SharedState.js'
 
 // Class to hold a set of images that make up a moving sprite.  This component can't be changed after
 // being created.  If you need to get rid of it, just remove it from the canvas.
@@ -34,7 +34,7 @@ export default class AnimationPlayer extends Grid {
           backfill: this.backfill,
           color: this.color
         })
-        memory.set({ key: 'request.screen.draw', value: true })
+        state.set({ key: 'request.screen.draw', value: true })
         // Pause the functioning thread
         if (this.frameSpeed > 0) await new Promise((resolve) => setTimeout(resolve, this.frameSpeed))
       }

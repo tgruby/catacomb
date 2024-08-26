@@ -1,7 +1,7 @@
-import Grid from '../core/Grid.js'
-import Screen from '../core/Screen.js'
-import memory from '../core/Memory.js'
-import AudioPlayer from '../core/AudioPlayer.js'
+import Grid from '../ui/Grid.js'
+import Screen from '../ui/Screen.js'
+import state from '../game/SharedState.js'
+import AudioPlayer from '../ui/AudioPlayer.js'
 import CatacombTitleAnimation from '../animations/CatacombTitleAnimation.js'
 
 export default class TitleSequence extends Screen {
@@ -23,9 +23,7 @@ export default class TitleSequence extends Screen {
       y: 18,
       block: this.startTitleSequence.split('\n')
     })
-    this.audio = new AudioPlayer(
-      'sounds/fenras-theme-trailer-music-intro-music-by-oliver-weckauf.mp3'
-    )
+    this.audio = new AudioPlayer('sounds/fenras-theme-trailer-music-intro-music-by-oliver-weckauf.mp3')
     this.ranTitleSequency = false
   }
 
@@ -38,7 +36,7 @@ export default class TitleSequence extends Screen {
         this.ranTitleSequency = true
       } else {
         this.audio.fadeOut(2000)
-        memory.set({ key: 'game.state', value: 'setup-game' })
+        state.set({ key: 'game.state', value: 'setup-game' })
       }
     }
   }
@@ -65,11 +63,11 @@ export default class TitleSequence extends Screen {
         y: 32,
         string: 'T H E   T O M B   O F   T A H A R A'
       })
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     }, 19000)
     setTimeout(() => {
       this.add({ x: 'center', y: 36, block: this.startGame.split('\n') })
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     }, 22000)
   }
 
@@ -87,7 +85,7 @@ export default class TitleSequence extends Screen {
       fig: { text: 'Studios', font: 'Crawford2' }
     })
     this.add({ x: 2, y: 6, grid })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   showInAssociationWith() {
@@ -105,7 +103,7 @@ export default class TitleSequence extends Screen {
     })
     grid.add({ x: 'center', y: 17, fig: { text: 'With', font: 'Standard' } })
     this.add({ x: 2, y: 6, grid })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   showAsciiArcade() {
@@ -123,6 +121,6 @@ export default class TitleSequence extends Screen {
       fig: { text: 'presents...', font: 'Slant' }
     })
     this.add({ x: 2, y: 10, grid })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 }

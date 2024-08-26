@@ -1,4 +1,4 @@
-class Memory {
+class SharedState {
   constructor() {
     this.data = {}
     this.listeners = {}
@@ -14,7 +14,7 @@ class Memory {
   }
 
   /*
-    Set a value in memory and notify subscribers
+    Set a value in shared state and notify subscribers
     If value is a primative and doesn't change don't notify
     If value is a complex object notify every time as we don't know if a containing value has changed
   */
@@ -44,9 +44,7 @@ class Memory {
     const { key, callback } = props
     if (this.listeners[key]) {
       if (callback) {
-        this.listeners[key] = this.listeners[key].filter(
-          (listener) => listener !== callback
-        )
+        this.listeners[key] = this.listeners[key].filter((listener) => listener !== callback)
       } else {
         delete this.listeners[key]
       }
@@ -60,5 +58,5 @@ class Memory {
   }
 }
 
-const memory = new Memory()
-export default memory
+const state = new SharedState()
+export default state

@@ -1,4 +1,4 @@
-import Modal from '../core/Modal.js'
+import Modal from '../ui/Modal.js'
 import Confetti from '../animations/Confetti.js'
 import FireCracker from '../animations/FireCracker.js'
 

@@ -1,5 +1,5 @@
-import Grid from '../core/Grid.js'
-import memory from '../core/Memory.js'
+import Grid from '../ui/Grid.js'
+import state from '../game/SharedState.js'
 
 export default class Messages extends Grid {
   constructor() {
@@ -10,7 +10,7 @@ export default class Messages extends Grid {
       string: ' Messages ',
       force: true
     })
-    memory.subscribe({
+    state.subscribe({
       key: 'message.center',
       callback: this._showNewMessage.bind(this)
     })

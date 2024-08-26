@@ -1,6 +1,6 @@
-import memory from '../core/Memory.js'
-import Modal from '../core/Modal.js'
-import { upperLeft, upperRight, lowerLeft, lowerRight } from '../core/CelticBorder.js'
+import state from '../game/SharedState.js'
+import Modal from '../ui/Modal.js'
+import { upperLeft, upperRight, lowerLeft, lowerRight } from '../ui/CelticBorder.js'
 
 export default class Jornal extends Modal {
   constructor(props) {
@@ -25,14 +25,14 @@ export default class Jornal extends Modal {
       // page right
     } else if (e.key === 'j' || e.key === 'Escape') {
       this.close()
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else {
       console.log('Journal keyPressed:', e.key)
     }
   }
 
   update() {
-    const entries = memory.get('hero.journal')
+    const entries = state.get('hero.journal')
     let previousEntry = null
     let y = 6
     for (let i = 0; i < entries.length; i++) {

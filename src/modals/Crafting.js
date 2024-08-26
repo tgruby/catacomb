@@ -1,7 +1,7 @@
-import Grid from '../core/Grid.js'
-import memory from '../core/Memory.js'
-import Modal from '../core/Modal.js'
-// import SelectionArray from "../core/SelectionArray.js"
+import Grid from '../ui/Grid.js'
+import state from '../game/SharedState.js'
+import Modal from '../ui/Modal.js'
+// import SelectionArray from "../ui/SelectionArray.js"
 
 export default class Crafting extends Modal {
   constructor(props) {
@@ -56,13 +56,11 @@ export default class Crafting extends Modal {
   // Return a list of items in the inventory with a count by id
   getInventorySummary() {
     const items = []
-    const inventory = memory.get('hero.inventory')
+    const inventory = state.get('hero.inventory')
     for (let i = 0; i < inventory.length; i++) {
       // item format: { id: id, name: name, type: type, description: description, here: here }
       const item = inventory[i]
-      const itemSummary = items.find(
-        (summaryItem) => summaryItem.id === item.id
-      )
+      const itemSummary = items.find((summaryItem) => summaryItem.id === item.id)
       if (!itemSummary) {
         const image = item.image ? item.image : item.here.frames[0]
         items.push({
@@ -91,11 +89,11 @@ export default class Crafting extends Modal {
       this.setImageAndDescription(selected)
     } else if (e.key === 'i' || e.key === 'Escape') {
       this.close()
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'Enter') {
       const inventoryItems = this.getGrid('InventoryItems')
       const selected = inventoryItems.selectItem()
-      const hero = memory.get('hero')
+      const hero = state.get('hero')
       hero.useItem(selected.id)
       this.setImageAndDescription(inventoryItems.selectItem())
     } else {
@@ -117,7 +115,7 @@ export default class Crafting extends Modal {
       y: 2,
       block: this.wrapText(item.description, descriptionGrid.width - 2)
     })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   wrapText(text, width) {

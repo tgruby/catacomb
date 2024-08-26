@@ -1,7 +1,7 @@
-import memory from '../core/Memory.js'
-import Modal from '../core/Modal.js'
-import { upperLeft, upperRight, lowerLeft, lowerRight } from '../core/CelticBorder.js'
-import TabGrid from '../core/TabGrid.js'
+import state from '../game/SharedState.js'
+import Modal from '../ui/Modal.js'
+import { upperLeft, upperRight, lowerLeft, lowerRight } from '../ui/CelticBorder.js'
+import Tabs from '../ui/Tabs.js'
 import Inventory from './Inventory.js'
 import Help from './Help.js'
 
@@ -22,7 +22,7 @@ export default class Menus extends Modal {
     this.add({ x: 0, y: 31, block: lowerLeft, force: true })
     this.add({ x: 68, y: 31, block: lowerRight, force: true })
 
-    this.tabsPanel = new TabGrid({
+    this.tabsPanel = new Tabs({
       width: this.width - 12,
       height: this.height - 4,
       parent: this,
@@ -43,7 +43,7 @@ export default class Menus extends Modal {
   keyPressed(e) {
     if (e.key === 'Escape' || e.key === 'q') {
       this.close()
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     } else {
       this.tabsPanel.keyPressed(e)
     }

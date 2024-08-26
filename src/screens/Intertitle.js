@@ -1,5 +1,5 @@
-import Screen from '../core/Screen.js'
-import memory from '../core/Memory.js'
+import Screen from '../ui/Screen.js'
+import state from '../game/SharedState.js'
 
 export default class Intertitle extends Screen {
   constructor(props) {
@@ -22,10 +22,10 @@ export default class Intertitle extends Screen {
         this.add({ x: 'center', y: vSpace, fig: { text: lines[i], font } })
         vSpace += lineHeight
       }
-      memory.set({ key: 'request.screen.draw', value: true })
+      state.set({ key: 'request.screen.draw', value: true })
     }, 1000)
     setTimeout(() => {
-      memory.set({ key: 'game.state', value: 'in-game' })
+      state.set({ key: 'game.state', value: 'in-game' })
     }, 6000)
   }
 }

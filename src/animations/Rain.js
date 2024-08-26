@@ -1,4 +1,4 @@
-import Animation from '../core/Animation.js'
+import Animation from '../ui/Animation.js'
 
 export default class Rain extends Animation {
   constructor(props = {}) {
@@ -7,9 +7,7 @@ export default class Rain extends Animation {
     const frames = []
     frames.push(buildFrame({ width, height, frameIndex: 0 }))
     for (let i = 1; i < height * 2.5; i++) {
-      frames.push(
-        buildFrame({ prevFrame: frames[i - 1], width, height, frameIndex: i })
-      )
+      frames.push(buildFrame({ prevFrame: frames[i - 1], width, height, frameIndex: i }))
     }
 
     super({

@@ -1,7 +1,7 @@
 import Grid from './Grid.js'
-import memory from './Memory.js'
+import state from '../game/SharedState.js'
 
-export default class SelectionArray extends Grid {
+export default class SelectionList extends Grid {
   // Example:
   //          Item 1
   // .-----------------------.
@@ -29,7 +29,7 @@ export default class SelectionArray extends Grid {
     this.items = items
     this.itemInFocus = 0
     this.build()
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   build() {
@@ -56,7 +56,7 @@ export default class SelectionArray extends Grid {
       const string = item.value + ' '.repeat(repeat)
       this.add({ x: 'right', y: 2 + index * 2, string, highlight })
     })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   up() {

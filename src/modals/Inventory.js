@@ -1,6 +1,6 @@
-import Grid from '../core/Grid.js'
-import memory from '../core/Memory.js'
-import SelectionArray from '../core/SelectionArray.js'
+import Grid from '../ui/Grid.js'
+import state from '../game/SharedState.js'
+import SelectionList from '../ui/SelectionList.js'
 
 export default class Inventory extends Grid {
   constructor(props) {
@@ -8,7 +8,7 @@ export default class Inventory extends Grid {
     super(props)
 
     const summaryOfItems = this.getInventorySummary()
-    const inventoryItemList = new SelectionArray({
+    const inventoryItemList = new SelectionList({
       id: 'InventoryItemList',
       width: 32,
       height: 30,
@@ -48,11 +48,11 @@ export default class Inventory extends Grid {
   // Return a list of items in the inventory with a count by id
   getInventorySummary() {
     const summarizedItems = []
-    const inventory = memory.get('hero.inventory')
+    const inventory = state.get('hero.inventory')
     for (let i = 0; i < inventory.length; i++) {
       const item = inventory[i]
       let equipped = '   '
-      const equippedWeapon = memory.get('hero.equipped.weapon')
+      const equippedWeapon = state.get('hero.equipped.weapon')
       if (equippedWeapon && equippedWeapon.getType() === item.getType()) equipped = ' ◆ '
       const summarizedItem = summarizedItems.find((summaryItem) => summaryItem.id === item.getType())
       if (!summarizedItem) {
@@ -84,7 +84,7 @@ export default class Inventory extends Grid {
     } else if (e.key === 'Enter') {
       const inventoryItems = this.getGrid('InventoryItemList')
       const selected = inventoryItems.selectItem()
-      const hero = memory.get('hero')
+      const hero = state.get('hero')
       hero.useItem(selected.id)
       inventoryItems.updateItems(this.getInventorySummary())
       this.setImageAndDescription(inventoryItems.selectItem())
@@ -108,7 +108,7 @@ export default class Inventory extends Grid {
       y: 2,
       block: this.wrapText(summarizedItem.description, descriptionGrid.width - 2)
     })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   wrapText(text, width) {

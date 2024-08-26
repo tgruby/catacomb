@@ -1,18 +1,18 @@
-import Grid from '../core/Grid.js'
-import memory from '../core/Memory.js'
+import Grid from '../ui/Grid.js'
+import state from '../game/SharedState.js'
 
 export default class MapView extends Grid {
   constructor() {
     super({ id: 'MapView', width: 26, height: 29, fill: '·', border: true })
     this.add({ x: 'left', y: 0, string: ' Map ', force: true })
-    this.mapUpdate(memory.get('catacombs.map'))
-    this.positionUpdate(memory.get('hero.position'))
+    this.mapUpdate(state.get('catacombs.map'))
+    this.positionUpdate(state.get('hero.position'))
 
-    memory.subscribe({
+    state.subscribe({
       key: 'hero.position',
       callback: this.positionUpdate.bind(this)
     })
-    memory.subscribe({
+    state.subscribe({
       key: 'catacombs.map',
       callback: this.mapUpdate.bind(this)
     })
@@ -23,7 +23,7 @@ export default class MapView extends Grid {
     in the center, marking them with a direction arrow.
   */
   positionUpdate(position) {
-    const inventory = memory.get('hero.inventory')
+    const inventory = state.get('hero.inventory')
     const map = inventory.find((item) => item.getType() === 'map')
     if (!map) return
     const { x, y, direction } = position

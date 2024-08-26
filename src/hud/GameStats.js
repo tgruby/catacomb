@@ -1,5 +1,5 @@
-import Grid from '../core/Grid.js'
-import memory from '../core/Memory.js'
+import Grid from '../ui/Grid.js'
+import state from '../game/SharedState.js'
 import { getHeroLevelTitle } from '../game/Hero.js'
 
 export default class GameStats extends Grid {
@@ -8,28 +8,28 @@ export default class GameStats extends Grid {
     this.add({
       x: 'center',
       y: 0,
-      string: ' ' + memory.get('hero.first.name') + ' ' + memory.get('hero.last.name') + ' ',
+      string: ' ' + state.get('hero.first.name') + ' ' + state.get('hero.last.name') + ' ',
       force: true
     })
 
-    this.updateHeroLevel(memory.get('hero.level'))
-    this.updateXP(memory.get('hero.xp'))
-    this.updateTime(memory.get('game.time'))
-    this.updateCatacombsLevel(memory.get('catacombs.level'))
+    this.updateHeroLevel(state.get('hero.level'))
+    this.updateXP(state.get('hero.xp'))
+    this.updateTime(state.get('game.time'))
+    this.updateCatacombsLevel(state.get('catacombs.level'))
 
-    memory.subscribe({
+    state.subscribe({
       key: 'game.time',
       callback: this.updateTime.bind(this)
     })
-    memory.subscribe({
+    state.subscribe({
       key: 'hero.level',
       callback: this.updateHeroLevel.bind(this)
     })
-    memory.subscribe({
+    state.subscribe({
       key: 'catacombs.level',
       callback: this.updateCatacombsLevel.bind(this)
     })
-    memory.subscribe({ key: 'hero.xp', callback: this.updateXP.bind(this) })
+    state.subscribe({ key: 'hero.xp', callback: this.updateXP.bind(this) })
   }
 
   updateHeroLevel(level) {
@@ -38,13 +38,13 @@ export default class GameStats extends Grid {
       y: 2,
       string: `Level ${level} (${getHeroLevelTitle(level)})`
     })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   updateCatacombsLevel() {
-    const objective = memory.get('catacombs.level.objective')
+    const objective = state.get('catacombs.level.objective')
     this.add({ x: 'right', y: 4, string: `Objective: ${objective}` })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   updateXP(xp) {
@@ -55,7 +55,7 @@ export default class GameStats extends Grid {
   }
 
   updateTime(time) {
-    const inventory = memory.get('hero.inventory')
+    const inventory = state.get('hero.inventory')
     const watch = inventory.find((item) => item.getType() === 'watch')
     if (!watch) return
     // Create an Intl.DateTimeFormat instance for formatting the date part
@@ -77,6 +77,6 @@ export default class GameStats extends Grid {
     //   const bell = new Audio('sounds/the-bell-tolls.mp3')
     //   bell.play()
     // }
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 }

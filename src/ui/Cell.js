@@ -1,5 +1,3 @@
-import highlight from './Highlight.js'
-
 export default class Cell {
   constructor(props) {
     if (!props || typeof props !== 'object') {
@@ -26,8 +24,14 @@ export default class Cell {
     }
     let output = this.value
     if (this.value === '@') return null
-    if (this.highlight) output = highlight(output)
-    if (this.color) output = `<span style="color: ${this.color}">${output}</span>`
+    if (this.highlight || this.color) output = this._style(output)
     return output
+  }
+
+  _style(text) {
+    if (!this.color) this.color = '#2cd03a'
+    const backgroundColor = this.highlight ? this.color : '#000000'
+    const color = this.highlight ? '#000000' : this.color
+    return `<span style="color: ${color}; background-color: ${backgroundColor};">${text}</span>`
   }
 }

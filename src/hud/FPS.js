@@ -1,10 +1,10 @@
-import Grid from '../core/Grid.js'
-import memory from '../core/Memory.js'
+import Grid from '../ui/Grid.js'
+import state from '../game/SharedState.js'
 
 export default class FPS extends Grid {
   constructor() {
     super({ id: 'FPS', width: 25, height: 1, border: false })
-    memory.subscribe({
+    state.subscribe({
       key: 'fps.update',
       callback: this.updateFPS.bind(this)
     })

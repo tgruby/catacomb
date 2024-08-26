@@ -1,4 +1,4 @@
-import Animation from '../core/Animation.js'
+import Animation from '../ui/Animation.js'
 
 export class NoticeMeRight extends Animation {
   static frame0 = ['  ←']

@@ -1,4 +1,4 @@
-import Grid from '../core/Grid.js'
+import Grid from '../ui/Grid.js'
 
 const content = `
 

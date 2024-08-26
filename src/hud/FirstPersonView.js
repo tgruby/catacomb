@@ -1,7 +1,7 @@
-import Grid from '../core/Grid.js'
-import memory from '../core/Memory.js'
-import AnimationPlayer from '../core/AnimationPlayer.js'
-import ScreenBrightness from '../core/ScreenBrightness.js'
+import Grid from '../ui/Grid.js'
+import state from '../game/SharedState.js'
+import AnimationPlayer from '../ui/AnimationPlayer.js'
+import ScreenBrightness from '../game/ScreenBrightness.js'
 import CatacombsBackground from '../animations/CatacombsBackground.js'
 
 const verticalPositions = {
@@ -71,11 +71,11 @@ export default class FirstPersonView extends Grid {
     })
     this.add({ x: 2, y: 0, string: ' View ', force: true })
 
-    memory.subscribe({
+    state.subscribe({
       key: 'hero.viewpoint',
       callback: this.updateViewpoint.bind(this)
     })
-    memory.subscribe({
+    state.subscribe({
       key: 'hero.action',
       callback: this.showHeroAnimation.bind(this)
     })
@@ -111,7 +111,7 @@ export default class FirstPersonView extends Grid {
       }
       this.add({ x: 1, y, grid: hereAnimation })
     }
-    const inventory = memory.get('hero.inventory')
+    const inventory = state.get('hero.inventory')
     const torch = inventory.find((item) => item.getType() === 'torch')
     if (viewpoint.nearby) {
       const animationProps = { ...nearbyProps, ...viewpoint.nearby }

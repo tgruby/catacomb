@@ -1,7 +1,7 @@
-import Modal from './Modal.js'
-import memory from './Memory.js'
+import Grid from './Grid.js'
+import state from '../game/SharedState.js'
 
-export default class TabGrid extends Modal {
+export default class Tabs extends Grid {
   constructor(props) {
     props.id = 'TabGrid'
     super(props)
@@ -36,7 +36,7 @@ export default class TabGrid extends Modal {
     this.add({ x: 'center', y: 0, block: tabBlock, highlight })
 
     this.add({ x: 'center', y: 4, grid: this.activeGrid })
-    memory.set({ key: 'request.screen.draw', value: true })
+    state.set({ key: 'request.screen.draw', value: true })
   }
 
   keyPressed(e) {
