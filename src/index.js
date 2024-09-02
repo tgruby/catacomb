@@ -1,4 +1,5 @@
 import mods from './game/GameObjectLoader.js'
+import levelLoader from './game/LevelLoader.js'
 import HUD from './screens/HUD.js'
 import state from './game/SharedState.js'
 import GameSetup from './screens/GameSetup.js'
@@ -6,6 +7,7 @@ import Intertitle from './screens/Intertitle.js'
 import TitleSequence from './screens/TitleSequence.js'
 
 mods.initialize()
+levelLoader.initialize()
 const canvas = document.getElementById('canvas')
 canvas.style.fontFamily = 'PrintChar21'
 let screen = null

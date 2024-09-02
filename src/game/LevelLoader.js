@@ -1,8 +1,13 @@
+import state from './SharedState.js'
+import objectLoader from './GameObjectLoader.js'
+import { xyHash, xOffset, yOffset } from './Util.js'
+
 class LevelLoader {
   static ACTIVE_LEVELS_FILE = 'mods/levels/active-levels.json'
   constructor() {
     this.initialized = false
     this.levels = []
+    this.currentLevel = -1
   }
 
   async initialize() {
@@ -14,16 +19,55 @@ class LevelLoader {
         const levelJson = await levelAsString.json()
         this.levels.push(levelJson)
       }
-      console.log(`Levels Loaded: ${this.levels.length}`)
+      console.log(`Levels Loaded into Memory: ${this.levels.length}`)
       this.initialized = true
     }
   }
 
-  get(index) {
-    if (index < 0 || index >= this.levels.length) {
-      throw new Error(`Level index ${index} out of bounds.`)
+  async loadNextLevel() {
+    this.currentLevel++
+    // TODO: check for end of game
+    await this._loadLevel()
+  }
+
+  async _loadLevel() {
+    await objectLoader.initialize()
+    const theLevel = this.levels[this.currentLevel]
+    let gameObjects = {}
+    for (let i = 0; i < theLevel.objects.length; i++) {
+      const type = theLevel.objects[i].type
+      const x = theLevel.objects[i].x
+      let y = theLevel.objects[i].y
+      let text = theLevel.objects[i].text
+      let gameObj = await objectLoader.getInstanceOf(type)
+      console.log(`Creating object ${type} at ${x}, ${y}`)
+      console.log(gameObj)
+      if (type === 'game-message' && text) {
+        gameObj.data.perspective.here.message = text
+      }
+      gameObjects[xyHash({ y, x })] = gameObj
     }
-    return this.levels[index]
+
+    // find either the ladder-down or hole-in-ceiling.  That will be the starting point.
+    let position = state.get('hero.position')
+    for (let i = 0; i < theLevel.objects.length; i++) {
+      const anObject = theLevel.objects[i]
+      if (anObject.id === 'ladder-down' || anObject.id === 'hole-in-ceiling') {
+        position.x = xOffset(anObject.x)
+        position.y = yOffset(anObject.y)
+        break
+      }
+    }
+
+    state.set({ key: 'catacombs.name', value: theLevel.name })
+    state.set({
+      key: 'catacombs.level.objective',
+      value: theLevel.objective
+    })
+    state.set({ key: 'catacombs.map', value: theLevel.map })
+    state.set({ key: 'catacombs.objects', value: gameObjects })
+    state.set({ key: 'hero.position', value: position })
+    state.set({ key: 'catacombs.level', value: this.currentLevel })
   }
 }
 

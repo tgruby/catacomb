@@ -15,6 +15,7 @@
     "ladder-down",
     "ladder-up",
     "hole-in-ceiling",
-    "sarcophagus"
+    "sarcophagus",
+    "game-message"
   ]
 }

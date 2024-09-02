@@ -1,11 +1,50 @@
 {
-  "name": "Finding Purpose",
-  "objective": "Now What?",
-  "journalEntry": "I've stopped the bleeding. Now what?",
-  "mapWidth": 5,
-  "mapHeight": 5,
+  "name": "Day One",
+  "objective": "Your getting hungry... maybe you should find something to eat.",
+  "map": [
+    "+---+---+---+---+---+",
+    "|       |           |",
+    "+   +   +---+---+   +",
+    "|   |           |   |",
+    "+   +---+---+   +   +",
+    "|       |           |",
+    "+---+---+---+---+---+"
+  ],
   "objects": [
-    { "id": "bone", "count": 4 },
-    { "id": "bandage", "count": 1 }
+    {
+      "type": "ladder-down",
+      "x": 2,
+      "y": 1
+    },
+    {
+      "type": "ladder-up",
+      "x": 18,
+      "y": 5
+    },
+    {
+      "type": "mushroom",
+      "x": 18,
+      "y": 3
+    },
+    {
+      "type": "mushroom",
+      "x": 10,
+      "y": 1
+    },
+    {
+      "type": "bone",
+      "x": 14,
+      "y": 3
+    },
+    {
+      "type": "vines",
+      "x": 6,
+      "y": 3
+    },
+    {
+      "type": "vines",
+      "x": 14,
+      "y": 1
+    }
   ]
 }

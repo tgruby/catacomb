@@ -22,14 +22,10 @@
     },
     "nearby": {
       "position": "floor",
-      "frames": [
-        [
-          "(:)", 
-          "@;@"
-      ]
-    ]
+      "frames": [["(:)", "@;@"]]
     },
     "here": {
+      "message": "You see a giant mushroom growing here.",
       "position": "floor",
       "frames": [
         [

@@ -8,9 +8,7 @@ import MapView from '../hud/MapView.js'
 import Messages from '../hud/Messages.js'
 import GameStats from '../hud/GameStats.js'
 import HeroVitals from '../hud/HeroVitals.js'
-// import EnemyVitals from '../hud/EnemyVitals.js'
 import LevelComplete from '../modals/LevelComplete.js'
-import LevelGenerator from '../game/LevelGenerator.js'
 import MovementEngine from '../game/MovementEngine.js'
 import CompanionVitals from '../hud/CompanionVitals.js'
 import FirstPersonView from '../hud/FirstPersonView.js'
@@ -25,8 +23,6 @@ export default class HUD extends Screen {
 
     // create the main game objects
     this.time = new Time()
-    this.catacombs = new LevelGenerator()
-    state.set({ key: 'catacombs', value: this.catacombs })
     this.hero = new Hero()
     state.set({ key: 'hero', value: this.hero })
     this.movement = new MovementEngine(this.hero)

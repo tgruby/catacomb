@@ -1,15 +1,20 @@
-import { locationHash } from './LevelGenerator.js'
+import { xyHash } from './Util.js'
 import state from './SharedState.js'
 import objectsLoader from './GameObjectLoader.js'
+import levelLoader from './LevelLoader.js'
 
 export default class MovementEngine {
   constructor(hero) {
+    this.initialized = false
     this.hero = hero
+    this.catacombs = levelLoader
+    this.catacombs.loadNextLevel()
     state.subscribe({
       key: 'hero.position',
-      callback: this.setPointOfView.bind(this)
+      callback: this._setPointOfView.bind(this)
     })
   }
+
   // layers to pov mapping:
 
   // 'layer_1_door': this.near_left_door,
@@ -74,23 +79,7 @@ export default class MovementEngine {
     ['layer_9_', -1, 0]
   ]
 
-  moveDown() {
-    const position = state.get('hero.position')
-    const current = this.getGameObjectAt(position)
-    // first check to see if we are engaged in combat with a creature
-    if (current !== undefined) {
-      if (current.getType() === 'ladder-down') {
-        // we can move the hero to the next level
-        state.set({ key: 'catacombs.next.level', value: true })
-        this.hero.moved()
-        new Audio('sounds/level-complete.mp3').play()
-        return true
-      }
-    }
-    return false
-  }
-
-  moveForward() {
+  async moveForward() {
     const position = state.get('hero.position')
 
     // now check to see if we are too tired to move
@@ -107,7 +96,7 @@ export default class MovementEngine {
     if (position.direction === 'south') newY = newY + 1
     if (position.direction === 'east') newX = newX + 2
     if (position.direction === 'west') newX = newX - 2
-    const next = this.getGameObjectAt({ y: newY, x: newX })
+    const next = this._getGameObjectAt({ y: newY, x: newX })
 
     // if there is an obstruction, don't move the hero.
     if (next !== undefined && next.obstructsMovement()) return
@@ -121,7 +110,7 @@ export default class MovementEngine {
     new Audio('sounds/footstep.mp3').play()
   }
 
-  turnLeft() {
+  async turnLeft() {
     const position = state.get('hero.position')
     if (position.direction === 'north') position.direction = 'west'
     else if (position.direction === 'west') position.direction = 'south'
@@ -130,7 +119,7 @@ export default class MovementEngine {
     state.set({ key: 'hero.position', value: position })
   }
 
-  turnRight() {
+  async turnRight() {
     const position = state.get('hero.position')
     if (position.direction === 'north') position.direction = 'east'
     else if (position.direction === 'east') position.direction = 'south'
@@ -139,7 +128,23 @@ export default class MovementEngine {
     state.set({ key: 'hero.position', value: position })
   }
 
-  setPointOfView() {
+  async moveDown() {
+    const position = state.get('hero.position')
+    const current = this._getGameObjectAt(position)
+    // first check to see if we are engaged in combat with a creature
+    if (current !== undefined) {
+      if (current.getType() === 'ladder-down') {
+        // we can move the hero to the next level
+        state.set({ key: 'catacombs.next.level', value: true })
+        this.hero.moved()
+        new Audio('sounds/level-complete.mp3').play()
+        return true
+      }
+    }
+    return false
+  }
+
+  _setPointOfView() {
     const position = state.get('hero.position')
     let background = []
     let offsets = this.NorthView
@@ -149,7 +154,7 @@ export default class MovementEngine {
     if (position.direction === 'west') offsets = this.WestView
 
     for (let i = 0; i < offsets.length; i++) {
-      const backgroundFeature = this.getBackgroundFeatureAt(position.y + offsets[i][1], position.x + offsets[i][2])
+      const backgroundFeature = this._getBackgroundFeatureAt(position.y + offsets[i][1], position.x + offsets[i][2])
       if (backgroundFeature) background.push(offsets[i][0] + backgroundFeature)
     }
     background = background.sort()
@@ -175,28 +180,24 @@ export default class MovementEngine {
     const response = { background }
 
     // Now look for objects in the viewable area and add them to the response
-    const near = this.getLayer(offsets, 'layer_4_')
-    const middle = this.getLayer(offsets, 'layer_5_')
-    const far = this.getLayer(offsets, 'layer_6_')
-    const hereEntity = this.getGameObjectAt({ y: position.y, x: position.x })
-    const nearEntity = this.getGameObjectAt({
+    const near = this._getLayer(offsets, 'layer_4_')
+    const middle = this._getLayer(offsets, 'layer_5_')
+    const far = this._getLayer(offsets, 'layer_6_')
+    const hereEntity = this._getGameObjectAt({ y: position.y, x: position.x })
+    const nearEntity = this._getGameObjectAt({
       y: position.y + near[1],
       x: position.x + near[2]
     })
-    const midEntity = this.getGameObjectAt({
+    const midEntity = this._getGameObjectAt({
       y: position.y + middle[1],
       x: position.x + middle[2]
     })
-    const farEntity = this.getGameObjectAt({
+    const farEntity = this._getGameObjectAt({
       y: position.y + far[1],
       x: position.x + far[2]
     })
     if (hereEntity) {
       response.here = hereEntity.getPerspective('here')
-      state.set({
-        key: 'message.center',
-        value: `you see ${hereEntity.getNameWithArticle()}`
-      })
     }
     if (nearEntity) response.nearby = nearEntity.getPerspective('nearby')
     if (midEntity) response.midRange = midEntity.getPerspective('midRange')
@@ -205,35 +206,35 @@ export default class MovementEngine {
     state.set({ key: 'hero.viewpoint', value: response })
   }
 
-  getLayer(offsets, name) {
+  _getLayer(offsets, name) {
     for (let i = 0; i < offsets.length; i++) {
       if (offsets[i][0] === name) return offsets[i]
     }
     return undefined
   }
 
-  getGameObjectAt(props) {
+  _getGameObjectAt(props) {
     const { y, x } = props
     const map = state.get('catacombs.map')
     const entities = state.get('catacombs.objects')
     if (y < 0 || y >= map.length) return undefined
     if (x < 0 || x >= map[y].length) return undefined
 
-    if (locationHash(y, x) in entities) return entities[locationHash(y, x)]
+    if (xyHash({ y, x }) in entities) return entities[xyHash({ y, x })]
     const symbol = map[y][x]
     if (symbol === ' ') return undefined
     if (symbol === '|' || symbol === '+' || symbol === '-') return objectsLoader.getInstanceOf('wall')
   }
 
-  removeGameObjectAt(props) {
+  _removeGameObjectAt(props) {
     const { y, x } = props
     const entities = state.get('catacombs.objects')
-    if (locationHash(y, x) in entities) delete entities[locationHash(y, x)]
+    if (xyHash({ y, x }) in entities) delete entities[xyHash({ y, x })]
     state.set({ key: 'catacombs.objects', value: entities })
-    this.setPointOfView()
+    this._setPointOfView()
   }
 
-  getBackgroundFeatureAt(y, x) {
+  _getBackgroundFeatureAt(y, x) {
     const map = state.get('catacombs.map')
     if (y < 0 || y >= map.length) return undefined
     if (x < 0 || x >= map[y].length) return undefined

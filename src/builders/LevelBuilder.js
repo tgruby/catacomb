@@ -1,8 +1,7 @@
-import state from './SharedState.js'
-import objectLoader from './GameObjectLoader.js'
-import levelLoader from './LevelLoader.js'
+import fs from 'fs/promises'
+import { xyHash } from '../game/Util.js'
 
-export default class LevelGenerator {
+class LevelGenerator {
   // Map is a 2D array of chars.
   // example 10x10 grid = [
   //      0123456789012345678
@@ -23,125 +22,102 @@ export default class LevelGenerator {
   // only place items and creatures on odd values of y and x
 
   constructor() {
-    this.level = -1
-    this.objective = undefined
-    this.x = 0
-    this.y = 0
-    this.direction = 'south'
-    this.map = undefined
-    this.gameObjects = {}
-    this.startNewLevel()
-
-    state.subscribe({
-      key: 'catacombs.next.level',
-      callback: this.startNewLevel.bind(this)
-    })
+    this.fileName = 'level-999.json'
+    this.name = 'New Level'
+    this.objective = 'Find the exit'
+    this.width = 10
+    this.height = 10
+    this.map = []
+    this.objects = {}
   }
 
-  async startNewLevel() {
-    await levelLoader.initialize()
-    await objectLoader.initialize()
-    this.level++
-    const levelGuide = levelLoader.get(this.level)
-    this.map = this.createMaze(levelGuide.mapWidth, levelGuide.mapHeight)
-    this.gameObjects = {}
-    this.addExit(levelGuide.mapWidth, levelGuide.mapHeight)
-    this.addTombs(levelGuide.mapWidth, levelGuide.mapHeight)
-    for (let i = 0; i < levelGuide.objects.length; i++) {
-      const gameObject = levelGuide.objects[i]
-      this.addItem(gameObject.id, gameObject.count, levelGuide.mapWidth, levelGuide.mapHeight)
-    }
+  async build() {
+    // Define the path to the JSON configuration file
+    const file = './LevelBuilder.json'
+    console.log(`--- building level ---`)
 
-    const position = {
-      x: this.x,
-      y: this.y,
-      direction: this.direction
-    }
+    try {
+      // Use fs.promises to read the JSON file asynchronously
+      const data = await fs.readFile(file, 'utf-8')
+      const config = JSON.parse(data)
 
-    state.set({ key: 'catacombs.map', value: this.map })
-    state.set({ key: 'catacombs.objects', value: this.gameObjects })
-    state.set({
-      key: 'catacombs.level.objective',
-      value: levelGuide.objective
-    })
-    state.set({ key: 'catacombs.level', value: this.level })
-    state.set({ key: 'hero.position', value: position })
-    const hero = state.get('hero')
-    hero.addJournalEntry(levelGuide.journalEntry)
+      if (config.name) this.name = config.name
+      if (config.objective) this.objective = config.objective
+      if (config.mapWidth) this.width = config.mapWidth
+      if (config.mapHeight) this.height = config.mapHeight
+      if (config.fileName) this.fileName = config.fileName
+      if (!config.objects) config.objects = []
+
+      console.log(` - successfully loaded ${file}`)
+
+      this.map = this.createMaze()
+      console.log(' - created base map')
+
+      // Add the exit points
+      this.addEntranceAndExit()
+      console.log(' - added entrance and exit')
+
+      // Add tombs
+      this.addTombRooms()
+      console.log(' - added tomb rooms')
+
+      // Add game objects randomly to the map
+      for (let i = 0; i < config.objects.length; i++) {
+        const gameObject = config.objects[i]
+        this.addObjects(gameObject.type, gameObject.text, gameObject.count)
+      }
+      console.log(' - added game objects')
+      console.log(this.map)
+
+      // Save the final level configuration to a JSON file
+      await this.saveToJson()
+      console.log('--- level build complete ---')
+    } catch (error) {
+      console.error(`Error building level: ${error.message}`)
+      console.error(error)
+    }
   }
 
-  addExit(mazeWidth, mazeHeight) {
-    this.y = this.yOffset(0)
-    this.x = this.xOffset(0)
-    this.direction = 'south'
-    const upperLeft = locationHash(this.y, this.x)
-    const lowerRight = locationHash(this.yOffset(mazeHeight - 1), this.xOffset(mazeWidth - 1))
+  async saveToJson() {
+    const jsonOutput = {
+      name: this.name,
+      objective: this.objective,
+      map: this.map,
+      objects: Object.values(this.objects)
+    }
+
+    try {
+      await fs.writeFile(this.fileName, JSON.stringify(jsonOutput, null, 2), 'utf-8')
+      console.log(` - successfully wrote level data to ${this.fileName}`)
+    } catch (error) {
+      console.error(`Error writing JSON to file: ${error.message}`)
+    }
+  }
+
+  addEntranceAndExit() {
+    let upperLeftObject = 'ladder-up'
+    let lowerRightObject = 'ladder-down'
     if (this.level % 2 === 0) {
-      const up =
-        this.level === 0 ? objectLoader.getInstanceOf('hole-in-ceiling') : objectLoader.getInstanceOf('ladder-up')
-      this.gameObjects[upperLeft] = up
-      this.gameObjects[lowerRight] = objectLoader.getInstanceOf('ladder-down')
+      if (this.level === 0) upperLeftObject = 'hole-in-ceiling'
     } else {
-      this.y = this.yOffset(mazeHeight - 1)
-      this.x = this.xOffset(mazeWidth - 1)
-      this.direction = 'north'
-      this.gameObjects[upperLeft] = objectLoader.getInstanceOf('ladder-down')
-      this.gameObjects[lowerRight] = objectLoader.getInstanceOf('ladder-up')
+      upperLeftObject = 'ladder-down'
+      lowerRightObject = 'ladder-up'
     }
-  }
 
-  // Tombs are marked with a 'o'.
-  // Doors are placed at all dead ends with openings to the north and south.
-  addTombs(mazeWidth, mazeHeight) {
-    for (let y = 0; y < mazeHeight; y++) {
-      const yPos = this.yOffset(y)
-      for (let x = 0; x < mazeWidth; x++) {
-        const xPos = this.xOffset(x)
-        this.replaceSpacesWithDoors(xPos, yPos)
-      }
+    const upperLeftxy = xyHash({ x: this.xOffset(0), y: this.yOffset(0) })
+    const upperLeft = {
+      type: upperLeftObject,
+      x: this.xOffset(0),
+      y: this.yOffset(0)
     }
-  }
-
-  // identify dead ends to the north or south.
-  // If there is a dead end to the north or south, then specify the x and y position of the opening.
-  replaceSpacesWithDoors(xPos, yPos) {
-    if (this.map[yPos][xPos] != ' ') return
-    if (this.gameObjects[locationHash(yPos, xPos)]) return
-    const wallDirections = []
-    if (this.map[yPos][xPos - 2] != ' ' && this.map[yPos][xPos - 2] != 'o') wallDirections.push('west')
-    if (this.map[yPos][xPos + 2] != ' ' && this.map[yPos][xPos + 2] != 'o') wallDirections.push('east')
-    if (this.map[yPos - 1][xPos] != ' ' && this.map[yPos - 1][xPos] != 'o') wallDirections.push('north')
-    if (this.map[yPos + 1][xPos] != ' ' && this.map[yPos + 1][xPos] != 'o') wallDirections.push('south')
-    if (wallDirections.length == 3) {
-      if (wallDirections.includes('north') && !wallDirections.includes('south')) {
-        this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos - 1, '-')
-        this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos, 'o')
-        this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos + 1, '-')
-        this.gameObjects[locationHash(yPos + 1, xPos)] = objectLoader.getInstanceOf('door')
-        this.gameObjects[locationHash(yPos, xPos)] = objectLoader.getInstanceOf('sarcophagus')
-      } else if (!wallDirections.includes('north') && wallDirections.includes('south')) {
-        this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos - 1, '-')
-        this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos, 'o')
-        this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos + 1, '-')
-        this.gameObjects[locationHash(yPos - 1, xPos)] = objectLoader.getInstanceOf('door')
-        this.gameObjects[locationHash(yPos, xPos)] = objectLoader.getInstanceOf('sarcophagus')
-      }
+    const lowerRightxy = xyHash({ x: this.xOffset(this.width - 1), y: this.yOffset(this.height - 1) })
+    const lowerRight = {
+      type: lowerRightObject,
+      x: this.xOffset(this.width - 1),
+      y: this.yOffset(this.height - 1)
     }
-  }
-
-  addItem(itemName, count, mazeWidth, mazeHeight, offByOne = false) {
-    for (let i = 0; i < count; i++) {
-      const posX = Math.floor(Math.random() * mazeWidth)
-      const posY = Math.floor(Math.random() * mazeHeight)
-      const x = this.xOffset(posX)
-      let y = this.yOffset(posY)
-      if (offByOne) y--
-      if (this.map[y][x] === ' ' && !this.gameObjects[locationHash(y, x)]) {
-        this.gameObjects[locationHash(y, x)] = objectLoader.getInstanceOf(itemName)
-      } else {
-        i-- // try again
-      }
-    }
+    this.objects[upperLeftxy] = upperLeft
+    this.objects[lowerRightxy] = lowerRight
   }
 
   xOffset(x) {
@@ -152,20 +128,94 @@ export default class LevelGenerator {
     return y * 2 + 1
   }
 
+  // Tombs are marked with a 'o'.
+  // Doors are placed at all dead ends with openings to the north and south.
+  addTombRooms() {
+    for (let y = 0; y < this.height; y++) {
+      const yPos = this.yOffset(y)
+      for (let x = 0; x < this.width; x++) {
+        const xPos = this.xOffset(x)
+        this.replaceSpacesWithDoors(xPos, yPos)
+      }
+    }
+  }
+
+  // identify dead ends to the north or south.
+  // If there is a dead end to the north or south, then specify the x and y position of the opening.
+  replaceSpacesWithDoors(xPos, yPos) {
+    if (this.map[yPos][xPos] != ' ') return
+    if (this.objects[xyHash({ y: yPos, x: xPos })]) return
+    const wallDirections = []
+    if (this.map[yPos][xPos - 2] != ' ' && this.map[yPos][xPos - 2] != 'o') wallDirections.push('west')
+    if (this.map[yPos][xPos + 2] != ' ' && this.map[yPos][xPos + 2] != 'o') wallDirections.push('east')
+    if (this.map[yPos - 1][xPos] != ' ' && this.map[yPos - 1][xPos] != 'o') wallDirections.push('north')
+    if (this.map[yPos + 1][xPos] != ' ' && this.map[yPos + 1][xPos] != 'o') wallDirections.push('south')
+    if (wallDirections.length == 3) {
+      if (wallDirections.includes('north') && !wallDirections.includes('south')) {
+        this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos - 1, '-')
+        this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos, 'o')
+        this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos + 1, '-')
+        this.objects[xyHash({ y: yPos + 1, x: xPos })] = {
+          type: 'door',
+          x: xPos,
+          y: yPos + 1
+        }
+        this.objects[xyHash({ y: yPos, x: xPos })] = {
+          type: 'sarcophagus',
+          x: xPos,
+          y: yPos
+        }
+      } else if (!wallDirections.includes('north') && wallDirections.includes('south')) {
+        this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos - 1, '-')
+        this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos, 'o')
+        this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos + 1, '-')
+        this.objects[xyHash({ y: yPos - 1, x: xPos })] = {
+          type: 'door',
+          x: xPos,
+          y: yPos - 1
+        }
+        this.objects[xyHash({ y: yPos, x: xPos })] = {
+          type: 'sarcophagus',
+          x: xPos,
+          y: yPos
+        }
+      }
+    }
+  }
+
+  addObjects(itemName, text = undefined, count) {
+    for (let i = 0; i < count; i++) {
+      const posX = Math.floor(Math.random() * this.width)
+      const posY = Math.floor(Math.random() * this.height)
+      const x = this.xOffset(posX)
+      let y = this.yOffset(posY)
+      if (this.map[y][x] === ' ' && !this.objects[xyHash({ y, x })]) {
+        this.objects[xyHash({ y, x })] = {
+          type: itemName,
+          x,
+          y,
+          text
+        }
+      } else {
+        i-- // try again
+      }
+    }
+  }
+
   replaceAt(string, index, replacement) {
     return string.substr(0, index) + replacement + string.substr(index + replacement.length)
   }
 
-  createMaze(width, height) {
+  createMaze() {
     // Establish variables and starting grid
-    const totalCells = height * width
+    const totalCells = this.height * this.width
     const unvisited = [] // cells that are unvisited.
     const maze = []
-    for (let y = 0; y < height; y++) {
+    for (let y = 0; y < this.height; y++) {
       unvisited[y] = []
       maze[y * 2] = ''
       maze[y * 2 + 1] = ''
-      for (let x = 0; x < width; x++) {
+      for (let x = 0; x < this.width; x++) {
         maze[y * 2] += '+---'
         maze[y * 2 + 1] += '|   '
         unvisited[y][x] = true
@@ -173,14 +223,14 @@ export default class LevelGenerator {
       maze[y * 2] += '+'
       maze[y * 2 + 1] += '|'
     }
-    maze[height * 2] = ''
-    for (let x = 0; x < width; x++) {
-      maze[height * 2] += '+---'
+    maze[this.height * 2] = ''
+    for (let x = 0; x < this.width; x++) {
+      maze[this.height * 2] += '+---'
     }
-    maze[height * 2] += '+'
+    maze[this.height * 2] += '+'
 
     // Set a random position to start from
-    let current = [Math.floor(Math.random() * height), Math.floor(Math.random() * width)]
+    let current = [Math.floor(Math.random() * this.height), Math.floor(Math.random() * this.width)]
     const path = [current]
     unvisited[current[0]][current[1]] = false
     let visited = 1
@@ -199,9 +249,9 @@ export default class LevelGenerator {
       for (let i = 0; i < possibleNeighbors.length; i++) {
         if (
           possibleNeighbors[i][0] > -1 &&
-          possibleNeighbors[i][0] < height &&
+          possibleNeighbors[i][0] < this.height &&
           possibleNeighbors[i][1] > -1 &&
-          possibleNeighbors[i][1] < width &&
+          possibleNeighbors[i][1] < this.width &&
           unvisited[possibleNeighbors[i][0]][possibleNeighbors[i][1]] == true
         ) {
           neighbors.push(possibleNeighbors[i])
@@ -252,6 +302,5 @@ export default class LevelGenerator {
   }
 }
 
-export function locationHash(y, x) {
-  return 'y' + y + ',x' + x
-}
+const builder = new LevelGenerator()
+builder.build()

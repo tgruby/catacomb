@@ -18,17 +18,9 @@
       "frames": [["':''"]]
     },
     "here": {
+      "message": "You see glowing vines growing from the ceiling.",
       "position": "ceiling",
-      "frames": [
-        [
-          "@@@@@@@", 
-          "|@|@|@|", 
-          "|@|@|@o", 
-          "o@|@|@@", 
-          "@@|@o@@", 
-          "@@o@@@@"
-          ]
-        ]
+      "frames": [["@@@@@@@", "|@|@|@|", "|@|@|@o", "o@|@|@@", "@@|@o@@", "@@o@@@@"]]
     }
   }
 }

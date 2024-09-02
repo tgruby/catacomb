@@ -1,0 +1,12 @@
+{
+  "name": "game-message",
+  "description": "Messages are special objects that are used to communicate with the player. They are not physical objects that can be picked up or interacted with.",
+  "obstructsMovement": false,
+  "allowsPickup": false,
+  "health": 1000,
+  "perspective": {
+    "here": {
+      "message": "Did you forget to add a text element for this object in the level.json?"
+    }
+  }
+}

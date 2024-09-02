@@ -9,7 +9,7 @@ export default class Modal extends Screen {
   }
 
   close() {
-    console.log('closing modal')
+    console.log('closing modal: ', this)
     this.parent.removeGrid(this.id)
     state.set({ key: 'request.screen.draw', value: true })
   }

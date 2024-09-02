@@ -137,58 +137,11 @@ export default class CatacombsBackground {
     '__|'
   ]
 
-  static far_left_wall = [
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '╲ ',
-    '.╲',
-    ' |',
-    '.|',
-    '╱ '
-  ]
+  static far_left_wall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '╲ ', '.╲', ' |', '.|', '╱ ']
 
-  static far_left_door = [
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '╲ ',
-    '.╲',
-    ':|',
-    ':|',
-    '╱ '
-  ]
+  static far_left_door = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '╲ ', '.╲', ':|', ':|', '╱ ']
 
-  static far_left_hall = [
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '_ ',
-    '.|',
-    '_|'
-  ]
+  static far_left_hall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '_ ', '.|', '_|']
 
   static middle_center_wall = [
     '      ',
@@ -229,22 +182,7 @@ export default class CatacombsBackground {
     '____________'
   ]
 
-  static far_center_wall = [
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '__',
-    '. ',
-    '__'
-  ]
+  static far_center_wall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '__', '. ', '__']
 
   static far_center_door = ['  ']
   static far_center_hall = ['  ']
@@ -388,58 +326,11 @@ export default class CatacombsBackground {
     '  ╲'
   ]
 
-  static far_right_wall = [
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    ' ╱',
-    '╱.',
-    '|.',
-    '|.',
-    ' ╲'
-  ]
+  static far_right_wall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', ' ╱', '╱.', '|.', '|.', ' ╲']
 
-  static far_right_hall = [
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    ' _',
-    '|.',
-    '|_'
-  ]
+  static far_right_hall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', ' _', '|.', '|_']
 
-  static far_right_door = [
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    '  ',
-    ' ╱',
-    '╱.',
-    '|:',
-    '|:',
-    ' ╲'
-  ]
+  static far_right_door = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', ' ╱', '╱.', '|:', '|:', ' ╲']
 
   static sprites = {
     layer_1_door: this.near_left_door,

@@ -14,14 +14,9 @@
       "frames": [[":‧‧:"]]
     },
     "here": {
+      "message": "You see a dirty, creepy, bone laying on the ground.",
       "position": "floor",
-      "frames": [
-        [
-          "@⎽@@@@@@@⎽@", 
-          "(_'⎯⎯⎯⎯⎯'_)", 
-          "(⎽.⎯⎯⎯⎯⎯.⎽)"
-          ]
-        ]
+      "frames": [["@⎽@@@@@@@⎽@", "(_'⎯⎯⎯⎯⎯'_)", "(⎽.⎯⎯⎯⎯⎯.⎽)"]]
     }
   }
 }

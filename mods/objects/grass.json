@@ -4,13 +4,7 @@
   "obstructsMovement": false,
   "allowsPickup": true,
   "health": 5,
-  "image": [
-    "╲╲|╱╱", 
-    "@╲|╱@", 
-    "@===@", 
-    "@╱|╲@", 
-    "╱╱|╲╲"
-  ],
+  "image": ["╲╲|╱╱", "@╲|╱@", "@===@", "@╱|╲@", "╱╱|╲╲"],
   "perspective": {
     "midRange": {
       "position": "floor",
@@ -21,6 +15,7 @@
       "frames": [["...."]]
     },
     "here": {
+      "message": "You see brown grass growing here.",
       "position": "floor",
       "frames": [["_\\|/__\\_\\//__"]]
     }

@@ -1,0 +1,14 @@
+{
+  "fileName": "../../mods/levels/level-000.json", 
+  "name": "Day One",
+  "objective": "Find some light.",
+  "doc": "This is an example of a config that generates a level, placing object randomly on the map. After the level is generated, you may manually edit the file.",
+  "mapWidth": 5,
+  "mapHeight": 3,
+  "objects": [
+    { "type": "mushroom", "count": 2 },
+    { "type": "torch", "count": 1 },
+    { "type": "game-message", "text": "it's really dark down here..." }
+  ]
+}
+  

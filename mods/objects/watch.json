@@ -18,6 +18,7 @@
       "frames": [["::"]]
     },
     "here": {
+      "message": "You see a digital watch laying on the ground.",
       "position": "floor",
       "frames": [["@╭―――╮@", "╭―――――╮", "⏐12:00⏐", "╰―――――╯", "@╰―――╯@"]]
     }

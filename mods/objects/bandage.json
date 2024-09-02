@@ -23,23 +23,12 @@
     },
     "nearby": {
       "position": "floor",
-      "frames": [
-        [
-          "@__", 
-          "O__)"
-          ]
-        ]
+      "frames": [["@__", "O__)"]]
     },
     "here": {
+      "message": "You see a bandage laying on the ground.",
       "position": "floor",
-      "frames": [
-        [
-          "@_________@",
-          "╱ ╲       ╲",
-          "⎸  ⎸~~~~~~⎹",
-          "╲_╱_______╱"
-        ]
-      ]
+      "frames": [["@_________@", "╱ ╲       ╲", "⎸  ⎸~~~~~~⎹", "╲_╱_______╱"]]
     }
   }
 }

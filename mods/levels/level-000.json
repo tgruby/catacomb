@@ -1,18 +1,34 @@
 {
   "name": "Day One",
-  "objective": "Stop the bleeding.",
-  "journalEntry": "I seem to have fallen down a hole.  My leg is badly lacerated. I need to find something to stop the bleeding.",
-  "mapWidth": 5,
-  "mapHeight": 5,
+  "objective": "It's dark down here... better find some light.",
+  "map": [
+    "+---+---+---+---+---+",
+    "|   |               |",
+    "+   +   +---+---+   +",
+    "|               |   |",
+    "+---+---+---+---+---+"
+  ],
   "objects": [
-    { "id": "map", "count": 1 },
-    { "id": "vines", "count": 1 },
-    { "id": "grass", "count": 1 },
-    { "id": "bone", "count": 1 },
-    { "id": "bandage", "count": 1 },
-    { "id": "torch", "count": 1 },
-    { "id": "journal", "count": 1 },
-    { "id": "bone-knife", "count": 1 },
-    { "id": "mushroom", "count": 1 }
+    {
+      "type": "ladder-down",
+      "x": 2,
+      "y": 1
+    },
+    {
+      "type": "ladder-up",
+      "x": 18,
+      "y": 3
+    },
+    {
+      "type": "torch",
+      "x": 6,
+      "y": 1
+    },
+    {
+      "type": "game-message",
+      "x": 14,
+      "y": 1,
+      "text": "You wake up in a dark room."
+    }
   ]
 }

@@ -43,6 +43,7 @@ export default class GameStats extends Grid {
 
   updateCatacombsLevel() {
     const objective = state.get('catacombs.level.objective')
+    if (!objective) return
     this.add({ x: 'right', y: 4, string: `Objective: ${objective}` })
     state.set({ key: 'request.screen.draw', value: true })
   }

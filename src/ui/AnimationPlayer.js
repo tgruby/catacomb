@@ -11,9 +11,10 @@ export default class AnimationPlayer extends Grid {
 
     super(props)
 
-    const { frames, loop, frameSpeed, backfill, color, sound, autoPlay, parent } = props
+    const { frames, loop, frameSpeed, backfill, color, sound, autoPlay, message, parent } = props
     this.color = color || undefined
     this.sound = sound || undefined
+    this.message = message || undefined
     this.frames = frames || [] // frames for this animation.
     this.loop = loop || 0 // number of times to loop the animation.
     this.frameSpeed = frameSpeed || 100 // play speed, in milliseconds.
@@ -24,6 +25,7 @@ export default class AnimationPlayer extends Grid {
 
   async play() {
     if (this.sound) new Audio(this.sound).play()
+    if (this.message) state.set({ key: 'message.center', value: this.message })
     while (this.loop > -1) {
       for (let i = 0; i < this.frames.length; i++) {
         const frame = this.frames[i]

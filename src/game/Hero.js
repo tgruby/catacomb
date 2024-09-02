@@ -4,31 +4,17 @@ import objectLoader from './GameObjectLoader.js'
 
 export default class Hero {
   constructor() {
-    state.set({
-      key: 'hero.stamina',
-      value: { current: 60, max: 100 }
-    })
-    state.set({
-      key: 'hero.health',
-      value: { current: 35, max: 100 }
-    })
-    state.set({
-      key: 'hero.hunger',
-      value: { current: 85, max: 100 }
-    })
-    state.set({
-      key: 'hero.magic',
-      value: { current: 0, max: 100 }
-    })
-    state.set({
-      key: 'companion.health',
-      value: { current: 0, max: 100 }
-    })
+    state.set({ key: 'hero.position', value: { x: 2, y: 1, direction: 'east' } })
+    state.set({ key: 'hero.stamina', value: { current: 60, max: 100 } })
+    state.set({ key: 'hero.health', value: { current: 35, max: 100 } })
+    state.set({ key: 'hero.hunger', value: { current: 85, max: 100 } })
+    state.set({ key: 'hero.magic', value: { current: 0, max: 100 } })
+    state.set({ key: 'companion.health', value: { current: 0, max: 100 } })
     state.set({ key: 'hero.armor', value: 0 })
     state.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []
     inventory.push(objectLoader.getInstanceOf('watch'))
-    inventory.push(objectLoader.getInstanceOf('journal'))
+    inventory.push(objectLoader.getInstanceOf('map'))
     inventory.push(objectLoader.getInstanceOf('bone-knife'))
     state.set({ key: 'hero.inventory', value: inventory })
     state.set({ key: 'hero.xp', value: { current: 10, nextLevel: 1000 } })
@@ -72,12 +58,12 @@ export default class Hero {
         // if an item or creature is 'here', do damage to it.
         const movementEngine = state.get('movement')
         const position = state.get('hero.position')
-        const target = movementEngine.getGameObjectAt(position)
+        const target = movementEngine._getGameObjectAt(position)
         if (target) {
           const damage = weapon.getAttack().damage
           target.setHealth(target.getHealth() - damage)
           if (target.getHealth() <= 0) {
-            movementEngine.removeGameObjectAt(position)
+            movementEngine._removeGameObjectAt(position)
             if (target.getDestroyedSound()) {
               new Audio(target.getDestroyedSound()).play()
             } else {
@@ -94,7 +80,7 @@ export default class Hero {
   pickUp() {
     const position = state.get('hero.position')
     const movement = state.get('movement')
-    const item = movement.getGameObjectAt(position)
+    const item = movement._getGameObjectAt(position)
     if (!item) return
     if (!item.allowsPickup()) {
       state.set({ key: 'message.center', value: `cannot pick up ${item.getName().toLowerCase()}` })
@@ -106,7 +92,7 @@ export default class Hero {
       return
     }
     state.get('hero.inventory').push(item) // the inventory will not notify the UI of the change
-    movement.removeGameObjectAt(position)
+    movement._removeGameObjectAt(position)
     new AudioPlayer('sounds/pickup-item.mp3').play()
     state.set({ key: 'message.center', value: `you pick up the ${item.getName().toLowerCase()}` })
   }
