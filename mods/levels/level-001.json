@@ -1,50 +1,46 @@
 {
   "name": "Day One",
-  "objective": "Your getting hungry... maybe you should find something to eat.",
+  "objective": "Find some light.",
   "map": [
-    "+---+---+---+---+---+",
-    "|       |           |",
-    "+   +   +---+---+   +",
-    "|   |           |   |",
-    "+   +---+---+   +   +",
-    "|       |           |",
-    "+---+---+---+---+---+"
+    "+---+---+---+---+",
+    "|   |           |",
+    "+-o-+   +---+-o-+",
+    "|       |   |   |",
+    "+   +---+-o-+---+",
+    "|           |   |",
+    "+---+---+   +-o-+",
+    "|               |",
+    "+---+---+---+---+"
   ],
-  "objects": [
-    {
-      "type": "ladder-down",
-      "x": 2,
-      "y": 1
+  "objectPositions": [
+    "+---+---+---+---+",
+    "| ^ |         3 |",
+    "+-o-+   +---+-o-+",
+    "|       |   |   |",
+    "+   +---+-o-+---+",
+    "| 1         | 2 |",
+    "+---+---+   +-o-+",
+    "|             v |",
+    "+---+---+---+---+"
+  ],
+  "objectKeyMappings": {
+    "1": {
+      "object": "grass"
     },
-    {
-      "type": "ladder-up",
-      "x": 18,
-      "y": 5
+    "2": {
+      "object": "bone"
     },
-    {
-      "type": "mushroom",
-      "x": 18,
-      "y": 3
+    "3": {
+      "object": "vines"
     },
-    {
-      "type": "mushroom",
-      "x": 10,
-      "y": 1
+    "o": {
+      "object": "door"
     },
-    {
-      "type": "bone",
-      "x": 14,
-      "y": 3
+    "^": {
+      "object": "ladder-up"
     },
-    {
-      "type": "vines",
-      "x": 6,
-      "y": 3
-    },
-    {
-      "type": "vines",
-      "x": 14,
-      "y": 1
+    "v": {
+      "object": "ladder-down"
     }
-  ]
+  }
 }

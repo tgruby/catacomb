@@ -1,6 +1,8 @@
 import fs from 'fs/promises'
 import { xyHash } from '../game/Util.js'
 
+const mapKeys = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
 class LevelGenerator {
   // Map is a 2D array of chars.
   // example 10x10 grid = [
@@ -24,11 +26,14 @@ class LevelGenerator {
   constructor() {
     this.fileName = 'level-999.json'
     this.name = 'New Level'
+    this.direction = 'left -> right'
     this.objective = 'Find the exit'
     this.width = 10
     this.height = 10
     this.map = []
-    this.objects = {}
+    this.objectPositions = []
+    this.objectKeyMappings = {}
+    this.currentKey = 0
   }
 
   async build() {
@@ -41,6 +46,7 @@ class LevelGenerator {
       const data = await fs.readFile(file, 'utf-8')
       const config = JSON.parse(data)
 
+      if (config.direction) this.direction = config.direction
       if (config.name) this.name = config.name
       if (config.objective) this.objective = config.objective
       if (config.mapWidth) this.width = config.mapWidth
@@ -48,25 +54,24 @@ class LevelGenerator {
       if (config.fileName) this.fileName = config.fileName
       if (!config.objects) config.objects = []
 
-      console.log(` - successfully loaded ${file}`)
-
       this.map = this.createMaze()
       console.log(' - created base map')
 
+      // Add tombs
+      this.objectKeyMappings['o'] = { object: 'door' }
+      this.addTombRooms()
+
+      // Create a copy of the map to place objects on
+      this.objectPositions = JSON.parse(JSON.stringify(this.map))
+
       // Add the exit points
       this.addEntranceAndExit()
-      console.log(' - added entrance and exit')
-
-      // Add tombs
-      this.addTombRooms()
-      console.log(' - added tomb rooms')
 
       // Add game objects randomly to the map
       for (let i = 0; i < config.objects.length; i++) {
         const gameObject = config.objects[i]
-        this.addObjects(gameObject.type, gameObject.text, gameObject.count)
+        this.addObjects(gameObject.mod, gameObject.text, gameObject.count)
       }
-      console.log(' - added game objects')
       console.log(this.map)
 
       // Save the final level configuration to a JSON file
@@ -83,7 +88,8 @@ class LevelGenerator {
       name: this.name,
       objective: this.objective,
       map: this.map,
-      objects: Object.values(this.objects)
+      objectPositions: this.objectPositions,
+      objectKeyMappings: this.objectKeyMappings
     }
 
     try {
@@ -95,29 +101,29 @@ class LevelGenerator {
   }
 
   addEntranceAndExit() {
-    let upperLeftObject = 'ladder-up'
-    let lowerRightObject = 'ladder-down'
-    if (this.level % 2 === 0) {
-      if (this.level === 0) upperLeftObject = 'hole-in-ceiling'
-    } else {
-      upperLeftObject = 'ladder-down'
-      lowerRightObject = 'ladder-up'
+    const ladderUp = { key: '^', value: 'ladder-up' }
+    const ladderDown = { key: 'v', value: 'ladder-down' }
+    let upperLeftObject = ladderUp
+    let lowerRightObject = ladderDown
+    console.log(this.direction)
+    if (this.direction !== 'left -> right') {
+      upperLeftObject = ladderDown
+      lowerRightObject = ladderUp
     }
 
-    const upperLeftxy = xyHash({ x: this.xOffset(0), y: this.yOffset(0) })
-    const upperLeft = {
-      type: upperLeftObject,
-      x: this.xOffset(0),
-      y: this.yOffset(0)
-    }
-    const lowerRightxy = xyHash({ x: this.xOffset(this.width - 1), y: this.yOffset(this.height - 1) })
-    const lowerRight = {
-      type: lowerRightObject,
-      x: this.xOffset(this.width - 1),
-      y: this.yOffset(this.height - 1)
-    }
-    this.objects[upperLeftxy] = upperLeft
-    this.objects[lowerRightxy] = lowerRight
+    this.objectPositions[this.yOffset(0)] = this.replaceAt(
+      this.objectPositions[this.yOffset(0)],
+      this.xOffset(0),
+      upperLeftObject.key
+    )
+    this.objectKeyMappings[upperLeftObject.key] = { object: upperLeftObject.value }
+
+    this.objectPositions[this.yOffset(this.height - 1)] = this.replaceAt(
+      this.objectPositions[this.yOffset(this.height - 1)],
+      this.xOffset(this.width - 1),
+      lowerRightObject.key
+    )
+    this.objectKeyMappings[lowerRightObject.key] = { object: lowerRightObject.value }
   }
 
   xOffset(x) {
@@ -128,7 +134,6 @@ class LevelGenerator {
     return y * 2 + 1
   }
 
-  // Tombs are marked with a 'o'.
   // Doors are placed at all dead ends with openings to the north and south.
   addTombRooms() {
     for (let y = 0; y < this.height; y++) {
@@ -144,7 +149,6 @@ class LevelGenerator {
   // If there is a dead end to the north or south, then specify the x and y position of the opening.
   replaceSpacesWithDoors(xPos, yPos) {
     if (this.map[yPos][xPos] != ' ') return
-    if (this.objects[xyHash({ y: yPos, x: xPos })]) return
     const wallDirections = []
     if (this.map[yPos][xPos - 2] != ' ' && this.map[yPos][xPos - 2] != 'o') wallDirections.push('west')
     if (this.map[yPos][xPos + 2] != ' ' && this.map[yPos][xPos + 2] != 'o') wallDirections.push('east')
@@ -155,30 +159,10 @@ class LevelGenerator {
         this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos - 1, '-')
         this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos, 'o')
         this.map[yPos + 1] = this.replaceAt(this.map[yPos + 1], xPos + 1, '-')
-        this.objects[xyHash({ y: yPos + 1, x: xPos })] = {
-          type: 'door',
-          x: xPos,
-          y: yPos + 1
-        }
-        this.objects[xyHash({ y: yPos, x: xPos })] = {
-          type: 'sarcophagus',
-          x: xPos,
-          y: yPos
-        }
       } else if (!wallDirections.includes('north') && wallDirections.includes('south')) {
         this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos - 1, '-')
         this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos, 'o')
         this.map[yPos - 1] = this.replaceAt(this.map[yPos - 1], xPos + 1, '-')
-        this.objects[xyHash({ y: yPos - 1, x: xPos })] = {
-          type: 'door',
-          x: xPos,
-          y: yPos - 1
-        }
-        this.objects[xyHash({ y: yPos, x: xPos })] = {
-          type: 'sarcophagus',
-          x: xPos,
-          y: yPos
-        }
       }
     }
   }
@@ -189,12 +173,13 @@ class LevelGenerator {
       const posY = Math.floor(Math.random() * this.height)
       const x = this.xOffset(posX)
       let y = this.yOffset(posY)
-      if (this.map[y][x] === ' ' && !this.objects[xyHash({ y, x })]) {
-        this.objects[xyHash({ y, x })] = {
-          type: itemName,
-          x,
-          y,
-          text
+      if (this.objectPositions[y][x] === ' ') {
+        this.currentKey++
+        const key = mapKeys[this.currentKey]
+        this.objectPositions[y] = this.replaceAt(this.objectPositions[y], x, key)
+        this.objectKeyMappings[key] = {
+          object: itemName,
+          text: text
         }
       } else {
         i-- // try again

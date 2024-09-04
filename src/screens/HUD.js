@@ -94,28 +94,14 @@ export default class HUD extends Screen {
         this.add({ grid: new LevelComplete({ parent: this }), x: 0, y: 0 })
         state.set({ key: 'request.screen.draw', value: true })
       }
-    } else if (e.key === 'Escape') {
-      this.add({ grid: new HelpMenu({ parent: this }), x: 'center', y: 5 })
-      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'f') {
       this.hero.attack()
       state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'e') {
       this.hero.pickUp()
       state.set({ key: 'request.screen.draw', value: true })
-    } else if (e.key === 'j') {
-      this.add({ grid: new Journal({ parent: this }), x: 'center', y: 2 })
-      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'q') {
       this.add({ grid: new Menus({ parent: this }), x: 'center', y: 2 })
-      state.set({ key: 'request.screen.draw', value: true })
-    } else if (e.key === 'i') {
-      this.add({
-        id: 'InventoryModal',
-        grid: new Inventory({ parent: this }),
-        x: 'center',
-        y: 2
-      })
       state.set({ key: 'request.screen.draw', value: true })
     } else {
       console.log('key', e.key)

@@ -103,6 +103,11 @@ export default class Hero {
   }
 
   useItem(itemType) {
+    if (typeof itemType !== 'string') {
+      console.error('hero.useItem requires a string argument')
+      console.error('you passed a ', itemType)
+      return
+    }
     // remove the item from the inventory
     const inventory = state.get('hero.inventory')
     const index = inventory.findIndex((item) => item.getType() === itemType)
@@ -111,8 +116,10 @@ export default class Hero {
       state.set({ key: 'message.center', value: `item ${itemType} not found in inventory` })
       return
     }
+    console.log('item index: ', index)
     const item = inventory[index]
-    if (item.getUsage() && item.getUsage().type === 'consumable') this._consume(item)
+    console.log('using item: ', item)
+    if (item.getUsage() && item.getUsage().type === 'consumable') this._consume(item, index)
     else if (item.getUsage() && item.getUsage().type === 'equippable') this._equip(item)
     else {
       state.set({
@@ -123,7 +130,7 @@ export default class Hero {
     }
   }
 
-  _consume(item) {
+  _consume(item, index) {
     const usage = item.getUsage()
 
     const hunger = state.get('hero.hunger')
@@ -144,7 +151,6 @@ export default class Hero {
     if (usage.sound) new AudioPlayer(usage.sound).play()
 
     let inventory = state.get('hero.inventory')
-    const index = inventory.findIndex((anItem) => anItem.id === item.id)
     inventory.splice(index, 1)[0]
     state.set({ key: 'hero.inventory', value: inventory })
   }

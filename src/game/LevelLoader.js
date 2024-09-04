@@ -1,6 +1,6 @@
 import state from './SharedState.js'
 import objectLoader from './GameObjectLoader.js'
-import { xyHash, xOffset, yOffset } from './Util.js'
+import { xyHash } from './Util.js'
 
 class LevelLoader {
   static ACTIVE_LEVELS_FILE = 'mods/levels/active-levels.json'
@@ -19,7 +19,7 @@ class LevelLoader {
         const levelJson = await levelAsString.json()
         this.levels.push(levelJson)
       }
-      console.log(`Levels Loaded into Memory: ${this.levels.length}`)
+      console.log(`Levels Loaded: ${this.levels.length}`)
       this.initialized = true
     }
   }
@@ -33,29 +33,27 @@ class LevelLoader {
   async _loadLevel() {
     await objectLoader.initialize()
     const theLevel = this.levels[this.currentLevel]
-    let gameObjects = {}
-    for (let i = 0; i < theLevel.objects.length; i++) {
-      const type = theLevel.objects[i].type
-      const x = theLevel.objects[i].x
-      let y = theLevel.objects[i].y
-      let text = theLevel.objects[i].text
-      let gameObj = await objectLoader.getInstanceOf(type)
-      console.log(`Creating object ${type} at ${x}, ${y}`)
-      console.log(gameObj)
-      if (type === 'game-message' && text) {
-        gameObj.data.perspective.here.message = text
-      }
-      gameObjects[xyHash({ y, x })] = gameObj
-    }
-
-    // find either the ladder-down or hole-in-ceiling.  That will be the starting point.
+    const objectKeyMappings = theLevel.objectKeyMappings
+    const objectPositions = theLevel.objectPositions
     let position = state.get('hero.position')
-    for (let i = 0; i < theLevel.objects.length; i++) {
-      const anObject = theLevel.objects[i]
-      if (anObject.id === 'ladder-down' || anObject.id === 'hole-in-ceiling') {
-        position.x = xOffset(anObject.x)
-        position.y = yOffset(anObject.y)
-        break
+    let gameObjects = {}
+    for (let y = 0; y < objectPositions.length; y++) {
+      for (let x = 0; x < objectPositions[y].length; x++) {
+        const key = objectPositions[y][x]
+        if (key) {
+          const objectMeta = objectKeyMappings[key]
+          if (objectMeta) {
+            let gameObj = await objectLoader.getInstanceOf(objectMeta.object)
+            if (objectMeta.object === 'game-message' && objectMeta.text) {
+              gameObj.data.perspective.here.message = objectMeta.text
+            }
+            if (objectMeta.object === 'ladder-up' || objectMeta.object === 'hole-in-ceiling') {
+              position.x = x
+              position.y = y
+            }
+            gameObjects[xyHash({ x, y })] = gameObj
+          }
+        }
       }
     }
 
