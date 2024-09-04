@@ -13,7 +13,6 @@
     "slot": "weapon",
     "usageLimit": 8
   },
-  "image": ["@_@@@@@__@@@@@@@@", "(_'---'  '--.....", "(_.'''.__.--˙˙˙@@"],
   "attack": {
     "stamina": 10,
     "health": 0,
@@ -128,7 +127,13 @@
     "here": {
       "message": "You see a knife made of bone laying on the ground.",
       "position": "floor",
-      "frames": [["@_@@@@@__@@@@@@@@", "(_'---'  '--.....", "(_.'''.__.--˙˙˙@@"]]
+      "frames": [
+        [
+          "@_@@@@@__@@@@@@@", 
+          "(_'⎯⎯⎯' '⎺⎺⎺⎺⎺⎺/", 
+          "(_.⎯⎯⎯._.--⎻⎺⎺@@"
+          ]
+        ]
     }
   }
 }
