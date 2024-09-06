@@ -1,18 +1,16 @@
 import { xyHash } from './Util.js'
 import state from './SharedState.js'
 import objectsLoader from './GameObjectLoader.js'
-import levelLoader from './LevelLoader.js'
 
 export default class MovementEngine {
   constructor(hero) {
     this.initialized = false
     this.hero = hero
-    this.catacombs = levelLoader
-    this.catacombs.loadNextLevel()
     state.subscribe({
       key: 'hero.position',
       callback: this._setPointOfView.bind(this)
     })
+    if (state.exists('hero.position')) this._setPointOfView(state.get('hero.position'))
   }
 
   // layers to pov mapping:
@@ -144,8 +142,7 @@ export default class MovementEngine {
     return false
   }
 
-  _setPointOfView() {
-    const position = state.get('hero.position')
+  _setPointOfView(position) {
     let background = []
     let offsets = this.NorthView
 

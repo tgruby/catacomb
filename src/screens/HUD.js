@@ -12,10 +12,7 @@ import LevelComplete from '../modals/LevelComplete.js'
 import MovementEngine from '../game/MovementEngine.js'
 import CompanionVitals from '../hud/CompanionVitals.js'
 import FirstPersonView from '../hud/FirstPersonView.js'
-import Inventory from '../modals/Inventory.js'
 import FadeIn from '../animations/FadeIn.js'
-import Journal from '../modals/Journal.js'
-import HelpMenu from '../modals/Help.js'
 
 export default class HUD extends Screen {
   constructor() {

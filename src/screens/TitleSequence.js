@@ -113,7 +113,7 @@ export default class TitleSequence extends Screen {
       height: 28,
       border: false
     })
-    grid.add({ x: 'center', y: 1, fig: { text: 'Ascii', font: 'Crawford2' } })
+    grid.add({ x: 'center', y: 1, fig: { text: 'Ascii-', font: 'Crawford2' } })
     grid.add({ x: 'center', y: 9, fig: { text: 'Arcade', font: 'Crawford2' } })
     grid.add({
       x: 'center',

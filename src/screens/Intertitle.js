@@ -3,23 +3,25 @@ import state from '../game/SharedState.js'
 
 export default class Intertitle extends Screen {
   constructor(props) {
-    const { font, lines, lineHeight } = props
+    const { title, sound, font, lineHeight } = props
     super({ id: 'Intertitle', width: 60, height: 50, border: false })
-    this.intertitleSequence(font, lines, lineHeight)
+    this.intertitleSequence(title, sound, font, lineHeight)
   }
 
   keyPressed() {
     // Ignore all key presses
   }
 
-  intertitleSequence(font, lines, lineHeight = 8) {
+  intertitleSequence(title, sound, font, lineHeight = 8) {
     setTimeout(() => {
-      new Audio('sounds/gong.mp3').play()
+      if (sound) new Audio(sound).play()
+      else new Audio('sounds/gong.mp3').play()
     }, 750)
     setTimeout(() => {
-      let vSpace = this.height / 2 - (lines.length * lineHeight) / 2
-      for (let i = 0; i < lines.length; i++) {
-        this.add({ x: 'center', y: vSpace, fig: { text: lines[i], font } })
+      if (!font) font = 'Bloody'
+      let vSpace = this.height / 2 - (title.length * lineHeight) / 2
+      for (let i = 0; i < title.length; i++) {
+        this.add({ x: 'center', y: vSpace, fig: { text: title[i], font } })
         vSpace += lineHeight
       }
       state.set({ key: 'request.screen.draw', value: true })

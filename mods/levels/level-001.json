@@ -1,5 +1,8 @@
 {
-  "name": "Day One",
+  "title": [
+    "Day", 
+    "Two"
+  ],
   "objective": "Find some light.",
   "map": [
     "+---+---+---+---+",

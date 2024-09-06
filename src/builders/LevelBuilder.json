@@ -1,7 +1,12 @@
 {
   "doc": "This is an example of a config that generates a level, placing object randomly on the map. After the level is generated, you may manually edit the file.",
   "fileName": "../../mods/levels/level-001.json", 
-  "name": "Day One",
+  "title": [
+    "Day",
+    "One"
+  ],
+  "titleFont": "Bloody",
+  "titleSound": "sounds/gong.mp3",
   "direction": "left -> right",
   "objective": "Find some light.",
   "mapWidth": 4,

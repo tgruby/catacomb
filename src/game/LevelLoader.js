@@ -7,7 +7,8 @@ class LevelLoader {
   constructor() {
     this.initialized = false
     this.levels = []
-    this.currentLevel = -1
+    this.levelIndex = -1
+    this.currentLevel = null
   }
 
   async initialize() {
@@ -25,17 +26,20 @@ class LevelLoader {
   }
 
   async loadNextLevel() {
-    this.currentLevel++
+    this.levelIndex++
     // TODO: check for end of game
     await this._loadLevel()
   }
 
   async _loadLevel() {
     await objectLoader.initialize()
-    const theLevel = this.levels[this.currentLevel]
-    const objectKeyMappings = theLevel.objectKeyMappings
-    const objectPositions = theLevel.objectPositions
+    this.currentLevel = this.levels[this.levelIndex]
+    const objectKeyMappings = this.currentLevel.objectKeyMappings
+    const objectPositions = this.currentLevel.objectPositions
     let position = state.get('hero.position')
+    if (!position) {
+      position = { x: 0, y: 0, direction: 'east' }
+    }
     let gameObjects = {}
     for (let y = 0; y < objectPositions.length; y++) {
       for (let x = 0; x < objectPositions[y].length; x++) {
@@ -57,15 +61,15 @@ class LevelLoader {
       }
     }
 
-    state.set({ key: 'catacombs.name', value: theLevel.name })
+    state.set({ key: 'catacombs.name', value: this.currentLevel.name })
     state.set({
       key: 'catacombs.level.objective',
-      value: theLevel.objective
+      value: this.currentLevel.objective
     })
-    state.set({ key: 'catacombs.map', value: theLevel.map })
+    state.set({ key: 'catacombs.map', value: this.currentLevel.map })
     state.set({ key: 'catacombs.objects', value: gameObjects })
     state.set({ key: 'hero.position', value: position })
-    state.set({ key: 'catacombs.level', value: this.currentLevel })
+    state.set({ key: 'catacombs.level', value: this.levelIndex })
   }
 }
 

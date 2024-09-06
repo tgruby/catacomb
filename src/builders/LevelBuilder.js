@@ -25,7 +25,7 @@ class LevelGenerator {
 
   constructor() {
     this.fileName = 'level-999.json'
-    this.name = 'New Level'
+    this.title = 'New Level'
     this.direction = 'left -> right'
     this.objective = 'Find the exit'
     this.width = 10
@@ -47,7 +47,9 @@ class LevelGenerator {
       const config = JSON.parse(data)
 
       if (config.direction) this.direction = config.direction
-      if (config.name) this.name = config.name
+      if (config.title) this.title = config.title
+      if (config.titleSound) this.titleSound = config.titleSound
+      if (config.titleFont) this.titleFont = config.titleFont
       if (config.objective) this.objective = config.objective
       if (config.mapWidth) this.width = config.mapWidth
       if (config.mapHeight) this.height = config.mapHeight
@@ -85,7 +87,8 @@ class LevelGenerator {
 
   async saveToJson() {
     const jsonOutput = {
-      name: this.name,
+      title: this.title,
+      titleSound: this.titleSound,
       objective: this.objective,
       map: this.map,
       objectPositions: this.objectPositions,

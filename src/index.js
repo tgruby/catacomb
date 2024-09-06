@@ -29,7 +29,7 @@ const fpsCounter = {
 
 state.subscribe({
   key: 'game.state',
-  callback: (state) => {
+  callback: async (state) => {
     if (state === 'title-sequence') {
       screen = new TitleSequence()
       canvas.innerHTML = screen.draw()
@@ -37,9 +37,11 @@ state.subscribe({
       screen = new GameSetup()
       canvas.innerHTML = screen.draw()
     } else if (state === 'wake-up') {
+      await levelLoader.loadNextLevel()
       screen = new Intertitle({
-        font: 'Bloody',
-        lines: ['Day', 'One'],
+        title: levelLoader.currentLevel.title,
+        sound: levelLoader.currentLevel.titleSound,
+        font: levelLoader.currentLevel.titleFont,
         lineHeight: 12
       })
       canvas.innerHTML = screen.draw()

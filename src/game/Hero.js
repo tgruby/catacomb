@@ -4,7 +4,6 @@ import objectLoader from './GameObjectLoader.js'
 
 export default class Hero {
   constructor() {
-    state.set({ key: 'hero.position', value: { x: 2, y: 1, direction: 'east' } })
     state.set({ key: 'hero.stamina', value: { current: 60, max: 100 } })
     state.set({ key: 'hero.health', value: { current: 35, max: 100 } })
     state.set({ key: 'hero.hunger', value: { current: 85, max: 100 } })

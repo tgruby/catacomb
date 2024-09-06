@@ -1,5 +1,9 @@
 {
-  "name": "Day One",
+  "title": [
+    "Day", 
+    "One"
+  ],
+  "titleFont": "Bloody",
   "objective": "Find some light.",
   "map": [
     "+---+---+---+---+---+---+---+---+---+---+",

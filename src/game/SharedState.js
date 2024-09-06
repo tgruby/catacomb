@@ -4,6 +4,10 @@ class SharedState {
     this.listeners = {}
   }
 
+  exists(key) {
+    return this.data[key] ? true : false
+  }
+
   get(key) {
     return this.data[key]
   }

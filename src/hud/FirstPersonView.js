@@ -8,7 +8,7 @@ const verticalPositions = {
   far: { ceiling: 12, floor: 14 },
   mid: { ceiling: 11, floor: 15 },
   near: { ceiling: 9, floor: 18 },
-  here: { ceiling: 5, floor: 25 },
+  here: { ceiling: 6, floor: 25 },
   action: { ceiling: 2, floor: 27 }
 }
 
@@ -79,6 +79,10 @@ export default class FirstPersonView extends Grid {
       key: 'hero.action',
       callback: this.showHeroAnimation.bind(this)
     })
+
+    if (state.exists('hero.viewpoint')) {
+      this.updateViewpoint(state.get('hero.viewpoint'))
+    }
   }
 
   updateViewpoint(viewpoint) {
