@@ -110,8 +110,6 @@ export default class FirstPersonView extends Grid {
         const frameHeight = viewpoint.here.frames[0].length
         const yPosition = verticalPositions.here[viewpoint.here.position]
         y = yPosition - frameHeight + 1
-      } else {
-        console.log('no position specified: ', viewpoint.here)
       }
       this.add({ x: 1, y, grid: hereAnimation })
     }

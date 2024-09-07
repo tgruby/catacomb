@@ -1,7 +1,7 @@
 import Screen from '../ui/Screen.js'
 import state from '../game/SharedState.js'
 
-export default class Intertitle extends Screen {
+export default class LevelStart extends Screen {
   constructor(props) {
     const { title, sound, font, lineHeight } = props
     super({ id: 'Intertitle', width: 60, height: 50, border: false })

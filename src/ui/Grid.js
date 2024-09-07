@@ -5,7 +5,7 @@ import Cell from './Cell.js'
 // eslint-disable-next-line no-undef
 figlet.defaults({ fontPath: 'figlet/fonts' })
 
-const fonts = ['Bloody', 'Crawford2', 'Elite', 'Slant', 'Soft', 'Standard', 'Star Wars']
+const fonts = ['Bloody', 'Crawford2', 'Elite', 'Graceful', 'Pagga', 'Slant', 'Small', 'Soft', 'Standard', 'Star Wars']
 // eslint-disable-next-line no-undef
 figlet.preloadFonts(fonts, function (err) {
   if (err) {
@@ -277,13 +277,14 @@ export default class Grid {
     if (!fig || typeof fig !== 'object' || typeof fig.text !== 'string' || typeof fig.font !== 'string') {
       throw new Error('Invalid fig provided')
     }
-    let { text, font } = fig
+    let { text, font, horizontalLayout, verticalLayout, width } = fig
     // eslint-disable-next-line no-undef
     props.block = figlet
       .textSync(text, {
         font: font || 'Crawford2',
-        horizontalLayout: 'full',
-        verticalLayout: 'default',
+        horizontalLayout: horizontalLayout || 'default',
+        verticalLayout: verticalLayout || 'default',
+        width: width || undefined,
         whitespaceBreak: true
       })
       .split('\n')

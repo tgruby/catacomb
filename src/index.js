@@ -3,7 +3,8 @@ import levelLoader from './game/LevelLoader.js'
 import HUD from './screens/HUD.js'
 import state from './game/SharedState.js'
 import GameSetup from './screens/GameSetup.js'
-import Intertitle from './screens/Intertitle.js'
+import LevelStart from './screens/LevelStart.js'
+import LevelComplete from './screens/LevelComplete.js'
 import TitleSequence from './screens/TitleSequence.js'
 
 mods.initialize()
@@ -36,9 +37,9 @@ state.subscribe({
     } else if (state === 'setup-game') {
       screen = new GameSetup()
       canvas.innerHTML = screen.draw()
-    } else if (state === 'wake-up') {
+    } else if (state === 'load-next-level') {
       await levelLoader.loadNextLevel()
-      screen = new Intertitle({
+      screen = new LevelStart({
         title: levelLoader.currentLevel.title,
         sound: levelLoader.currentLevel.titleSound,
         font: levelLoader.currentLevel.titleFont,
@@ -47,6 +48,9 @@ state.subscribe({
       canvas.innerHTML = screen.draw()
     } else if (state === 'in-game') {
       screen = new HUD()
+      canvas.innerHTML = screen.draw()
+    } else if (state === 'level-complete') {
+      screen = new LevelComplete()
       canvas.innerHTML = screen.draw()
     } else if (state === 'post-game') {
       // TBD

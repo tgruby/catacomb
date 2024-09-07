@@ -132,10 +132,8 @@ export default class MovementEngine {
     // first check to see if we are engaged in combat with a creature
     if (current !== undefined) {
       if (current.getType() === 'ladder-down') {
-        // we can move the hero to the next level
-        state.set({ key: 'catacombs.next.level', value: true })
         this.hero.moved()
-        new Audio('sounds/level-complete.mp3').play()
+        state.set({ key: 'game.state', value: 'level-complete' })
         return true
       }
     }
@@ -228,7 +226,7 @@ export default class MovementEngine {
     const entities = state.get('catacombs.objects')
     if (xyHash({ y, x }) in entities) delete entities[xyHash({ y, x })]
     state.set({ key: 'catacombs.objects', value: entities })
-    this._setPointOfView()
+    this._setPointOfView(state.get('hero.position'))
   }
 
   _getBackgroundFeatureAt(y, x) {

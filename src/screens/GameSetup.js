@@ -156,7 +156,7 @@ export default class GameSetup extends Screen {
     this.add({
       x: 'center',
       y: 2,
-      string: 'Select your protagonist to begin her journey:'
+      string: 'Select your hero to begin her journey:'
     })
     this.add({
       x: 'center',
@@ -179,7 +179,7 @@ export default class GameSetup extends Screen {
       const selection = this.getGrid('SelectName').selectItem()
       state.set({ key: 'hero.first.name', value: selection.first })
       state.set({ key: 'hero.last.name', value: selection.last })
-      state.set({ key: 'game.state', value: 'wake-up' })
+      state.set({ key: 'game.state', value: 'load-next-level' })
     }
   }
 
