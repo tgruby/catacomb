@@ -36,6 +36,10 @@ export default class TitleSequence extends Screen {
         this.ranTitleSequency = true
       } else {
         this.audio.fadeOut(2000)
+        if (this.getGrid('CatacombTitleAnimation')) {
+          this.getGrid('CatacombTitleAnimation').stop()
+          this.removeGrid('CatacombTitleAnimation')
+        }
         state.set({ key: 'game.state', value: 'setup-game' })
       }
     }

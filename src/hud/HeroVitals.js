@@ -7,7 +7,7 @@ export default class HeroVitals extends Grid {
     this.add({ x: 2, y: 0, string: ' Vitals ', force: true })
     this.add({ x: 2, y: 2, grid: new Progress({ label: 'Health', stateKey: 'hero.health' }) })
     this.add({ x: 2, y: 7, grid: new Progress({ label: 'Stamina', stateKey: 'hero.stamina' }) })
-    this.add({ x: 2, y: 12, grid: new Progress({ label: 'Magic', stateKey: 'hero.magic' }) })
-    this.add({ x: 2, y: 17, grid: new Progress({ label: 'Hunger', stateKey: 'hero.hunger' }) })
+    this.add({ x: 2, y: 12, grid: new Progress({ label: 'Strength', stateKey: 'hero.strength' }) })
+    this.add({ x: 2, y: 17, grid: new Progress({ label: 'Magic', stateKey: 'hero.magic' }) })
   }
 }

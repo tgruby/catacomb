@@ -82,8 +82,8 @@ export default class MovementEngine {
 
     // now check to see if we are too tired to move
     const stamina = state.get('hero.stamina')
-    if (stamina.value < 1) {
-      state.set({ key: 'message.center', value: `you are too tired to move` })
+    if (stamina.current < 1) {
+      state.set({ key: 'message.center', value: `you must rest first!` })
       return
     }
 

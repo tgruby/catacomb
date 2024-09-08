@@ -7,8 +7,9 @@
   "usage": {
     "type": "consumable",
     "stamina": 0,
-    "health": 10,
-    "hunger": 20,
+    "health": 2,
+    "strength": 0,
+    "magic": 0,
     "sound": "sounds/eating.mp3"
   },
   "perspective": {

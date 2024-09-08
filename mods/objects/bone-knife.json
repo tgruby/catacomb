@@ -14,9 +14,9 @@
     "usageLimit": 8
   },
   "attack": {
-    "stamina": 10,
+    "stamina": 4,
     "health": 0,
-    "hunger": 0,
+    "strength": 4,
     "damage": 4,
     "frameSpeed": 50,
     "sound": "sounds/knifesword-swish.mp3",

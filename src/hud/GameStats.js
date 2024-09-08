@@ -12,72 +12,44 @@ export default class GameStats extends Grid {
       force: true
     })
 
-    this.updateHeroLevel(state.get('hero.level'))
+    this.updateRank(state.get('hero.level'))
     this.updateXP(state.get('hero.xp'))
-    this.updateTime(state.get('game.time'))
     this.updateCatacombsLevel(state.get('catacombs.level'))
 
     state.subscribe({
-      key: 'game.time',
-      callback: this.updateTime.bind(this)
+      key: 'hero.level',
+      callback: this.updateRank.bind(this)
     })
     state.subscribe({
-      key: 'hero.level',
-      callback: this.updateHeroLevel.bind(this)
+      key: 'hero.xp',
+      callback: this.updateXP.bind(this)
     })
     state.subscribe({
       key: 'catacombs.level',
       callback: this.updateCatacombsLevel.bind(this)
     })
-    state.subscribe({ key: 'hero.xp', callback: this.updateXP.bind(this) })
   }
 
-  updateHeroLevel(level) {
+  updateRank(level) {
     this.add({
       x: 'left',
       y: 2,
-      string: `Level ${level} (${getHeroLevelTitle(level)})`
+      string: `Rank: ${getHeroLevelTitle(level)}`
     })
-    state.set({ key: 'request.screen.draw', value: true })
-  }
-
-  updateCatacombsLevel() {
-    const objective = state.get('catacombs.level.objective')
-    if (!objective) return
-    this.add({ x: 'right', y: 4, string: `Objective: ${objective}` })
     state.set({ key: 'request.screen.draw', value: true })
   }
 
   updateXP(xp) {
     const in50Parts = Math.round((xp.current / xp.nextLevel) * 50)
-    // const xpBar = 'Score: ' + ''.repeat(in50Parts) + ' '.repeat(50 - in50Parts)
-    const xpBar = 'Score: ' + xp.current
+    const xpBar = 'XP: ' + ''.repeat(in50Parts) + ' '.repeat(50 - in50Parts)
     this.add({ x: 'left', y: 4, string: xpBar })
   }
 
-  updateTime(time) {
-    const inventory = state.get('hero.inventory')
-    const watch = inventory.find((item) => item.getType() === 'watch')
-    if (!watch) return
-    // Create an Intl.DateTimeFormat instance for formatting the date part
-    const dateFormatter = new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: '2-digit',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    })
-
-    // Use the formatter to format the date and time
-    const formattedDate = dateFormatter.format(time)
-    this.add({ x: 'right', y: 2, string: formattedDate })
-
-    // if midnight, play a 'night is here' sound
-    // if (time.hour === 0 && time.minute === 0) {
-    //   const bell = new Audio('sounds/the-bell-tolls.mp3')
-    //   bell.play()
-    // }
+  updateCatacombsLevel(level) {
+    const objective = state.get('catacombs.level.objective')
+    if (!objective) return
+    this.add({ x: 'right', y: 2, string: `Catacomb Level: ${level}` })
+    this.add({ x: 'right', y: 4, string: `Objective: ${objective}` })
     state.set({ key: 'request.screen.draw', value: true })
   }
 }

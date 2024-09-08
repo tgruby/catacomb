@@ -36,6 +36,7 @@ export default class AnimationPlayer extends Grid {
           backfill: this.backfill,
           color: this.color
         })
+        console.log('AnimationPlayer.play:', this.id)
         state.set({ key: 'request.screen.draw', value: true })
         // Pause the functioning thread
         if (this.frameSpeed > 0) await new Promise((resolve) => setTimeout(resolve, this.frameSpeed))

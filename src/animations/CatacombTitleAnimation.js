@@ -165,7 +165,7 @@ export default class CatacombTitleAnimation extends AnimationPlayer {
 
   constructor() {
     const props = {
-      id: 'SplashPageAnimation',
+      id: 'CatacombTitleAnimation',
       width: 78,
       height: 20,
       loop: 100,

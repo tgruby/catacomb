@@ -4,31 +4,29 @@ import objectLoader from './GameObjectLoader.js'
 
 export default class Hero {
   constructor() {
-    state.set({ key: 'hero.stamina', value: { current: 60, max: 100 } })
-    state.set({ key: 'hero.health', value: { current: 35, max: 100 } })
-    state.set({ key: 'hero.hunger', value: { current: 85, max: 100 } })
-    state.set({ key: 'hero.magic', value: { current: 0, max: 100 } })
-    state.set({ key: 'companion.health', value: { current: 0, max: 100 } })
+    state.set({ key: 'hero.health', value: { current: 3, max: 16 } })
+    state.set({ key: 'hero.stamina', value: { current: 8, max: 16 } })
+    state.set({ key: 'hero.strength', value: { current: 16, max: 16 } })
+    state.set({ key: 'hero.magic', value: { current: 0, max: 8 } })
+    state.set({ key: 'companion.health', value: { current: 0, max: 8 } })
     state.set({ key: 'hero.armor', value: 0 })
     state.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []
-    inventory.push(objectLoader.getInstanceOf('watch'))
     inventory.push(objectLoader.getInstanceOf('map'))
     inventory.push(objectLoader.getInstanceOf('bone-knife'))
     state.set({ key: 'hero.inventory', value: inventory })
-    state.set({ key: 'hero.xp', value: { current: 10, nextLevel: 1000 } })
+    state.set({ key: 'hero.xp', value: { current: 0, nextLevel: 24 } })
     state.set({ key: 'hero.level', value: 1 })
     state.set({ key: 'hero.score', value: 0 })
     state.set({ key: 'hero.abilities', value: [] })
     state.set({ key: 'hero.crafts', value: [] })
     state.set({ key: 'hero.companion', value: null })
     state.set({ key: 'hero.alive', value: true })
-    state.set({ key: 'hero.lastMoved', value: new Date() })
+    state.set({ key: 'hero.lastActive', value: new Date() })
     state.set({ key: 'hero.journal', value: [] })
 
-    this.recoveryTimeThreshold = 2000 // Initial recovery time threshold in milliseconds
-    this.minimumRecoveryThreshold = 200 // Minimum recovery time threshold to prevent too short intervals
-    setInterval(() => this._recoverStamina(), 500)
+    setInterval(() => this._recoverStamina(), 512)
+    setInterval(() => this._recoverStrength(), 1400)
   }
 
   addJournalEntry(text) {
@@ -39,27 +37,35 @@ export default class Hero {
   }
 
   attack() {
-    state.set({ key: 'hero.lastMoved', value: new Date() })
     const weapon = state.get('hero.equipped.weapon')
+    let damage = 0
     if (!weapon) {
-      state.set({ key: 'message.center', value: 'equip a weapon first!' })
+      state.set({ key: 'message.center', value: 'you must equip a weapon before you can attack!' })
       new Audio('sounds/nope.mp3').play()
       return
     } else {
       const staminaCost = weapon.getAttack().stamina
+      const strengthCost = weapon.getAttack().strength
       if (state.get('hero.stamina').current < staminaCost) {
-        state.set({ key: 'message.center', value: `you are too tired to attack!` })
+        state.set({ key: 'message.center', value: `you must rest first!` })
         new Audio('sounds/out-of-breath.mp3').play()
       } else {
+        state.set({ key: 'hero.lastActive', value: new Date() })
         let stamina = state.get('hero.stamina')
         stamina.current -= staminaCost
         state.set({ key: 'hero.stamina', value: stamina })
-        // if an item or creature is 'here', do damage to it.
+        let strength = state.get('hero.strength')
+        // add strength bonus to attack damage
+        damage += weapon.getAttack().damage
+        damage += strength.current / 4
+        strength.current -= strengthCost
+        if (strength.current < 0) strength.current = 0
+        state.set({ key: 'hero.strength', value: strength })
         const movementEngine = state.get('movement')
         const position = state.get('hero.position')
         const target = movementEngine._getGameObjectAt(position)
+        // if an item or creature is 'here', do damage to it.
         if (target) {
-          const damage = weapon.getAttack().damage
           target.setHealth(target.getHealth() - damage)
           if (target.getHealth() <= 0) {
             movementEngine._removeGameObjectAt(position)
@@ -92,6 +98,9 @@ export default class Hero {
     }
     state.get('hero.inventory').push(item) // the inventory will not notify the UI of the change
     movement._removeGameObjectAt(position)
+    let xp = state.get('hero.xp')
+    xp.current += 1
+    state.set({ key: 'hero.xp', value: xp })
     new AudioPlayer('sounds/pickup-item.mp3').play()
     state.set({ key: 'message.center', value: `you pick up the ${item.getName().toLowerCase()}` })
   }
@@ -132,10 +141,10 @@ export default class Hero {
   _consume(item, index) {
     const usage = item.getUsage()
 
-    const hunger = state.get('hero.hunger')
-    hunger.current += usage.hunger
-    if (hunger.current > hunger.max) hunger.current = hunger.max
-    state.set({ key: 'hero.hunger', value: hunger })
+    const strength = state.get('hero.strength')
+    strength.current += usage.strength
+    if (strength.current > strength.max) strength.current = strength.max
+    state.set({ key: 'hero.strength', value: strength })
 
     const stamina = state.get('hero.stamina')
     stamina.current += usage.stamina
@@ -162,7 +171,7 @@ export default class Hero {
   }
 
   moved() {
-    state.set({ key: 'hero.lastMoved', value: new Date() })
+    state.set({ key: 'hero.lastActive', value: new Date() })
     const stamina = state.get('hero.stamina')
     stamina.current--
     state.set({ key: 'hero.stamina', value: stamina })
@@ -172,33 +181,38 @@ export default class Hero {
   _recoverStamina() {
     const stamina = state.get('hero.stamina')
     if (stamina.current < stamina.max) {
-      const lastMoved = state.get('hero.lastMoved')
+      const active = state.get('hero.lastActive')
       const now = new Date()
-      if (now.getTime() - lastMoved.getTime() > 2000) {
-        stamina.current += 5 // Recover a fixed amount of stamina
-        if (stamina.current > stamina.max) {
-          stamina.current = stamina.max
-        }
-        // Reduce the recovery threshold to increase frequency, down to a minimum
-        this.recoveryTimeThreshold = Math.max(this.minimumRecoveryThreshold, this.recoveryTimeThreshold - 200)
+      if (now.getTime() - active.getTime() > 2000) {
+        stamina.current += 1
         state.set({ key: 'hero.stamina', value: stamina })
-      } else {
-        this.recoveryTimeThreshold = 2000
+        state.set({ key: 'request.screen.draw', value: true })
       }
-    } else {
-      // Reset the recovery time threshold when stamina is full
-      this.recoveryTimeThreshold = 2000
+    }
+  }
+
+  // method for strength recovery
+  _recoverStrength() {
+    const strength = state.get('hero.strength')
+    if (strength.current < strength.max) {
+      const active = state.get('hero.lastActive')
+      const now = new Date()
+      if (now.getTime() - active.getTime() > 2000) {
+        strength.current += 1
+        state.set({ key: 'hero.strength', value: strength })
+        state.set({ key: 'request.screen.draw', value: true })
+      }
     }
   }
 }
 
 const HeroLevelTitles = [
-  { name: 'Noob', levelRange: [1, 4] },
-  { name: 'Novice Explorer', levelRange: [5, 8] },
-  { name: 'Apprentice Historian', levelRange: [9, 12] },
-  { name: 'Skilled Surveyor', levelRange: [13, 16] },
-  { name: 'Artifact Collector', levelRange: [17, 20] },
-  { name: 'Field Researcher', levelRange: [21, 24] },
+  { name: 'Noob' },
+  { name: 'Novice Explorer' },
+  { name: 'Apprentice Historian' },
+  { name: 'Skilled Surveyor' },
+  { name: 'Artifact Collector' },
+  { name: 'Field Researcher' },
   { name: 'Culture Scholar', levelRange: [25, 28] },
   { name: 'Relic Hunter', levelRange: [29, 32] },
   { name: 'Time Navigator', levelRange: [33, 36] },
@@ -212,12 +226,17 @@ const HeroLevelTitles = [
   { name: 'Eternal Explorer', levelRange: [65, 68] }
 ]
 
+function calculateXPForLevel(level, baseXP = 32, expFactor = 1.5) {
+  return Math.floor(baseXP * Math.pow(level, expFactor))
+}
+
+// Iterate through the array and update the xp value based on the level index
+HeroLevelTitles.forEach((hero, index) => {
+  hero.xp = calculateXPForLevel(index)
+})
+
 function getHeroLevelTitle(level) {
-  for (let i = 0; i < HeroLevelTitles.length; i++) {
-    if (level >= HeroLevelTitles[i].levelRange[0] && level <= HeroLevelTitles[i].levelRange[1])
-      return HeroLevelTitles[i].name
-  }
-  return 'Eternal Explorer'
+  return HeroLevelTitles[level].name
 }
 
 export { getHeroLevelTitle }

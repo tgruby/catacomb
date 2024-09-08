@@ -70,7 +70,6 @@ export default class Inventory extends Grid {
         summarizedItem.value = `${equipped}${summarizedItem.name} (x${summarizedItem.count})`
       }
     }
-    console.log('summarizedItems:', summarizedItems)
     return summarizedItems
   }
 

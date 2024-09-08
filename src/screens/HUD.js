@@ -1,5 +1,4 @@
 import FPS from '../hud/FPS.js'
-import Time from '../game/Time.js'
 import Hero from '../game/Hero.js'
 import Menus from '../modals/Menus.js'
 import state from '../game/SharedState.js'
@@ -19,7 +18,7 @@ export default class HUD extends Screen {
     super({ id: 'HUD', width: 80, height: 48, border: false })
 
     // create the main game objects
-    this.time = new Time()
+    // this.time = new Time()
     this.hero = new Hero()
     state.set({ key: 'hero', value: this.hero })
     this.movement = new MovementEngine(this.hero)
@@ -47,7 +46,7 @@ export default class HUD extends Screen {
       })
     })
 
-    this.time.start()
+    //this.time.start()
   }
 
   showHelp() {}

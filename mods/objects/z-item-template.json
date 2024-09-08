@@ -12,7 +12,7 @@
   "usageImpact": {
     "stamina": 0,
     "health": 10,
-    "hunger": 0
+    "strength": 0
   },
   "attackImpact": {
     "stamina": 0,
