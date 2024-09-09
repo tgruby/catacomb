@@ -28,6 +28,7 @@ export default class Progress extends Grid {
   }
 
   update(data) {
+    if (!data) data = { current: 0, max: 1 }
     this.add({
       x: 0,
       y: 2,

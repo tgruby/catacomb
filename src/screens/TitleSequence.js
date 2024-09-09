@@ -25,6 +25,7 @@ export default class TitleSequence extends Screen {
     })
     this.audio = new AudioPlayer('sounds/fenras-theme-trailer-music-intro-music-by-oliver-weckauf.mp3')
     this.ranTitleSequency = false
+    this.stopped = false
   }
 
   ready() {}
@@ -40,6 +41,7 @@ export default class TitleSequence extends Screen {
           this.getGrid('CatacombTitleAnimation').stop()
           this.removeGrid('CatacombTitleAnimation')
         }
+        this.stopped = true
         state.set({ key: 'game.state', value: 'setup-game' })
       }
     }
@@ -50,18 +52,22 @@ export default class TitleSequence extends Screen {
     this.audio.play()
     this.showAsciiArcade()
     setTimeout(() => {
+      if (this.stopped) return
       this.removeGrid('AsciiArcade')
       this.showInAssociationWith()
     }, 5000)
     setTimeout(() => {
+      if (this.stopped) return
       this.removeGrid('InAssociationWith')
       this.showGrubyStudios()
     }, 9000)
     setTimeout(() => {
+      if (this.stopped) return
       this.removeGrid('GrubStudios')
       this.add({ x: 1, y: 12, grid: new CatacombTitleAnimation() })
     }, 17000)
     setTimeout(() => {
+      if (this.stopped) return
       this.add({
         x: 'center',
         y: 32,
@@ -70,6 +76,7 @@ export default class TitleSequence extends Screen {
       state.set({ key: 'request.screen.draw', value: true })
     }, 19000)
     setTimeout(() => {
+      if (this.stopped) return
       this.add({ x: 'center', y: 36, block: this.startGame.split('\n') })
       state.set({ key: 'request.screen.draw', value: true })
     }, 22000)

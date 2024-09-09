@@ -3,8 +3,8 @@ import state from '../game/SharedState.js'
 
 export default class MapView extends Grid {
   constructor() {
-    super({ id: 'MapView', width: 26, height: 29, fill: '·', border: true })
-    this.add({ x: 'left', y: 0, string: ' Map ', force: true })
+    super({ id: 'MapView', width: 26, height: 22, fill: '·', border: true })
+    this.add({ x: 'left', y: 0, string: ' Scrying Sight ', force: true })
     this.mapUpdate(state.get('catacombs.map'))
     this.positionUpdate(state.get('hero.position'))
 

@@ -12,6 +12,7 @@ import MovementEngine from '../game/MovementEngine.js'
 import CompanionVitals from '../hud/CompanionVitals.js'
 import FirstPersonView from '../hud/FirstPersonView.js'
 import FadeIn from '../animations/FadeIn.js'
+import EnemyVitals from '../hud/EnemyVitals.js'
 
 export default class HUD extends Screen {
   constructor() {
@@ -30,7 +31,7 @@ export default class HUD extends Screen {
     this.add({ grid: new CompanionVitals(), x: 0, y: 29 })
     this.add({ grid: new FirstPersonView(), x: 26, y: 7 })
     this.add({ grid: new MapView(), x: 54, y: 7 })
-    // this.add({ grid: new EnemyVitals(), x: 54, y: 28 })
+    this.add({ grid: new EnemyVitals(), x: 54, y: 29 })
     this.add({ grid: new Messages(), x: 0, y: 36 })
     this.add({ grid: new FPS(), x: 'right', y: 43 })
 

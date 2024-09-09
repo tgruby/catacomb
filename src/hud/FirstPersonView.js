@@ -69,7 +69,6 @@ export default class FirstPersonView extends Grid {
       fill: ' ',
       border: true
     })
-    this.add({ x: 2, y: 0, string: ' View ', force: true })
 
     state.subscribe({
       key: 'hero.viewpoint',
