@@ -1,0 +1,32 @@
+{
+  "name": "Twine",
+  "description": "A small bit of twine.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 5,
+  "craftingRequirements": [
+    { "id": "grass", "quantity": 2 }
+  ],
+  "image": [
+    "⏐⏐", 
+    "╰╮", 
+    "⏐⏐", 
+    "╭╯", 
+    "⏐⏐", 
+    "╰╮", 
+    "⏐⏐",
+    "╭╯", 
+    "⏐⏐"
+  ],
+  "perspective": {
+    "nearby": {
+      "position": "floor",
+      "frames": [["╍"]]
+    },
+    "here": {
+      "message": "You see small bit of twine on the ground.",
+      "position": "floor",
+      "frames": [["╍╍╍╍╍╍╍"]]
+    }
+  }
+}

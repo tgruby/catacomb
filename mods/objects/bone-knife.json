@@ -5,8 +5,8 @@
   "allowsPickup": true,
   "health": 10,
   "craftingRequirements": [
-    { "id": "item.bone", "quantity": 1 },
-    { "id": "item.rock", "quantity": 1 }
+    { "id": "bone", "quantity": 1 },
+    { "id": "rock", "quantity": 1 }
   ],
   "usage": {
     "type": "equippable",
