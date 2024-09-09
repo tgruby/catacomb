@@ -1,0 +1,39 @@
+{
+  "name": "Stick",
+  "description": "A stick. ",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 5,
+  "image": [
+    "@@@@@@@_",
+    "@@@@@@╱╱", 
+    "@@_@@╱╱@", 
+    "@@╲╲╱╱@@", 
+    "@@@⎸╱@@@", 
+    "@@╱╱@@@@", 
+    "@╱╱@@@@@", 
+    "╱╱@@@@@@", 
+    "⎺@@@@@@@"
+  ],
+  "perspective": {
+    "midRange": {
+      "position": "floor",
+      "frames": [[".."]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [["...."]]
+    },
+    "here": {
+      "message": "You a stick.",
+      "position": "floor",
+      "frames": [
+        [
+          "@@@@@@@@@@@_@@@@@",
+          "@_________╱ ╱___@",
+          "╰───────────────'"
+          ]
+        ]
+    }
+  }
+}

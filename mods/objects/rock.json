@@ -1,0 +1,24 @@
+{
+  "name": "Rock",
+  "description": "A rock.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 100,
+  "perspective": {
+    "nearby": {
+      "position": "floor",
+      "frames": [["o"]]
+    },
+    "here": {
+      "message": "You see a rock.",
+      "position": "floor",
+      "frames": [
+        [
+          "@.-'⎺'-.@",
+          "(  ~ .  )",
+          "@'.___.'@"
+          ]
+        ]
+    }
+  }
+}

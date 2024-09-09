@@ -14,9 +14,9 @@
   ],
   "objectPositions": [
     "+---+---+---+---+---+---+---+---+---+---+",
-    "| ^   4     |                       |   |",
+    "| ^   4   3 |       6               | 9 |",
     "+-o-+   +---+   +---+---+   +---+   +-o-+",
-    "|   | 5           3 | 1     | 2       v |",
+    "| 8 | 5           7 | 1     | 2       v |",
     "+---+---+---+---+---+---+---+---+---+---+"
   ],
   "objectKeyMappings": {
@@ -34,8 +34,19 @@
       "text": "it's really dark down here..."
     },
     "5": {
-      "object": "game-message",
-      "text": "you should find some light..."
+      "object": "rock"
+    },
+    "6": {
+      "object": "stick"
+    },
+    "7": {
+      "object": "rock"
+    },
+    "8": {
+      "object": "vines"
+    },
+    "9": {
+      "object": "journal"
     },
     "o": {
       "object": "door"

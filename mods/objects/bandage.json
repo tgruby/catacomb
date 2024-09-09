@@ -29,7 +29,14 @@
     "here": {
       "message": "You see a bandage laying on the ground.",
       "position": "floor",
-      "frames": [["@_________@", "╱ ╲       ╲", "⎸  ⎸~~~~~~⎹", "╲_╱_______╱"]]
+      "frames": [
+        [
+          "@_________@", 
+          "╱ ╲       ╲", 
+          "⎸  ⎸~~~~~~⎹", 
+          "╲_╱_______╱"
+          ]
+        ]
     }
   }
 }
