@@ -7,7 +7,6 @@ import MapView from '../hud/MapView.js'
 import Messages from '../hud/Messages.js'
 import GameStats from '../hud/GameStats.js'
 import HeroVitals from '../hud/HeroVitals.js'
-import LevelComplete from '../modals/LevelComplete.js'
 import MovementEngine from '../game/MovementEngine.js'
 import CompanionVitals from '../hud/CompanionVitals.js'
 import FirstPersonView from '../hud/FirstPersonView.js'
@@ -46,28 +45,11 @@ export default class HUD extends Screen {
         autoPlay: true
       })
     })
-
-    //this.time.start()
   }
 
   showHelp() {}
 
   keyPressed(e) {
-    if (this.getGrid('InventoryModal')) {
-      this.getGrid('InventoryModal').keyPressed(e)
-      return
-    }
-
-    if (this.getGrid('JournalModal')) {
-      this.getGrid('JournalModal').keyPressed(e)
-      return
-    }
-
-    if (this.getGrid('HelpMenu')) {
-      this.getGrid('HelpMenu').keyPressed(e)
-      return
-    }
-
     if (this.getGrid('MenusModal')) {
       this.getGrid('MenusModal').keyPressed(e)
       return
@@ -86,11 +68,7 @@ export default class HUD extends Screen {
       this.movement.turnRight()
       state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'Enter') {
-      const levelComplete = this.movement.moveDown()
-      if (levelComplete) {
-        this.add({ grid: new LevelComplete({ parent: this }), x: 0, y: 0 })
-        state.set({ key: 'request.screen.draw', value: true })
-      }
+      this.movement.moveDown()
     } else if (e.key === 'f') {
       this.hero.attack()
       state.set({ key: 'request.screen.draw', value: true })

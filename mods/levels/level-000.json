@@ -40,13 +40,13 @@
       "object": "stick"
     },
     "7": {
-      "object": "rock"
+      "object": "cordage"
     },
     "8": {
       "object": "vines"
     },
     "9": {
-      "object": "journal"
+      "object": "book"
     },
     "o": {
       "object": "door"

@@ -5,6 +5,10 @@
   "allowsPickup": true,
   "health": 100,
   "perspective": {
+    "midRange": {
+      "position": "floor",
+      "frames": [["."]]
+    },
     "nearby": {
       "position": "floor",
       "frames": [["o"]]

@@ -129,7 +129,6 @@ export default class MovementEngine {
   async moveDown() {
     const position = state.get('hero.position')
     const current = this._getGameObjectAt(position)
-    // first check to see if we are engaged in combat with a creature
     if (current !== undefined) {
       if (current.getType() === 'ladder-down') {
         this.hero.moved()

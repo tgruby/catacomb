@@ -1,0 +1,34 @@
+{
+  "name": "Cordage",
+  "description": "Rope made out of plant matter.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 5,
+  "craftingRequirements": [
+    { "id": "grass", "quantity": 2 }
+  ],
+  "image": [
+    "⎯⎯╮", 
+    "╰⎯╮", 
+    "╰⎯╮", 
+    "╰⎯╮",
+    "╰⎯╮", 
+    "╰⎯╮", 
+    "╰⎯╮", 
+    "╰⎯╮", 
+    "╰⎯╮",
+    "╰⎯╮", 
+    "╰⎯⎯"
+  ],
+  "perspective": {
+    "nearby": {
+      "position": "floor",
+      "frames": [["┉┉┉"]]
+    },
+    "here": {
+      "message": "You see some cordage on the ground.",
+      "position": "floor",
+      "frames": [["┉┉┉┉┉┉┉┉┉┉"]]
+    }
+  }
+}

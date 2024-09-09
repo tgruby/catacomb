@@ -40,8 +40,8 @@ export default class GameStats extends Grid {
   }
 
   updateXP(xp) {
-    const in50Parts = Math.round((xp.current / xp.nextLevel) * 50)
-    const xpBar = 'XP: ' + ''.repeat(in50Parts) + ' '.repeat(50 - in50Parts)
+    const inParts = Math.round((xp.current / xp.nextLevel) * 20)
+    const xpBar = 'XP: ' + ''.repeat(inParts) + ' '.repeat(20 - inParts)
     this.add({ x: 'left', y: 4, string: xpBar })
   }
 

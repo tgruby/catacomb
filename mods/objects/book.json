@@ -1,6 +1,6 @@
 {
-  "name": "Journal",
-  "description": "A journal. Someone has been down here before me...",
+  "name": "Book",
+  "description": "A book with strange writting...",
   "obstructsMovement": false,
   "allowsPickup": true,
   "health": 40,
@@ -22,7 +22,7 @@
       "frames": [[":..:", "ˋ::ˊ"]]
     },
     "here": {
-      "message": "You see a journal laying on the ground.",
+      "message": "You see a book laying on the ground.",
       "position": "floor",
       "frames": [["@@@@@_____ _____@@@@@", "@@╱╱      |      ╲╲@@", "@╱╱______.|.______╲╲@", "`--------`-'--------'"]]
     }

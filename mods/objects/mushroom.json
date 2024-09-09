@@ -1,6 +1,6 @@
 {
   "name": "Giant Mushroom",
-  "description": "A giant mushroom. Possibly editable... but you have heard they can be poisonous too.",
+  "description": "A giant mushroom. Possibly editable, possibly poisonous...",
   "obstructsMovement": false,
   "allowsPickup": true,
   "health": 5,

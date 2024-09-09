@@ -1,6 +1,6 @@
 {
   "objects": [
-    "journal",
+    "book",
     "bone",
     "bandage",
     "door",
@@ -10,6 +10,7 @@
     "mushroom",
     "watch",
     "torch",
+    "cordage",
     "stick",
     "twine",
     "vines",
