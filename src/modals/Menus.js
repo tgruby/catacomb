@@ -2,7 +2,8 @@ import state from '../game/SharedState.js'
 import Modal from '../ui/Modal.js'
 import { upperLeft, upperRight, lowerLeft, lowerRight } from '../ui/CelticBorder.js'
 import Tabs from '../ui/Tabs.js'
-import Inventory from './Inventory.js'
+import Inventory from '../menus/Inventory.js'
+import Crafting from '../menus/Crafting.js'
 import TBD from '../menus/TBD.js'
 import Map from '../menus/Map.js'
 
@@ -29,8 +30,8 @@ export default class Menus extends Modal {
       parent: this,
       tabs: [
         { name: 'Inventory', grid: new Inventory({ width: 64, height: 34, border: false, parent: this }) },
-        { name: 'Crafting', grid: new TBD('Crafting') },
-        { name: 'Magic', grid: new TBD('Magic') },
+        { name: 'Crafting', grid: new Crafting({ width: 64, height: 34, border: false, parent: this }) },
+        { name: 'Spells', grid: new TBD('Spells') },
         { name: 'Map', grid: new Map() },
         { name: 'Profile', grid: new TBD('Profile') }
       ]

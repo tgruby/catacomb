@@ -13,8 +13,13 @@ export default class Hero {
     state.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []
     inventory.push(objectLoader.getInstanceOf('map'))
-    inventory.push(objectLoader.getInstanceOf('bone-knife'))
     state.set({ key: 'hero.inventory', value: inventory })
+    const skills = []
+    skills.push(objectLoader.getInstanceOf('bone-knife'))
+    skills.push(objectLoader.getInstanceOf('bandage'))
+    skills.push(objectLoader.getInstanceOf('cordage'))
+    skills.push(objectLoader.getInstanceOf('twine'))
+    state.set({ key: 'hero.skills', value: skills })
     state.set({ key: 'hero.xp', value: { current: 0, nextLevel: 24 } })
     state.set({ key: 'hero.level', value: 1 })
     state.set({ key: 'hero.score', value: 0 })

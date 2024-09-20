@@ -2,21 +2,20 @@ import Grid from '../ui/Grid.js'
 import state from '../game/SharedState.js'
 import SelectionList from '../ui/SelectionList.js'
 
-export default class Inventory extends Grid {
+export default class Crafting extends Grid {
   constructor(props) {
-    // why not have the parent pass width/height/border?
     super(props)
 
-    const summaryOfItems = this.getInventorySummary()
-    const inventoryItemList = new SelectionList({
-      id: 'InventoryItemList',
+    const summaryOfSkills = this.getSkillSummary()
+    const skillsList = new SelectionList({
+      id: 'CraftingSkillsList',
       width: 32,
       height: 30,
       border: true,
-      items: summaryOfItems
+      items: summaryOfSkills
     })
-    inventoryItemList.add({ x: 'left', y: 0, string: ' Items ', force: true })
-    this.add({ x: 1, y: 0, grid: inventoryItemList })
+    skillsList.add({ x: 'left', y: 0, string: ' Known Crafting Skills ', force: true })
+    this.add({ x: 1, y: 0, grid: skillsList })
 
     const itemImagePanel = new Grid({
       id: 'SelectedItemImage',
@@ -42,46 +41,36 @@ export default class Inventory extends Grid {
     this.add({ x: 'right', y: 18, grid: itemDescriptionPanel })
 
     // set the initial item image and description
-    this.setImageAndDescription(summaryOfItems[0])
+    this.setImageAndDescription(summaryOfSkills[0])
   }
 
   // Return a list of items in the inventory with a count by id
-  getInventorySummary() {
+  getSkillSummary() {
     const summarizedItems = []
-    const inventory = state.get('hero.inventory')
-    for (let i = 0; i < inventory.length; i++) {
-      const item = inventory[i]
-      let equipped = '   '
-      const equippedWeapon = state.get('hero.equipped.weapon')
-      if (equippedWeapon && equippedWeapon.getType() === item.getType()) equipped = ' ◆ '
-      const summarizedItem = summarizedItems.find((summaryItem) => summaryItem.id === item.getType())
-      if (!summarizedItem) {
-        summarizedItems.push({
-          id: item.getType(),
-          value: equipped + item.getName(),
-          name: item.getName(),
-          image: item.getImage(),
-          description: item.getDescription(),
-          equipped,
-          count: 1
-        })
-      } else {
-        summarizedItem.count++
-        summarizedItem.value = `${equipped}${summarizedItem.name} (x${summarizedItem.count})`
-      }
+    const skills = state.get('hero.skills')
+    for (let i = 0; i < skills.length; i++) {
+      const skill = skills[i]
+      summarizedItems.push({
+        id: skill.getType(),
+        value: skill.getName(),
+        name: skill.getName(),
+        image: skill.getImage(),
+        description: skill.getDescription(),
+        object: skill
+      })
     }
     return summarizedItems
   }
 
   keyPressed(e) {
     if (e.key === 'w' || e.key === 'ArrowUp') {
-      const selected = this.getGrid('InventoryItemList').up()
+      const selected = this.getGrid('CraftingSkillsList').up()
       this.setImageAndDescription(selected)
     } else if (e.key === 's' || e.key === 'ArrowDown') {
-      const selected = this.getGrid('InventoryItemList').down()
+      const selected = this.getGrid('CraftingSkillsList').down()
       this.setImageAndDescription(selected)
     } else if (e.key === 'Enter') {
-      const inventoryItems = this.getGrid('InventoryItemList')
+      const inventoryItems = this.getGrid('CraftingSkillsList')
       const selected = inventoryItems.selectItem()
       const hero = state.get('hero')
       hero.useItem(selected.id)

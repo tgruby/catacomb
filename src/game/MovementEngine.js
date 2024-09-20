@@ -217,7 +217,7 @@ export default class MovementEngine {
     if (xyHash({ y, x }) in entities) return entities[xyHash({ y, x })]
     const symbol = map[y][x]
     if (symbol === ' ') return undefined
-    if (symbol === '|' || symbol === '+' || symbol === '-') return objectsLoader.getInstanceOf('wall')
+    if (this._isWall(symbol)) return objectsLoader.getInstanceOf('wall')
   }
 
   _removeGameObjectAt(props) {
@@ -234,11 +234,13 @@ export default class MovementEngine {
     if (x < 0 || x >= map[y].length) return undefined
 
     const symbol = map[y][x]
-    if (symbol === '|') return 'wall'
-    if (symbol === '+') return 'wall'
-    if (symbol === '-') return 'wall'
+    if (this._isWall(symbol)) return 'wall'
     if (symbol === 'o') return 'door'
     if (symbol === ' ') return 'hall'
     else return 'hall'
+  }
+
+  _isWall(symbol) {
+    return ['|', '+', '-', '⏐', '─', '⎯', '┌', '┐', '┘', '└'].includes(symbol)
   }
 }
