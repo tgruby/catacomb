@@ -241,6 +241,6 @@ export default class MovementEngine {
   }
 
   _isWall(symbol) {
-    return ['|', '+', '-', '⏐', '─', '⎯', '┌', '┐', '┘', '└'].includes(symbol)
+    return ['|', '+', '-'].includes(symbol)
   }
 }

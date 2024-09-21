@@ -49,7 +49,6 @@ export default class SelectionList extends Grid {
     }
 
     visibleItems.forEach((item, index) => {
-      console.log(item)
       const focusItem = this.items[this.itemInFocus]
       const highlight = item === focusItem
       let repeat = this.width - item.value.length - 4

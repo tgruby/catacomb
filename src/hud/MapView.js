@@ -46,7 +46,33 @@ export default class MapView extends Grid {
   }
 
   mapUpdate(map) {
-    this.map = map
+    const copy = [...map]
+    for (let y = 0; y < copy.length; y++) {
+      for (let x = 0; x < copy[y].length; x++) {
+        if (copy[y][x] === '-') copy[y] = copy[y].substring(0, x) + '⎯' + copy[y].substring(x + 1)
+        if (copy[y][x] === '|') copy[y] = copy[y].substring(0, x) + '⏐' + copy[y].substring(x + 1)
+        if (copy[y][x] === '+') {
+          let north = y > 0 && copy[y - 1][x] !== ' '
+          let south = y < copy.length - 1 && copy[y + 1][x] !== ' '
+          let west = x > 0 && copy[y][x - 1] !== ' '
+          let east = x < copy[y].length - 1 && copy[y][x + 1] !== ' '
+          if (north && south && west && east) copy[y] = copy[y].substring(0, x) + '┼' + copy[y].substring(x + 1)
+          else if (north && south && west) copy[y] = copy[y].substring(0, x) + '┤' + copy[y].substring(x + 1)
+          else if (north && south && east) copy[y] = copy[y].substring(0, x) + '├' + copy[y].substring(x + 1)
+          else if (north && east && west) copy[y] = copy[y].substring(0, x) + '┴' + copy[y].substring(x + 1)
+          else if (south && east && west) copy[y] = copy[y].substring(0, x) + '┬' + copy[y].substring(x + 1)
+          else if (north && south) copy[y] = copy[y].substring(0, x) + '│' + copy[y].substring(x + 1)
+          else if (west && east) copy[y] = copy[y].substring(0, x) + '─' + copy[y].substring(x + 1)
+          else if (north && east) copy[y] = copy[y].substring(0, x) + '└' + copy[y].substring(x + 1)
+          else if (north && west) copy[y] = copy[y].substring(0, x) + '┘' + copy[y].substring(x + 1)
+          else if (south && east) copy[y] = copy[y].substring(0, x) + '┌' + copy[y].substring(x + 1)
+          else if (south && west) copy[y] = copy[y].substring(0, x) + '┐' + copy[y].substring(x + 1)
+          else if (east || west) copy[y] = copy[y].substring(0, x) + '─' + copy[y].substring(x + 1)
+          else if (north || south) copy[y] = copy[y].substring(0, x) + '│' + copy[y].substring(x + 1)
+        }
+      }
+    }
+    this.map = copy
   }
 
   _getDirectionMarker(direction) {

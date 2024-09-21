@@ -129,9 +129,7 @@ export default class Hero {
       state.set({ key: 'message.center', value: `item ${itemType} not found in inventory` })
       return
     }
-    console.log('item index: ', index)
     const item = inventory[index]
-    console.log('using item: ', item)
     if (item.getUsage() && item.getUsage().type === 'consumable') this._consume(item, index)
     else if (item.getUsage() && item.getUsage().type === 'equippable') this._equip(item)
     else {
