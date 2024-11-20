@@ -1,0 +1,43 @@
+{
+  "name": "rabbit",
+  "description": "A sarcophagus... It's a coffin made of stone.",
+  "obstructsMovement": false,
+  "allowsPickup": false,
+  "health": 10000,
+  "perspective": {
+    "farAway": {
+      "position": "floor",
+      "frames": [["..", "::"]]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [["_--_", "\\::/", "|::|"]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [
+        ["@@@@_:_@@@@", "@.-'   '-.@", "╱_________╲", "╲  -]^[-  ╱", "@|.-----.|@", "@||' : '||@", "@|'-----'|@"]
+      ]
+    },
+    "here": {
+      "message": "You see a cute rabbit... more food for you.",
+      "position": "floor",
+      "frames": [
+        [
+          "@@@@@@@@@@@@@@@@@@@@@@@",
+          "@@@@@@@@@@@@@@#@@@@@@@@",
+          "@@@@@@@@@@@@#( )#@@@@@@",
+          "@@@@@@@@@@@#(   )#@@@@@",
+          "@@@@@@@@@@#(    )#@@@@@",
+          "@@@@@@@******    ******",
+          "@@@@0=**    ()         ",
+          "@@@@*                  ",
+          "@@@@@************      ",
+          "@@@@@@@@@@@@@@@@***    ",
+          "@@@@@@@@@@@@@@@@@***** ",
+          "@@@@@@@@@@@@@@@@@@@@@@@"
+        ]
+      ]
+    }
+  }
+}

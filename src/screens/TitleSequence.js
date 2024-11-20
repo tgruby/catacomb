@@ -38,7 +38,7 @@ export default class TitleSequence extends Screen {
       } else {
         this.audio.fadeOut(2000)
         if (this.getGrid('CatacombTitleAnimation')) {
-          this.getGrid('CatacombTitleAnimation').stop()
+          this.getGrid('CatacombTitleAnimation').kill()
           this.removeGrid('CatacombTitleAnimation')
         }
         this.stopped = true

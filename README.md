@@ -6,7 +6,7 @@
 
 > [Game Development Status](#development-status)
 
-An ASCII "work of art" :). I enjoy games, and growing up in the 80's I spent probably hundreds of hours playing [_Michael Cranford's_ **The Bard's Tale**](<https://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)>) on the Apple ][ computer. Recently, I had the idea of working on a throwback game: looking for opportunities to make it feel old, but incorporate newer patterns and ideas in more current games. I played with a few different ideas and decided to lean into an ASCII only UI, mainly green-screen, roll-playing game. It seems to strik the right balance to feeling like an older game while allowing to leverage more modern sound and music, which I believes help be more engaging.
+An ASCII "work of art" :). I enjoy games, and growing up in the 80's I spent probably hundreds of hours playing [**Wizardry I**](<https://en.wikipedia.org/wiki/Wizardry:_Proving_Grounds_of_the_Mad_Overlord>) and [**The Bard's Tale**](<https://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)>) on the Apple ][ computer. Recently, I had the idea of working on a throwback game: looking for opportunities to make it feel old, but incorporate newer patterns and ideas in more current games. I played with a few different ideas and decided to lean into an ASCII only UI, mainly green-screen, roll-playing game. It seems to strike the right balance to feeling like an older game while allowing to leverage more modern sound and music, which I believes help be more engaging.
 
 ## Backstory
 

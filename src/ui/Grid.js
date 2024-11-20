@@ -38,7 +38,9 @@ export default class Grid {
     this.zIndex = zIndex || 0
     this.edge = 0
     this.grid = [] // 2D array of Cells
-    this.children = []
+    this.children = [] // Child grids
+    this.updated = true // If the grid has been modified
+    this.rendered = undefined // The rendered output of the grid
 
     this._init()
     if (this.border) this._border()
@@ -62,6 +64,7 @@ export default class Grid {
     } else {
       throw new Error('add requires a grid, block, string, or cell')
     }
+    this.updated = true
   }
 
   getCell(props) {
@@ -81,7 +84,10 @@ export default class Grid {
       throw new Error('Invalid id provided')
     }
     const index = this.children.findIndex((g) => g.grid.id === id)
-    if (index !== -1) this.children.splice(index, 1)
+    if (index !== -1) {
+      this.children.splice(index, 1)
+      this.updated = true
+    }
   }
 
   /*
@@ -106,6 +112,19 @@ export default class Grid {
         this._addCell({ x, y, cell: new Cell({ value: this.fill }) })
       }
     }
+    this.updated = true
+  }
+
+  isUpdated() {
+    if (this.children.length > 0) {
+      for (const child of this.children) {
+        if (child.grid.isUpdated()) {
+          this.updated = true
+          break
+        }
+      }
+    }
+    return this.updated
   }
 
   /*

@@ -1,0 +1,28 @@
+{
+  "name": "Cloth",
+  "description": "A ripped piece of garment.",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 10,
+  "perspective": {
+    "midRange": {
+      "position": "floor",
+      "frames": [["="]]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [[
+        ".--.", 
+        ".--."
+        ]]
+    },
+    "here": {
+      "message": "You see a piece of cloth laying on the ground.",
+      "position": "floor",
+      "frames": [[
+        "@․⎼⎼⎼⎼⎼⎼⎼⎼⎼․", 
+        "╱  ~~     ╱@", 
+        "╲_╱______╱@@"]]
+    }
+  }
+}

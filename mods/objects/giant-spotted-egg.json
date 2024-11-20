@@ -1,0 +1,58 @@
+{
+  "name": "Giant Spotted Egg",
+  "description": "A giant spotted egg, what could have laid this thing?",
+  "obstructsMovement": false,
+  "allowsPickup": true,
+  "health": 50,
+  "usage": {
+    "type": "companion",
+    "sound": "sounds/cracking-open.mp3",
+    "creates": "giant-chicken",
+    "usageLimit": 1
+  },
+  "perspective": {
+    "midRange": {
+      "position": "floor",
+      "frames": [
+        [
+          "@:@",
+          ":::",
+          "@:@"
+        ]
+      ]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [
+        [
+          "@@.''.@@",
+          "@:'  ':@",
+          ":'    ':",
+          ":.    .:",
+          "@@'..'@@"
+        ]
+      ]
+    },
+    "here": {
+      "message": "You see a giant egg!",
+      "position": "floor",
+      "frames": [
+          [
+          
+            "@@@@@@@@@@@::@@@@@@@@@@",
+            "@@@@@@@@@:.  ':@@@@@@@@",
+            "@@@@@@@@::::  ':@@@@@@@",
+            "@@@@@@@:::' .::':@@@@@@",
+            "@@@@@@:    :::::::@@@@@",
+            "@@@@@:      ':::' :@@@@",
+            "@@@@@: .::.       :@@@@",
+            "@@@@@:::::::   .:::@@@@",
+            "@@@@@:.:::::  :::::@@@@",
+            "@@@@@@:.':'  ':::@@@@@",
+            "@@@@@@@@:.    .:@@@@@@@",
+            "@@@@@@@@@@'::'@@@@@@@@@"
+          ]
+        ]
+    }
+  }
+}

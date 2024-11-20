@@ -13,12 +13,11 @@ export default class Hero {
     state.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []
     inventory.push(objectLoader.getInstanceOf('map'))
+    inventory.push(objectLoader.getInstanceOf('torch'))
     state.set({ key: 'hero.inventory', value: inventory })
     const skills = []
-    skills.push(objectLoader.getInstanceOf('bone-knife'))
+    skills.push(objectLoader.getInstanceOf('torch'))
     skills.push(objectLoader.getInstanceOf('bandage'))
-    skills.push(objectLoader.getInstanceOf('cordage'))
-    skills.push(objectLoader.getInstanceOf('twine'))
     state.set({ key: 'hero.skills', value: skills })
     state.set({ key: 'hero.xp', value: { current: 0, nextLevel: 24 } })
     state.set({ key: 'hero.level', value: 1 })
@@ -141,6 +140,47 @@ export default class Hero {
     }
   }
 
+  craftItem(itemType) {
+    if (typeof itemType !== 'string') {
+      console.error('hero.craftItem requires a string argument')
+      console.error('you passed a ', itemType)
+      return
+    }
+
+    // determine if we have enough items to craft the item
+    const item = objectLoader.getInstanceOf(itemType)
+    console.log('item', item)
+    // "craftingRequirements": [
+    //   { "id": "stick", "quantity": 1 },
+    //   { "id": "cloth", "quantity": 1 }
+    // ],
+    const requirements = item.getCraftingRequirements()
+    const inventory = state.get('hero.inventory')
+    const inventoryItems = inventory.map((item) => item.getType())
+    const missingItems = []
+    requirements.forEach((requirement) => {
+      const count = inventoryItems.filter((item) => item === requirement.id).length
+      if (count < requirement.quantity) missingItems.push(requirement.id)
+    })
+    if (missingItems.length > 0) {
+      state.set({ key: 'message.center', value: `missing items: ${missingItems.join(', ')}` })
+      new Audio('sounds/nope.mp3').play()
+      return
+    }
+    // remove the items from the inventory
+    requirements.forEach((requirement) => {
+      for (let i = 0; i < requirement.quantity; i++) {
+        const index = inventory.findIndex((item) => item.getType() === requirement.id)
+        inventory.splice(index, 1)
+      }
+    })
+    state.set({ key: 'hero.inventory', value: inventory })
+    // add the crafted item to the inventory
+    inventory.push(item)
+    // play a sound
+    new Audio('sounds/ripping-cloth.mp3').play()
+  }
+
   _consume(item, index) {
     const usage = item.getUsage()
 
@@ -175,9 +215,10 @@ export default class Hero {
 
   moved() {
     state.set({ key: 'hero.lastActive', value: new Date() })
-    const stamina = state.get('hero.stamina')
-    stamina.current--
-    state.set({ key: 'hero.stamina', value: stamina })
+    // disable stamina move cost for now...
+    // const stamina = state.get('hero.stamina')
+    // stamina.current--
+    // state.set({ key: 'hero.stamina', value: stamina })
   }
 
   // method for stamina recovery

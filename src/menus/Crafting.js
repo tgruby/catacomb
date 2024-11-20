@@ -70,14 +70,13 @@ export default class Crafting extends Grid {
       const selected = this.getGrid('CraftingSkillsList').down()
       this.setImageAndDescription(selected)
     } else if (e.key === 'Enter') {
-      const inventoryItems = this.getGrid('CraftingSkillsList')
-      const selected = inventoryItems.selectItem()
+      console.log('Crafting keyPressed: Enter')
+      const selected = this.getGrid('CraftingSkillsList').selectItem()
       const hero = state.get('hero')
-      hero.useItem(selected.id)
-      inventoryItems.updateItems(this.getInventorySummary())
-      this.setImageAndDescription(inventoryItems.selectItem())
+      hero.craftItem(selected.id)
+      state.set({ key: 'request.screen.draw', value: true })
     } else {
-      console.log('Inventory keyPressed:', e.key)
+      console.log('Crafting keyPressed:', e.key)
     }
   }
 

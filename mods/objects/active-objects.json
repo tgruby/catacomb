@@ -1,8 +1,10 @@
 {
   "objects": [
+    "darkness",
     "book",
     "bone",
     "bandage",
+    "cloth",
     "door",
     "grass",
     "map",
@@ -20,6 +22,7 @@
     "ladder-up",
     "hole-in-ceiling",
     "sarcophagus",
+    "giant-spotted-egg",
     "game-message"
   ]
 }

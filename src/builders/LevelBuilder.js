@@ -1,5 +1,4 @@
 import fs from 'fs/promises'
-import { xyHash } from '../game/Util.js'
 
 const mapKeys = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -171,14 +170,14 @@ class LevelGenerator {
   }
 
   addObjects(itemName, text = undefined, count) {
+    const key = mapKeys[this.currentKey]
+    this.currentKey++
     for (let i = 0; i < count; i++) {
       const posX = Math.floor(Math.random() * this.width)
       const posY = Math.floor(Math.random() * this.height)
       const x = this.xOffset(posX)
       let y = this.yOffset(posY)
       if (this.objectPositions[y][x] === ' ') {
-        this.currentKey++
-        const key = mapKeys[this.currentKey]
         this.objectPositions[y] = this.replaceAt(this.objectPositions[y], x, key)
         this.objectKeyMappings[key] = {
           object: itemName,

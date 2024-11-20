@@ -1,0 +1,83 @@
+{
+  "name": "Darkness",
+  "description": "A magical, inpenatratable darkness.",
+  "obstructsMovement": false,
+  "allowsPickup": false,
+  "health": 10000,
+  "perspective": {
+    "farAway": {
+      "position": "floor",
+      "frames": [
+        [
+          " .", 
+          ". ", 
+          " ."
+          ]
+        ]
+    },
+    "midRange": {
+      "position": "floor",
+      "frames": [
+        [
+          "  .  .", 
+          ".  .  ", 
+          " .  . ", 
+          "  . . ", 
+          " .   .", 
+          "  .  ."]
+        ]
+    },
+    "nearby": {
+      "position": "floor",
+      "frames": [
+        [
+          " .      .   ",
+          " .    .   . ",
+          "  .     .   ",
+          "    .       ",
+          " .     .  . ",
+          "   .  .     ",
+          " .        . ",
+          ".   .   .   ",
+          "     .      ",
+          "  .    .  . ",
+          "    .    .  ",
+          " .    .   . "
+        ]
+      ]
+    },
+    "here": {
+      "position": "floor",
+      "message": "An inpenatratable darkness...",
+      "frames": [
+        [
+            "                .  .          ",
+            "    .        .  .        .  . ",
+            "    .                 .       ",
+            "    .                         ",
+            "                              ",
+            "          .  .           .    ",
+            "    .              .     .    ",
+            "             .     .     .    ",
+            "    .     .           .       ",
+            "                .        .    ",
+            " .        .  .           .    ",
+            "                      .       ",
+            " .     .        .  .          ",
+            "                              ",
+            " .                       .    ",
+            "          .                   ",
+            "          .     .  .          ",
+            "    .                    .    ",
+            "                .     .     . ",
+            "       .                      ",
+            "       .              .       ",
+            "                   .  .       ",
+            " .                          . ",
+            "    .  .                      ",
+            "       .                    . "
+        ]
+      ]
+    }
+  }
+}

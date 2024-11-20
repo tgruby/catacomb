@@ -43,6 +43,7 @@ state.subscribe({
         title: levelLoader.currentLevel.title,
         sound: levelLoader.currentLevel.titleSound,
         font: levelLoader.currentLevel.titleFont,
+        author: levelLoader.currentLevel.author,
         lineHeight: 12
       })
       canvas.innerHTML = screen.draw()

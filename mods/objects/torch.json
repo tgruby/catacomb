@@ -4,6 +4,10 @@
   "obstructsMovement": false,
   "allowsPickup": true,
   "health": 10,
+  "craftingRequirements": [
+    { "id": "stick", "quantity": 1 },
+    { "id": "cloth", "quantity": 1 }
+  ],
   "perspective": {
     "farAway": {
       "position": "floor",
@@ -11,11 +15,16 @@
     },
     "midRange": {
       "position": "floor",
-      "frames": [["‧--'"]]
+      "frames": [
+        ["‧----##"]
+      ]
     },
     "nearby": {
       "position": "floor",
-      "frames": [["‧----##"]]
+      "frames": [
+        ["⎽⎽⎽⎽⎽⎽⎼⎼⎼."],
+        ["      ⎺⎺⎺ "]
+      ]
     },
     "here": {
       "message": "You see a torch laying on the ground.",

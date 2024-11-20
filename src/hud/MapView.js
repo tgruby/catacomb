@@ -3,8 +3,8 @@ import state from '../game/SharedState.js'
 
 export default class MapView extends Grid {
   constructor() {
-    super({ id: 'MapView', width: 26, height: 22, fill: '·', border: true })
-    this.add({ x: 'left', y: 0, string: ' Scrying Sight ', force: true })
+    super({ id: 'MapView', width: 26, height: 20, fill: '.', border: true })
+    this.add({ x: 'left', y: 0, string: ' Map ', force: true })
     this.mapUpdate(state.get('catacombs.map'))
     this.positionUpdate(state.get('hero.position'))
 
@@ -63,12 +63,14 @@ export default class MapView extends Grid {
           else if (south && east && west) copy[y] = copy[y].substring(0, x) + '┬' + copy[y].substring(x + 1)
           else if (north && south) copy[y] = copy[y].substring(0, x) + '│' + copy[y].substring(x + 1)
           else if (west && east) copy[y] = copy[y].substring(0, x) + '─' + copy[y].substring(x + 1)
-          else if (north && east) copy[y] = copy[y].substring(0, x) + '└' + copy[y].substring(x + 1)
-          else if (north && west) copy[y] = copy[y].substring(0, x) + '┘' + copy[y].substring(x + 1)
-          else if (south && east) copy[y] = copy[y].substring(0, x) + '┌' + copy[y].substring(x + 1)
-          else if (south && west) copy[y] = copy[y].substring(0, x) + '┐' + copy[y].substring(x + 1)
-          else if (east || west) copy[y] = copy[y].substring(0, x) + '─' + copy[y].substring(x + 1)
-          else if (north || south) copy[y] = copy[y].substring(0, x) + '│' + copy[y].substring(x + 1)
+          else if (north && east) copy[y] = copy[y].substring(0, x) + '╰' + copy[y].substring(x + 1)
+          else if (north && west) copy[y] = copy[y].substring(0, x) + '╯' + copy[y].substring(x + 1)
+          else if (south && east) copy[y] = copy[y].substring(0, x) + '╭' + copy[y].substring(x + 1)
+          else if (south && west) copy[y] = copy[y].substring(0, x) + '╮' + copy[y].substring(x + 1)
+          else if (east) copy[y] = copy[y].substring(0, x) + '╶' + copy[y].substring(x + 1)
+          else if (west) copy[y] = copy[y].substring(0, x) + '╴' + copy[y].substring(x + 1)
+          else if (north) copy[y] = copy[y].substring(0, x) + '╵' + copy[y].substring(x + 1)
+          else if (south) copy[y] = copy[y].substring(0, x) + '╷' + copy[y].substring(x + 1)
         }
       }
     }

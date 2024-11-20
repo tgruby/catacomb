@@ -12,7 +12,22 @@ const verticalPositions = {
   action: { ceiling: 2, floor: 27 }
 }
 
-const midDarkness = [['.    .', '  .  .', '.  .  ', ' .  . ', '.  .  ', ' .  . ', '  .   ', '.    .']]
+const nearDarkness = [
+  [
+    '@@@@@@@@@@@@',
+    '@.    .   .@',
+    '@ .     .  @',
+    '@   .      @',
+    '@.     .  .@',
+    '@  .  .    @',
+    '@.        .@',
+    '@   .   .  @',
+    '@    .     @',
+    '@ .    .  .@',
+    '@@@@@@@@@@@@',
+    '@@@@@@@@@@@@'
+  ]
+]
 const farDarkness = [['. ', ' .', '. ']]
 
 const heroAnimationProps = {
@@ -114,30 +129,28 @@ export default class FirstPersonView extends Grid {
     }
     const inventory = state.get('hero.inventory')
     const torch = inventory.find((item) => item.getType() === 'torch')
-    if (viewpoint.nearby) {
+
+    if (!torch && !viewpoint.nearby) {
+      const nearbyAnimation = new AnimationPlayer({
+        id: 'NearViewableEntity',
+        width: 26,
+        height: 27,
+        fill: '@',
+        zIndex: 2,
+        frames: nearDarkness,
+        autoPlay: true
+      })
+      const frameHeight = nearDarkness[0].length
+      const yPosition = verticalPositions.near.floor + 1
+      const y = yPosition - frameHeight + 1
+      this.add({ x: 1, y, grid: nearbyAnimation })
+    } else if (viewpoint.nearby) {
       const animationProps = { ...nearbyProps, ...viewpoint.nearby }
       const nearAnimation = new AnimationPlayer(animationProps)
       const frameHeight = viewpoint.nearby.frames[0].length
       const yPosition = verticalPositions.near[viewpoint.nearby.position]
       const y = yPosition - frameHeight + 1
       this.add({ x: 1, y, grid: nearAnimation })
-    }
-
-    if (!torch) {
-      const midRangeAnimation = new AnimationPlayer({
-        id: 'MidViewableEntity',
-        width: 26,
-        height: 27,
-        fill: '@',
-        zIndex: 2,
-        frames: midDarkness,
-        color: ScreenBrightness.Dark,
-        autoPlay: true
-      })
-      const frameHeight = midDarkness[0].length
-      const yPosition = verticalPositions.mid.floor + 1
-      const y = yPosition - frameHeight + 1
-      this.add({ x: 1, y, grid: midRangeAnimation })
     } else if (viewpoint.midRange) {
       const animationProps = { ...midRangeProps, ...viewpoint.midRange }
       const midRangeAnimation = new AnimationPlayer(animationProps)
