@@ -50,12 +50,15 @@ export default class Crafting extends Grid {
     const skills = state.get('hero.skills')
     for (let i = 0; i < skills.length; i++) {
       const skill = skills[i]
+      let canCraft = 'You do not have the right materials to craft.'
+      const hero = state.get('hero')
+      if (hero.canCraft(skill.getType())) canCraft = 'You can craft this item!'
       summarizedItems.push({
         id: skill.getType(),
-        value: skill.getName(),
+        value: '   ' + skill.getName(),
         name: skill.getName(),
         image: skill.getImage(),
-        description: skill.getDescription(),
+        description: skill.getDescription() + canCraft,
         object: skill
       })
     }

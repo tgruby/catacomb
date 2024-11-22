@@ -181,6 +181,34 @@ export default class Hero {
     new Audio('sounds/ripping-cloth.mp3').play()
   }
 
+  canCraft(itemType) {
+    if (typeof itemType !== 'string') {
+      console.error('hero.craftItem requires a string argument')
+      console.error('you passed a ', itemType)
+      return false
+    }
+
+    // determine if we have enough items to craft the item
+    const item = objectLoader.getInstanceOf(itemType)
+    console.log('item', item)
+    // "craftingRequirements": [
+    //   { "id": "stick", "quantity": 1 },
+    //   { "id": "cloth", "quantity": 1 }
+    // ],
+    const requirements = item.getCraftingRequirements()
+    const inventory = state.get('hero.inventory')
+    const inventoryItems = inventory.map((item) => item.getType())
+    const missingItems = []
+    requirements.forEach((requirement) => {
+      const count = inventoryItems.filter((item) => item === requirement.id).length
+      if (count < requirement.quantity) missingItems.push(requirement.id)
+    })
+    if (missingItems.length > 0) {
+      return false
+    }
+    return true
+  }
+
   _consume(item, index) {
     const usage = item.getUsage()
 
