@@ -210,7 +210,7 @@ export default class CatacombsBackground {
     '……┊………┊………┊┊'
   ]
 
-  static far_center_wall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '__', '. ', '__']
+  static far_center_wall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '……', '……', '……']
 
   static far_center_door = ['  ']
   static far_center_hall = ['  ']
@@ -356,7 +356,7 @@ export default class CatacombsBackground {
 
   static far_right_wall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', ' ╱', '╱ ', '┊”', '┊“', ' ╲']
 
-  static far_right_hall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', ' _', '|.', '|_']
+  static far_right_hall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', ' …', '┊…', '┊…']
 
   static far_right_door = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', ' ╱', '╱.', '┊|', '┊|', ' ╲']
 
