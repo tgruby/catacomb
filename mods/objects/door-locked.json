@@ -1,7 +1,9 @@
 {
   "name": "Door",
   "description": "A door to somewhere.",
-  "obstructsMovement": false,
+  "obstructsMovement": true,
+  "obstructSound": "sounds/door-locked.mp3",
+  "obstructMessage": "This door is locked.",
   "allowsPickup": false,
   "health": 20,
   "perspective": {

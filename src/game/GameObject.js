@@ -51,6 +51,14 @@ export default class GameObject {
     return this.data?.obstructsMovement ?? false
   }
 
+  obstructSound() {
+    return this.data?.obstructSound ?? undefined
+  }
+
+  obstructMessage() {
+    return this.data?.obstructMessage || undefined
+  }
+
   allowsPickup() {
     return this.data?.allowsPickup ?? false
   }

@@ -97,7 +97,11 @@ export default class MovementEngine {
     const next = this._getGameObjectAt({ y: newY, x: newX })
 
     // if there is an obstruction, don't move the hero.
-    if (next !== undefined && next.obstructsMovement()) return
+    if (next !== undefined && next.obstructsMovement()) {
+      if (next.obstructSound()) new Audio(next.obstructSound()).play()
+      if (next.obstructMessage()) state.set({ key: 'message.center', value: next.obstructMessage() })
+      return
+    }
 
     // we can move the hero...
     position.x = newX
