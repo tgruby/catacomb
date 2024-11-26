@@ -1,8 +1,8 @@
-import Grid from '../ui/Grid.js'
-import state from '../game/SharedState.js'
-import AnimationPlayer from '../ui/AnimationPlayer.js'
-import ScreenBrightness from '../game/ScreenBrightness.js'
-import CatacombsBackground from '../animations/CatacombsBackground.js'
+import Grid from '../../ui/Grid.js'
+import state from '../../game/SharedState.js'
+import AnimationPlayer from '../../ui/AnimationPlayer.js'
+import ScreenBrightness from '../../game/ScreenBrightness.js'
+import CatacombsBackground from '../../animations/CatacombsBackground.js'
 
 const verticalPositions = {
   far: { ceiling: 12, floor: 14 },

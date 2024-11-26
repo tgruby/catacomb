@@ -1,5 +1,5 @@
-import Grid from '../ui/Grid.js'
-import state from '../game/SharedState.js'
+import Grid from '../../ui/Grid.js'
+import state from '../../game/SharedState.js'
 
 export default class MapView extends Grid {
   constructor() {

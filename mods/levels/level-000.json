@@ -14,9 +14,9 @@
   ],
   "objectPositions": [
     "+---+---+---+---+---+---+---+---+",
-    "| ^ 1       |               | s |",
+    "| ^   1     |               | c |",
     "+-O-+   +---+   +---+---+   +-o-+",
-    "| c |     d d d   s | 1       v |",
+    "| m | 2           s | 1       v |",
     "+---+---+---+---+---+---+---+---+"
   ],
   "objectKeyMappings": {
@@ -33,11 +33,15 @@
       "object": "game-message",
       "text": "it's really dark down here..."
     },
+    "2": {
+      "object": "game-message",
+      "text": "you should look for materials to build a torch..."
+    },
     "c": {
       "object": "cloth"
     },
     "o": {
-      "object": "door"
+      "object": "door-unlocked"
     },
     "O": {
       "object": "door-locked"

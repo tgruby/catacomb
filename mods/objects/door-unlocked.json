@@ -1,5 +1,5 @@
 {
-  "name": "Door",
+  "name": "Unlocked Door",
   "description": "A door to somewhere.",
   "obstructsMovement": false,
   "allowsPickup": false,

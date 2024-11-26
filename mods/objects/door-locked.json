@@ -1,5 +1,5 @@
 {
-  "name": "Door",
+  "name": "Locked Door",
   "description": "A door to somewhere.",
   "obstructsMovement": true,
   "obstructSound": "sounds/door-locked.mp3",

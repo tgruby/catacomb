@@ -6,28 +6,28 @@
 
 > [Game Development Status](#development-status)
 
-An ASCII "work of art" :). I enjoy games, and growing up in the 80's I spent probably hundreds of hours playing [**Wizardry I**](<https://en.wikipedia.org/wiki/Wizardry:_Proving_Grounds_of_the_Mad_Overlord>) and [**The Bard's Tale**](<https://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)>) on the Apple ][ computer. Recently, I had the idea of working on a throwback game: looking for opportunities to make it feel old, but incorporate newer patterns and ideas in more current games. I played with a few different ideas and decided to lean into an ASCII only UI, mainly green-screen, roll-playing game. It seems to strike the right balance to feeling like an older game while allowing to leverage more modern sound and music, which I believes help be more engaging.
+An ASCII "work of art" :). I enjoy games, and growing up in the 80's I spent probably hundreds of hours playing [**Wizardry I**](<https://en.wikipedia.org/wiki/Wizardry:_Proving_Grounds_of_the_Mad_Overlord>) and [**The Bard's Tale**](<https://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)>) on the Apple ][ computer. Recently, I had the idea of working on a throwback game: looking for opportunities to make it feel old, but incorporate newer patterns and ideas found in current games. I played with a few different ideas and decided to lean into an ASCII only UI (Wizardy cerca 1979), mainly green-screen (like my old Apple), roll-playing game. It seems to strike the right balance to feeling like an older game while allowing to leverage more modern sound and music, which I believes help be more engaging.
 
 ## Backstory
 
-Catacomb is a single player dungeon crawler game. Set in the mid-70s, an anthropologist, searching for the lost tomb of Tahara, finds it by falling into a sink hole. Badly bleeding and unable to leave the way she came, she must search the catacombs for the tomb and an exit, armed with only lore of Tahara and survival skills. Along the way, creatures and traps will block our anthropologist, the mystery surrounding Tahara will unfold, and magic and evil will test her to her limits.
+Catacomb is a single player dungeon crawler game. A determined soul searching for the lost tomb of Tahara, finds it by falling headlong into the underground. Unable to leave the way she came, she must search the catacombs for the tomb and an exit, armed with only lore of Tahara and survival skills. Along the way, creatures and traps will block our heroine, the mystery surrounding Tahara will unfold, and magic and evil will test her to her limits.
 
 ## Game Play
 
-Catacomb is not like a traditional text-based game in the fact that you cannot type words or phrases to move around. Instead each keypress is an action. Based upon the screen you are at different keys bind to different actions. Below is a set of tables to describe these bindings. Currently there is no way to change the bindings.
+Catacomb is not like a traditional text-based game in the fact that you cannot type words or phrases to move around. Instead each keypress is an action. Based upon the screen/modal you are at different keys bind to different actions. Below is a set of tables to describe these bindings. Currently there is no way to change key bindings.
 
 ### Main Game Window
 
 ![alt text](/images/game-play.png 'Game Screen')
 
-| Action          | Key Binding |
-| --------------- | :---------: |
-| Move Forward    |     `W`     |
-| Turn Left       |     `A`     |
-| Turn Right      |     `D`     |
-| Pick Up Item    |     `E`     |
-| Open/Close Menu |     `Q`     |
-| Meelee Attack   |     `F`     |
+| Action           | Key Binding |
+| ---------------- | :---------: |
+| Move Forward     |     `W`     |
+| Turn Left        |     `A`     |
+| Turn Right       |     `D`     |
+| Pick Up Item     |     `E`     |
+| Open/Close Menus |     `Q`     |
+| Meelee Attack    |     `F`     |
 
 ### Menus Window
 
@@ -43,16 +43,6 @@ Catacomb is not like a traditional text-based game in the fact that you cannot t
 | Equip Item (if item is equipable)                 |   `Enter`    |
 | Craft Item (if you have enough supplies to craft) |   `Enter`    |
 | Close Inventory                                   | `Q` or `Esc` |
-
-### Journal Window
-
-![alt text](/images/journal.png 'Journal Screen')
-
-| Action                | Key Binding  |
-| --------------------- | :----------: |
-| Turn to Next Page     |     `D`      |
-| Turn to Previous Page |     `A`      |
-| Close Journal         | `J` or `Esc` |
 
 ## [Development Status](#development-status)
 

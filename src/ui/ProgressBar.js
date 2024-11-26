@@ -1,11 +1,11 @@
 import Grid from './Grid.js'
 import state from '../game/SharedState.js'
 
-export default class Progress extends Grid {
+export default class ProgressBar extends Grid {
   constructor(props) {
-    if (!props) throw new Error('Progress requires a label and a memory item to subscribe to')
-    if (!props.label) throw new Error('Progress must have a label')
-    if (!props.stateKey) throw new Error('Progress must have a state key to subscribe to')
+    if (!props) throw new Error('ProgressBar requires a label and a memory item to subscribe to')
+    if (!props.label) throw new Error('ProgressBar must have a label')
+    if (!props.stateKey) throw new Error('ProgressBar must have a state key to subscribe to')
     if (!props.width) props.width = 22
     if (!props.height) props.height = 4
     if (!props.border) props.border = false
@@ -28,11 +28,14 @@ export default class Progress extends Grid {
   }
 
   update(data) {
-    if (!data) data = { current: 0, max: 1 }
-    this.add({
-      x: 0,
-      y: 2,
-      string: this._calcBar(data.current, data.max)
-    })
+    if (!data) {
+      this.clear()
+    } else {
+      this.add({
+        x: 0,
+        y: 2,
+        string: this._calcBar(data.current, data.max)
+      })
+    }
   }
 }

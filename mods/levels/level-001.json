@@ -37,7 +37,7 @@
       "object": "vines"
     },
     "o": {
-      "object": "door"
+      "object": "door-unlocked"
     },
     "^": {
       "object": "ladder-up"

@@ -1,17 +1,17 @@
-import FPS from '../hud/FPS.js'
+import FPS from './hud/FPS.js'
 import Hero from '../game/Hero.js'
 import Menus from '../modals/Menus.js'
 import state from '../game/SharedState.js'
 import Screen from '../ui/Screen.js'
-import MapView from '../hud/MapView.js'
-import Messages from '../hud/Messages.js'
-import GameStats from '../hud/GameStats.js'
-import HeroVitals from '../hud/HeroVitals.js'
+import MapView from './hud/MapView.js'
+import Messages from './hud/Messages.js'
+import GameStats from './hud/GameStats.js'
+import HeroVitals from './hud/HeroVitals.js'
 import MovementEngine from '../game/MovementEngine.js'
-import CompanionVitals from '../hud/CompanionVitals.js'
-import FirstPersonView from '../hud/FirstPersonView.js'
+import CompanionVitals from './hud/CompanionVitals.js'
+import FirstPersonView from './hud/FirstPersonView.js'
 import FadeIn from '../animations/FadeIn.js'
-import EnemyVitals from '../hud/EnemyVitals.js'
+import EnemyVitals from './hud/EnemyVitals.js'
 
 export default class HUD extends Screen {
   constructor() {
@@ -70,7 +70,7 @@ export default class HUD extends Screen {
     } else if (e.key === 'Enter') {
       this.movement.moveDown()
     } else if (e.key === 'f') {
-      this.hero.attack()
+      this.movement.meelee()
       state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'e') {
       this.hero.pickUp()

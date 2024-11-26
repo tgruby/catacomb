@@ -20,7 +20,6 @@ export default class Hero {
     skills.push(objectLoader.getInstanceOf('bandage'))
     state.set({ key: 'hero.skills', value: skills })
     state.set({ key: 'hero.xp', value: { current: 0, nextLevel: 24 } })
-    state.set({ key: 'hero.level', value: 1 })
     state.set({ key: 'hero.score', value: 0 })
     state.set({ key: 'hero.abilities', value: [] })
     state.set({ key: 'hero.crafts', value: [] })
@@ -38,52 +37,6 @@ export default class Hero {
     if (!entries) entries = []
     entries.push({ date: state.get('game.time'), text })
     state.set({ key: 'hero.journal', value: entries })
-  }
-
-  attack() {
-    const weapon = state.get('hero.equipped.weapon')
-    let damage = 0
-    if (!weapon) {
-      state.set({ key: 'message.center', value: 'you must equip a weapon before you can attack!' })
-      new Audio('sounds/nope.mp3').play()
-      return
-    } else {
-      const staminaCost = weapon.getAttack().stamina
-      const strengthCost = weapon.getAttack().strength
-      if (state.get('hero.stamina').current < staminaCost) {
-        state.set({ key: 'message.center', value: `you must rest first!` })
-        new Audio('sounds/out-of-breath.mp3').play()
-      } else {
-        state.set({ key: 'hero.lastActive', value: new Date() })
-        let stamina = state.get('hero.stamina')
-        stamina.current -= staminaCost
-        state.set({ key: 'hero.stamina', value: stamina })
-        let strength = state.get('hero.strength')
-        // add strength bonus to attack damage
-        damage += weapon.getAttack().damage
-        damage += strength.current / 4
-        strength.current -= strengthCost
-        if (strength.current < 0) strength.current = 0
-        state.set({ key: 'hero.strength', value: strength })
-        const movementEngine = state.get('movement')
-        const position = state.get('hero.position')
-        const target = movementEngine._getGameObjectAt(position)
-        // if an item or creature is 'here', do damage to it.
-        if (target) {
-          target.setHealth(target.getHealth() - damage)
-          if (target.getHealth() <= 0) {
-            movementEngine._removeGameObjectAt(position)
-            if (target.getDestroyedSound()) {
-              new Audio(target.getDestroyedSound()).play()
-            } else {
-              new Audio('sounds/break.mp3').play()
-            }
-          }
-        }
-        state.set({ key: 'hero.action', value: weapon.getAttack() })
-        state.set({ key: 'message.center', value: `you attack with ${weapon.getName().toLowerCase()}` })
-      }
-    }
   }
 
   pickUp() {
@@ -277,38 +230,3 @@ export default class Hero {
     }
   }
 }
-
-const HeroLevelTitles = [
-  { name: 'Noob' },
-  { name: 'Novice Explorer' },
-  { name: 'Apprentice Historian' },
-  { name: 'Skilled Surveyor' },
-  { name: 'Artifact Collector' },
-  { name: 'Field Researcher' },
-  { name: 'Culture Scholar', levelRange: [25, 28] },
-  { name: 'Relic Hunter', levelRange: [29, 32] },
-  { name: 'Time Navigator', levelRange: [33, 36] },
-  { name: 'Chronicle Keeper', levelRange: [37, 40] },
-  { name: 'Lost Civilization Specialist', levelRange: [41, 44] },
-  { name: 'Myth Breaker', levelRange: [45, 48] },
-  { name: 'Guardian of Antiquity', levelRange: [49, 52] },
-  { name: 'Master of the Past', levelRange: [53, 56] },
-  { name: 'Time Weaver', levelRange: [57, 60] },
-  { name: 'Legacy Preserver', levelRange: [61, 64] },
-  { name: 'Eternal Explorer', levelRange: [65, 68] }
-]
-
-function calculateXPForLevel(level, baseXP = 32, expFactor = 1.5) {
-  return Math.floor(baseXP * Math.pow(level, expFactor))
-}
-
-// Iterate through the array and update the xp value based on the level index
-HeroLevelTitles.forEach((hero, index) => {
-  hero.xp = calculateXPForLevel(index)
-})
-
-function getHeroLevelTitle(level) {
-  return HeroLevelTitles[level].name
-}
-
-export { getHeroLevelTitle }

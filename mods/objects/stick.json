@@ -1,6 +1,6 @@
 {
   "name": "Stick",
-  "description": "A stick. ",
+  "description": "A stick.",
   "obstructsMovement": false,
   "allowsPickup": true,
   "health": 5,

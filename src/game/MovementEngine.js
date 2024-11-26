@@ -143,6 +143,68 @@ export default class MovementEngine {
     return false
   }
 
+  meelee() {
+    const weapon = state.get('hero.equipped.weapon')
+    let damage = 0
+    if (!weapon) {
+      state.set({ key: 'message.center', value: 'you must equip a weapon before you can attack!' })
+      new Audio('sounds/nope.mp3').play()
+      return
+    } else {
+      const staminaCost = weapon.getAttack().stamina
+      if (state.get('hero.stamina').current < staminaCost) {
+        state.set({ key: 'message.center', value: `you must rest first!` })
+        new Audio('sounds/out-of-breath.mp3').play()
+      } else {
+        state.set({ key: 'hero.lastActive', value: new Date() })
+        let stamina = state.get('hero.stamina')
+        stamina.current -= staminaCost
+        state.set({ key: 'hero.stamina', value: stamina })
+        // add strength bonus to attack damage
+        damage += weapon.getAttack().damage
+        const position = state.get('hero.position')
+        const target = this._getGameObjectAt(position)
+        // if an item or creature is 'here', do damage to it.
+        if (target) {
+          target.setHealth(target.getHealth() - damage)
+          console.log(`${target.getName()} at ${target.getHealth()} health.`)
+          if (target.getHealth() <= 0) {
+            this._removeGameObjectAt(position)
+            if (target.getDestroyedSound()) {
+              new Audio(target.getDestroyedSound()).play()
+            } else {
+              new Audio('sounds/break.mp3').play()
+            }
+          }
+        }
+        // this is a hack to solve locked doors nearby.
+        // if a locked door is nearby, also do damage to it
+        let nearbyX = position.x
+        let nearbyY = position.y
+        if (position.direction === 'north') nearbyY = nearbyY - 1
+        if (position.direction === 'south') nearbyY = nearbyY + 1
+        if (position.direction === 'east') nearbyX = nearbyX + 2
+        if (position.direction === 'west') nearbyX = nearbyX - 2
+        const nearby = this._getGameObjectAt({ y: nearbyY, x: nearbyX })
+        if (nearby && nearby.getType('door-locked')) {
+          nearby.setHealth(nearby.getHealth() - damage)
+          console.log(`${nearby.getName()} at ${nearby.getHealth()} health.`)
+          if (nearby.getHealth() <= 0) {
+            this._removeGameObjectAt(nearby)
+            if (nearby.getDestroyedSound()) {
+              new Audio(nearby.getDestroyedSound()).play()
+            } else {
+              new Audio('sounds/break.mp3').play()
+            }
+            this._addGameObjectAt({ x: nearbyX, y: nearbyY, type: 'doorway' })
+          }
+        }
+        state.set({ key: 'hero.action', value: weapon.getAttack() })
+        state.set({ key: 'message.center', value: `you attack with ${weapon.getName().toLowerCase()}` })
+      }
+    }
+  }
+
   _setPointOfView(position) {
     let background = []
     let offsets = this.NorthView
@@ -228,6 +290,15 @@ export default class MovementEngine {
     const { y, x } = props
     const entities = state.get('catacombs.objects')
     if (xyHash({ y, x }) in entities) delete entities[xyHash({ y, x })]
+    state.set({ key: 'catacombs.objects', value: entities })
+    this._setPointOfView(state.get('hero.position'))
+  }
+
+  _addGameObjectAt(props) {
+    const { y, x, type } = props
+    const object = objectsLoader.getInstanceOf(type)
+    const entities = state.get('catacombs.objects')
+    entities[xyHash({ y, x })] = object
     state.set({ key: 'catacombs.objects', value: entities })
     this._setPointOfView(state.get('hero.position'))
   }
