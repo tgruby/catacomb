@@ -14,7 +14,7 @@
   ],
   "objectPositions": [
     "+---+---+---+---+---+---+---+---+",
-    "| ^   1     |               | c |",
+    "| ^       1 w               | c |",
     "+-O-+   +---+   +---+---+   +-o-+",
     "| m | 2           s | 1       v |",
     "+---+---+---+---+---+---+---+---+"
@@ -31,7 +31,7 @@
     },
     "1": {
       "object": "game-message",
-      "text": "it's really dark down here..."
+      "text": "...beware those who disturb the dead..."
     },
     "2": {
       "object": "game-message",
@@ -39,6 +39,9 @@
     },
     "c": {
       "object": "cloth"
+    },
+    "w": {
+      "object": "wall-with-writing"
     },
     "o": {
       "object": "door-unlocked"

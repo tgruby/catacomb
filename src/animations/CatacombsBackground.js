@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export default class CatacombsBackground {
   // Point of View Image Parts
   static near_left_wall = [
@@ -165,9 +166,41 @@ export default class CatacombsBackground {
     '……┊'
   ]
 
-  static far_left_wall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '╲ ', ' ╲', '“┊', '”┊', '╱ ']
+  static far_left_wall = [
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '╲ ', 
+    ' ╲', 
+    '“┊', 
+    '”┊', 
+    '╱ '
+  ]
 
-  static far_left_door = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '╲ ', '.╲', '|┊', '|┊', '╱ ']
+  static far_left_door = [
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '  ', 
+    '╲ ', 
+    '.╲', 
+    '|┊', 
+    '|┊', 
+    '╱ '
+  ]
 
   static far_left_hall = ['  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '… ', '…┊', '…┊']
 
@@ -217,34 +250,6 @@ export default class CatacombsBackground {
   static middle_center_door = ['      ']
   static near_center_door = ['            ']
 
-  static near_right_door_old = [
-    '      ╱',
-    '     ╱.',
-    '    ╱  ',
-    '   ╱. .',
-    '  ╱ .  ',
-    ' ╱ . . ',
-    '╱.  . .',
-    '┊ .╱|. ',
-    '┊ ╱:| .',
-    '┊.|:|. ',
-    '┊ |:| .',
-    '┊.|:|. ',
-    '┊ |:| .',
-    '┊.|:|. ',
-    '┊ |:| .',
-    '┊.|:|. ',
-    '┊ |:| .',
-    '┊.|:|. ',
-    '╲ |:| .',
-    ' ╲|:|. ',
-    '  ╲:| .',
-    '   ╲|. ',
-    '    ╲. ',
-    '     ╲ ',
-    '      ╲'
-  ]
-
   static near_right_door = [
     '      ╱',
     '     ╱┊',
@@ -254,7 +259,7 @@ export default class CatacombsBackground {
     ' ╱ ╱  ╱',
     '╱┊╱┊ ╱┊',
     '┊╱ ╱⎸ ┊',
-    '┊ /‖⎸ ┊',
+    '┊ ⎹‖⎸ ┊',
     '┊/⎹‖⎸╱ ',
     '┊ ⎹‖⎸  ',
     '┊╱⎹‖⎸ ╱',

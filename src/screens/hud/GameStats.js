@@ -37,8 +37,7 @@ export default class GameStats extends Grid {
 
   updateScore(score) {
     // TODO: add score count iterator micro-animation here.  so rather than raw update, count up.
-    this.add({ x: 'center', y: 2, string: `S c o r e` })
-    this.add({ x: 'center', y: 4, string: `${score}` })
+    this.add({ x: 'center', y: 3, string: `Score: ${score}` })
     state.set({ key: 'request.screen.draw', value: true })
   }
 
