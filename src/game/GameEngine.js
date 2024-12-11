@@ -2,8 +2,9 @@ import { xyHash } from './Util.js'
 import state from './SharedState.js'
 import objectsLoader from './GameObjectLoader.js'
 
-export default class MovementEngine {
+export default class GameEngine {
   constructor(hero) {
+    state.set({ key: 'object.nearby', value: undefined })
     this.initialized = false
     this.hero = hero
     state.subscribe({
@@ -110,6 +111,7 @@ export default class MovementEngine {
     state.set({ key: 'hero.position', value: position })
     this.hero.moved()
     new Audio('sounds/footstep.mp3').play()
+    this._updateObjectNearby()
   }
 
   async turnLeft() {
@@ -119,6 +121,7 @@ export default class MovementEngine {
     else if (position.direction === 'south') position.direction = 'east'
     else if (position.direction === 'east') position.direction = 'north'
     state.set({ key: 'hero.position', value: position })
+    this._updateObjectNearby()
   }
 
   async turnRight() {
@@ -128,6 +131,7 @@ export default class MovementEngine {
     else if (position.direction === 'south') position.direction = 'west'
     else if (position.direction === 'west') position.direction = 'north'
     state.set({ key: 'hero.position', value: position })
+    this._updateObjectNearby()
   }
 
   async moveDown() {
@@ -201,6 +205,7 @@ export default class MovementEngine {
         }
         state.set({ key: 'hero.action', value: weapon.getAttack() })
         state.set({ key: 'message.center', value: `you attack with ${weapon.getName().toLowerCase()}` })
+        this._updateObjectNearby()
       }
     }
   }
@@ -317,5 +322,40 @@ export default class MovementEngine {
 
   _isWall(symbol) {
     return ['|', '+', '-'].includes(symbol)
+  }
+
+  _updateObjectNearby() {
+    let object = undefined
+    const position = state.get('hero.position')
+
+    // if a locked door is nearby, return it first
+    let nearbyX = position.x
+    let nearbyY = position.y
+    if (position.direction === 'north') nearbyY = nearbyY - 1
+    if (position.direction === 'south') nearbyY = nearbyY + 1
+    if (position.direction === 'east') nearbyX = nearbyX + 2
+    if (position.direction === 'west') nearbyX = nearbyX - 2
+    let nearby = this._getGameObjectAt({ y: nearbyY, x: nearbyX })
+    if (nearby && nearby.getType() === 'door-locked' && nearby.getHealthObservable()) {
+      object = {
+        label: nearby.getName(),
+        current: nearby.getHealth(),
+        max: nearby.getMaxHealth()
+      }
+      state.set({ key: 'object.nearby', value: object })
+    } else {
+      // else look for something in the same space as the hero
+      nearby = this._getGameObjectAt(position)
+      if (nearby !== undefined && nearby.getHealthObservable()) {
+        object = {
+          label: nearby.getName(),
+          current: nearby.getHealth(),
+          max: nearby.getMaxHealth()
+        }
+        state.set({ key: 'object.nearby', value: object })
+      } else {
+        state.set({ key: 'object.nearby', value: undefined })
+      }
+    }
   }
 }

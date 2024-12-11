@@ -5,6 +5,7 @@ export default class GameObject {
     this.data = data
     this.data.id = guid()
     this.data.type = type
+    if (this.data.health !== undefined) this.data.maxhealth = this.data.health
   }
 
   getId() {
@@ -66,6 +67,15 @@ export default class GameObject {
   getHealth() {
     if (this.data.health === undefined) this.data.health = 1
     return this.data.health
+  }
+
+  getHealthObservable() {
+    if (this.data.healthObservable === undefined) return false
+    return this.data.healthObservable
+  }
+
+  getMaxHealth() {
+    return this.data.maxhealth
   }
 
   setHealth(health) {

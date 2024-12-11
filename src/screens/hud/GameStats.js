@@ -8,14 +8,14 @@ export default class GameStats extends Grid {
     // this.add({ x: 0, y: 0, block: upperLeft, force: true })
     // this.add({ x: 71, y: 0, block: upperRight, force: true })
     const name = state.get('hero.first.name') + ' ' + state.get('hero.last.name')
-    this.add({ x: 'center', y: 0, string: ` ${name} `, force: true })
+    this.add({ x: 'center', y: 0, string: `=≡≣ ${name} ≣≡=`, force: true })
 
-    this.updateScore(state.get('hero.score'))
-    // TODO: change out xp management for level progress bar
-    this.updateArtifactCount(0)
-    this.updateProgress(state.get('hero.xp'))
-    this.updateLevel(state.get('catacombs.level'))
-    this.updateObjective(state.get('catacombs.level.objective'))
+    // this.updateScore(state.get('hero.score'))
+    // // TODO: change out xp management for level progress bar
+    // this.updateArtifactCount(0)
+    // this.updateProgress(state.get('hero.xp'))
+    // this.updateLevel(state.get('catacombs.level'))
+    // this.updateObjective(state.get('catacombs.level.objective'))
 
     state.subscribe({
       key: 'hero.score',

@@ -3,10 +3,11 @@ import state from '../game/SharedState.js'
 
 export default class Tabs extends Grid {
   constructor(props) {
-    props.id = 'TabGrid'
     super(props)
     this.tabs = props.tabs || []
-    this.selectedTab = props.selectedTab || 0
+    this.selectedTab = state.get(this.id + '-SelectedTab')
+    if (this.selectedTab === undefined) this.selectedTab = props.defaultSelectedTab
+    if (this.selectedTab === undefined) this.selectedTab = 0
     this.activeGrid = this.tabs[this.selectedTab].grid
     this._build()
   }
@@ -43,12 +44,14 @@ export default class Tabs extends Grid {
     if (e.key === 'a' || e.key === 'ArrowLeft') {
       if (this.selectedTab > 0) {
         this.selectedTab--
+        state.set({ key: this.id + '-SelectedTab', value: this.selectedTab })
         this.activeGrid = this.tabs[this.selectedTab].grid
         this._build()
       }
     } else if (e.key === 'd' || e.key === 'ArrowRight') {
       if (this.selectedTab < this.tabs.length - 1) {
         this.selectedTab++
+        state.set({ key: this.id + '-SelectedTab', value: this.selectedTab })
         this.activeGrid = this.tabs[this.selectedTab].grid
         this._build()
       }

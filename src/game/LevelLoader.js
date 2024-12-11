@@ -29,7 +29,6 @@ class LevelLoader {
     this.levelIndex++
     // TODO: check for end of game
     await this._loadLevel()
-    console.log(`Level Loaded:`, this.currentLevel)
   }
 
   async _loadLevel() {

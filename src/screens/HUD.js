@@ -7,7 +7,7 @@ import MapView from './hud/MapView.js'
 import Messages from './hud/Messages.js'
 import GameStats from './hud/GameStats.js'
 import HeroVitals from './hud/HeroVitals.js'
-import MovementEngine from '../game/MovementEngine.js'
+import GameEngine from '../game/GameEngine.js'
 import CompanionVitals from './hud/CompanionVitals.js'
 import FirstPersonView from './hud/FirstPersonView.js'
 import FadeIn from '../animations/FadeIn.js'
@@ -21,7 +21,7 @@ export default class HUD extends Screen {
     // this.time = new Time()
     this.hero = new Hero()
     state.set({ key: 'hero', value: this.hero })
-    this.movement = new MovementEngine(this.hero)
+    this.movement = new GameEngine(this.hero)
     state.set({ key: 'movement', value: this.movement })
 
     // add the main game ui components
@@ -33,6 +33,7 @@ export default class HUD extends Screen {
     this.add({ grid: new EnemyVitals(), x: 54, y: 27 })
     this.add({ grid: new Messages(), x: 0, y: 36 })
     this.add({ grid: new FPS(), x: 'right', y: 43 })
+    this.add({ string: '[Esc] for Help', x: 'left', y: 43 })
 
     this.add({
       x: 0,
@@ -75,7 +76,7 @@ export default class HUD extends Screen {
     } else if (e.key === 'e') {
       this.hero.pickUp()
       state.set({ key: 'request.screen.draw', value: true })
-    } else if (e.key === 'q') {
+    } else if (e.key === 'Escape') {
       this.add({ grid: new Menus({ parent: this }), x: 'center', y: 2 })
       state.set({ key: 'request.screen.draw', value: true })
     } else {

@@ -3,17 +3,13 @@ import state from '../game/SharedState.js'
 
 export default class ProgressBar extends Grid {
   constructor(props) {
-    if (!props) throw new Error('ProgressBar requires a label and a memory item to subscribe to')
-    if (!props.label) throw new Error('ProgressBar must have a label')
-    if (!props.stateKey) throw new Error('ProgressBar must have a state key to subscribe to')
+    if (!props || !props.stateKey) throw new Error('ProgressBar must have a state key to subscribe to')
     if (!props.width) props.width = 22
     if (!props.height) props.height = 4
     if (!props.border) props.border = false
     super(props)
-    this.add({ x: 0, y: 0, string: props.label })
-    this.add({ x: 1, y: 1, string: '⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽' })
-    this.add({ x: 1, y: 3, string: '⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺' })
     this.update(state.get(props.stateKey))
+    this.cleared = true
 
     state.subscribe({
       key: props.stateKey,
@@ -28,14 +24,20 @@ export default class ProgressBar extends Grid {
   }
 
   update(data) {
-    if (!data) {
+    if (!this.cleared) {
       this.clear()
-    } else {
+      this.cleared = true
+    }
+    if (data) {
+      this.add({ x: 0, y: 0, string: data.label })
+      this.add({ x: 1, y: 1, string: '⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽' })
       this.add({
         x: 0,
         y: 2,
         string: this._calcBar(data.current, data.max)
       })
+      this.add({ x: 1, y: 3, string: '⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺' })
+      this.cleared = false
     }
   }
 }

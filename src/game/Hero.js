@@ -4,11 +4,10 @@ import objectLoader from './GameObjectLoader.js'
 
 export default class Hero {
   constructor() {
-    state.set({ key: 'hero.health', value: { current: 3, max: 16 } })
-    state.set({ key: 'hero.stamina', value: { current: 8, max: 16 } })
-    state.set({ key: 'hero.strength', value: { current: 16, max: 16 } })
-    state.set({ key: 'hero.magic', value: { current: 0, max: 8 } })
-    state.set({ key: 'companion.health', value: { current: 0, max: 8 } })
+    state.set({ key: 'hero.health', value: { label: 'Health', current: 3, max: 16 } })
+    state.set({ key: 'hero.stamina', value: { label: 'Stamina', current: 8, max: 16 } })
+    state.set({ key: 'hero.strength', value: { label: 'Strength', current: 16, max: 16 } })
+    state.set({ key: 'hero.magic', value: { label: 'Focus', current: 0, max: 8 } })
     state.set({ key: 'hero.armor', value: 0 })
     state.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []
@@ -60,6 +59,7 @@ export default class Hero {
     state.set({ key: 'hero.xp', value: xp })
     new AudioPlayer('sounds/pickup-item.mp3').play()
     state.set({ key: 'message.center', value: `you pick up the ${item.getName().toLowerCase()}` })
+    movement._updateObjectNearby()
   }
 
   getInventoryItemsByType(type) {
@@ -102,7 +102,6 @@ export default class Hero {
 
     // determine if we have enough items to craft the item
     const item = objectLoader.getInstanceOf(itemType)
-    console.log('item', item)
     // "craftingRequirements": [
     //   { "id": "stick", "quantity": 1 },
     //   { "id": "cloth", "quantity": 1 }

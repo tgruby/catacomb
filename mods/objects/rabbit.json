@@ -3,7 +3,8 @@
   "description": "A sarcophagus... It's a coffin made of stone.",
   "obstructsMovement": false,
   "allowsPickup": false,
-  "health": 10000,
+  "health": 10,
+  "healthObservable": true,
   "perspective": {
     "farAway": {
       "position": "floor",

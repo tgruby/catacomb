@@ -6,6 +6,7 @@
   "obstructMessage": "This door is locked.",
   "allowsPickup": false,
   "health": 20,
+  "healthObservable": true,
   "perspective": {
     "farAway": {
       "position": "floor",
