@@ -4,6 +4,11 @@
   "obstructsMovement": false,
   "allowsPickup": true,
   "health": 10,
+  "usage": {
+    "type": "equippable",
+    "slot": "weapon",
+    "usageLimit": 8
+  },
   "craftingRequirements": [
     { "id": "stick", "quantity": 1 },
     { "id": "cloth", "quantity": 1 }

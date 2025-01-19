@@ -1,0 +1,66 @@
+{
+  "title": [
+    "The Fall"
+  ],
+  "titleSound": "sounds/gong.mp3",
+  "objective": "Make a Torch",
+  "map": [
+    "+---+---+---+---+---+",
+    "|           |       |",
+    "+   +---+---+---+   +",
+    "|       |           |",
+    "+---+   +   +---+---+",
+    "|       |           |",
+    "+   +---+-o-+---+   +",
+    "|       |   |       |",
+    "+---+   +---+   +-o-+",
+    "|               |   |",
+    "+---+---+---+---+---+"
+  ],
+  "objectPositions": [
+    "+---+---+---+---+---+",
+    "| ^       2 | 4   3 |",
+    "+   +---+---+---+-o-+",
+    "|       |           |",
+    "+---+   +   +---+---+",
+    "| 2     |     2     |",
+    "+   +---+-o-+---+   +",
+    "|       | 0 |       |",
+    "+---+   +---+   +-O-+",
+    "w 5       3     | v |",
+    "+---+---+---+---+---+"
+  ],
+  "objectKeyMappings": {
+    "0": {
+      "object": "bone"
+    },
+    "2": {
+      "object": "mushroom"
+    },
+    "3": {
+      "object": "stick"
+    },
+    "4": {
+      "object": "cloth"
+    },
+    "5": {
+      "object": "game-message",
+      "text": "Thank the Gardians for they have given you a second chance."
+    },
+    "w": {
+      "object": "wall-with-writing"
+    },
+    "o": {
+      "object": "door-unlocked"
+    },
+    "O": {
+      "object": "door-locked"
+    },
+    "^": {
+      "object": "hole-in-ceiling"
+    },
+    "v": {
+      "object": "ladder-down"
+    }
+  }
+}

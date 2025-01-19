@@ -6,7 +6,7 @@
   "health": 5,
   "craftingRequirements": [
     { "id": "cloth", "quantity": 2 },
-    { "id": "vodka", "quantity": 1 }
+    { "id": "twine", "quantity": 1 }
   ],
   "usage": {
     "type": "consumable",

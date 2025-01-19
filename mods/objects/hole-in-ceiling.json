@@ -17,9 +17,15 @@
       "frames": [[".--.", "'=='"]]
     },
     "here": {
-      "message": "You see the hole in the ceiling you fell out of.",
+      "message": "A hole in the ceiling",
       "position": "ceiling",
-      "frames": [["@.-'⎺⎺⎺⎺⎺⎺'-.@", "(            )", "@`·.¸____¸.·´@"]]
+      "frames": [
+        [
+          "@.-'⎺⎺⎺⎺⎺⎺'-.@", 
+          "(            )", 
+          "@`·.¸____¸.·´@"
+          ]
+        ]
     }
   }
 }

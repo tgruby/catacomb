@@ -1,7 +1,7 @@
 {
   "doc": "This is an example of a config that generates a level, placing object randomly on the map. After the level is generated, you may manually edit the file.",
-  "fileName": "../../mods/levels/level-test.json",
-  "author": "Trevor Gruby",
+  "fileName": "../../mods/levels/level-one.json",
+  "author": "tiroknee",
   "title": [
     "Test",
     "Level"
@@ -9,24 +9,17 @@
   "titleFont": "Bloody",
   "titleSound": "sounds/gong.mp3",
   "direction": "left -> right",
-  "objective": "Find some light.",
-  "mapWidth": 10,
-  "mapHeight": 10,
+  "objective": "Make a Torch",
+  "mapWidth": 5,
+  "mapHeight": 5,
   "objects": [
-    { "mod": "bandage", "count": 1 },
-    { "mod": "bone-knife", "count": 1 },
     { "mod": "bone", "count": 1 },
-    { "mod": "book", "count": 1 },
-    { "mod": "cordage", "count": 1 },
-    { "mod": "darkness", "count": 5 },
     { "mod": "grass", "count": 1 },
-    { "mod": "map", "count": 1 },
-    { "mod": "mushroom", "count": 1 },
-    { "mod": "sarcophagus", "count": 1 },
-    { "mod": "stick", "count": 1 },
-    { "mod": "torch", "count": 1 },
-    { "mod": "twine", "count": 1 },
-    { "mod": "vines", "count": 1 }
+    { "mod": "mushroom", "count": 3 },
+    { "mod": "stick", "count": 3 },
+    { "mod": "cloth", "count": 2 },
+    { "mod": "game-message", "count": 2 },
+    { "mod": "wall-with-writing" }
   ]
 }
   

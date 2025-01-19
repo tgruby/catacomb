@@ -20,7 +20,7 @@ export default class Crafting extends Grid {
     const itemImagePanel = new Grid({
       id: 'SelectedItemImage',
       width: 30,
-      height: 18,
+      height: 14,
       border: true
     })
     itemImagePanel.add({ x: 'left', y: 0, string: ' Image ', force: true })
@@ -29,7 +29,7 @@ export default class Crafting extends Grid {
     const itemDescriptionPanel = new Grid({
       id: 'SelectedItemDescription',
       width: 30,
-      height: 12,
+      height: 16,
       border: true
     })
     itemDescriptionPanel.add({
@@ -38,7 +38,7 @@ export default class Crafting extends Grid {
       string: ' Description ',
       force: true
     })
-    this.add({ x: 'right', y: 18, grid: itemDescriptionPanel })
+    this.add({ x: 'right', y: 14, grid: itemDescriptionPanel })
 
     // set the initial item image and description
     this.setImageAndDescription(summaryOfSkills[0])
@@ -50,19 +50,45 @@ export default class Crafting extends Grid {
     const skills = state.get('hero.skills')
     for (let i = 0; i < skills.length; i++) {
       const skill = skills[i]
-      let canCraft = 'You do not have the right materials to craft.'
-      const hero = state.get('hero')
-      if (hero.canCraft(skill.getType())) canCraft = 'You can craft this item!'
+      let description = skill.getDescription() + ' \n \n            ─── \n \n Crafting Requirements: \n '
+      for (let j = 0; j < skill.getCraftingRequirements().length; j++) {
+        const requirement = skill.getCraftingRequirements()[j]
+        // show if we have enough of the item
+        const inventory = state.get('hero.inventory')
+        const inventoryItems = inventory.map((item) => item.getType())
+        const count = inventoryItems.filter((item) => item === requirement.id).length
+        if (count < requirement.quantity) {
+          description += ' \n x'
+        } else {
+          description += ' \n √'
+        }
+        description += ` ${requirement.quantity} ${requirement.id}`
+      }
       summarizedItems.push({
         id: skill.getType(),
         value: '   ' + skill.getName(),
         name: skill.getName(),
         image: skill.getImage(),
-        description: skill.getDescription() + canCraft,
+        description,
         object: skill
       })
     }
     return summarizedItems
+  }
+
+  haveEnoughToCraft(item) {
+    const requirements = item.getCraftingRequirements()
+    const inventory = state.get('hero.inventory')
+    const inventoryItems = inventory.map((item) => item.getType())
+    const missingItems = []
+    requirements.forEach((requirement) => {
+      const count = inventoryItems.filter((item) => item === requirement.id).length
+      if (count < requirement.quantity) missingItems.push(requirement.id)
+    })
+    if (missingItems.length > 0) {
+      return false
+    }
+    return true
   }
 
   keyPressed(e) {
@@ -107,7 +133,10 @@ export default class Crafting extends Grid {
     let line = ''
     for (let i = 0; i < words.length; i++) {
       const word = words[i]
-      if (line.length + word.length + 1 < width) {
+      if (word === '\n') {
+        lines.push(line)
+        line = ''
+      } else if (line.length + word.length + 1 < width) {
         line += `${word} `
       } else {
         lines.push(line)
