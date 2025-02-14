@@ -1,25 +1,22 @@
 {
   "doc": "This is an example of a config that generates a level, placing object randomly on the map. After the level is generated, you may manually edit the file.",
-  "fileName": "../../mods/levels/level-one.json",
+  "fileName": "../../mods/levels/000-hurt.json",
   "author": "tiroknee",
   "title": [
-    "Test",
-    "Level"
+    "Day One"
   ],
   "titleFont": "Bloody",
   "titleSound": "sounds/gong.mp3",
   "direction": "left -> right",
-  "objective": "Make a Torch",
-  "mapWidth": 5,
-  "mapHeight": 5,
+  "objective": "Your hurt, craft a bandage.",
+  "mapWidth": 4,
+  "mapHeight": 4,
   "objects": [
-    { "mod": "bone", "count": 1 },
-    { "mod": "grass", "count": 1 },
-    { "mod": "mushroom", "count": 3 },
-    { "mod": "stick", "count": 3 },
+    { "mod": "grass", "count": 3 },
+    { "mod": "mushroom", "count": 1 },
     { "mod": "cloth", "count": 2 },
     { "mod": "game-message", "count": 2 },
-    { "mod": "wall-with-writing" }
+    { "mod": "wall-with-writing", "count": 2 }
   ]
 }
   

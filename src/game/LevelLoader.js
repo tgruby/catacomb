@@ -61,15 +61,12 @@ class LevelLoader {
       }
     }
 
-    state.set({ key: 'catacombs.name', value: this.currentLevel.name })
-    state.set({
-      key: 'catacombs.level.objective',
-      value: this.currentLevel.objective
-    })
+    state.set({ key: 'catacombs.level.id', value: this.levelIndex })
+    state.set({ key: 'catacombs.level.title', value: this.currentLevel.title })
+    state.set({ key: 'catacombs.level.objective', value: this.currentLevel.objective })
     state.set({ key: 'catacombs.map', value: this.currentLevel.map })
     state.set({ key: 'catacombs.objects', value: gameObjects })
     state.set({ key: 'hero.position', value: position })
-    state.set({ key: 'catacombs.level', value: this.levelIndex })
   }
 }
 

@@ -19,8 +19,7 @@ export default class Messages extends Grid {
   _showNewMessage(message) {
     this.clear()
     const messageBlock = this._wrapText(message, 80)
-    const y = 4 - messageBlock.length
-    this.add({ x: 'center', y, block: messageBlock })
+    this.add({ x: 'center', y: 'center', block: messageBlock })
   }
 
   _wrapText(text, width) {
@@ -29,7 +28,10 @@ export default class Messages extends Grid {
     let line = ''
     for (let i = 0; i < words.length; i++) {
       const word = words[i]
-      if (line.length + word.length + 1 < width) {
+      if (word === '⏎') {
+        lines.push(line)
+        line = ''
+      } else if (line.length + word.length + 1 < width) {
         line += `${word} `
       } else {
         lines.push(line)

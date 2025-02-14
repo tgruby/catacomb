@@ -3,13 +3,12 @@ import Confetti from '../animations/Confetti.js'
 import FireCracker from '../animations/FireCracker.js'
 
 export default class LevelComplete extends Modal {
-  constructor(props) {
+  constructor() {
     super({
       id: 'LevelCompleteModal',
       width: 80,
       height: 43,
-      border: true,
-      parent: props.parent
+      border: true
     })
 
     this.add({ x: 'center', y: 4, string: ' L E V E L   C O M P L E T E' })
@@ -20,8 +19,7 @@ export default class LevelComplete extends Modal {
         id: 'Confetti',
         width: 78,
         height: 40,
-        frameSpeed: 64,
-        parent: this
+        frameSpeed: 64
       })
     })
   }

@@ -59,7 +59,7 @@ class LevelGenerator {
       console.log(' - created base map')
 
       // Add tombs
-      this.objectKeyMappings['o'] = { object: 'door' }
+      this.objectKeyMappings['o'] = { object: 'door-unlocked' }
       this.addTombRooms()
 
       // Create a copy of the map to place objects on

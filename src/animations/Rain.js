@@ -2,7 +2,7 @@ import Animation from '../ui/Animation.js'
 
 export default class Rain extends Animation {
   constructor(props = {}) {
-    const { id, width, height, frameSpeed, parent } = props
+    const { id, width, height, frameSpeed } = props
 
     const frames = []
     frames.push(buildFrame({ width, height, frameIndex: 0 }))
@@ -16,8 +16,7 @@ export default class Rain extends Animation {
       height,
       frameSpeed,
       frames,
-      backfill: true,
-      parent
+      backfill: true
     })
   }
 }

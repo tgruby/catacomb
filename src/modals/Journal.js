@@ -3,13 +3,12 @@ import Modal from '../ui/Modal.js'
 import { upperLeft, upperRight, lowerLeft, lowerRight } from '../ui/CelticBorder.js'
 
 export default class Jornal extends Modal {
-  constructor(props) {
+  constructor() {
     super({
       id: 'JournalModal',
       width: 76,
       height: 39,
-      border: true,
-      parent: props.parent
+      border: true
     })
     this.add({ x: 0, y: 0, block: upperLeft, force: true })
     this.add({ x: 67, y: 0, block: upperRight, force: true })

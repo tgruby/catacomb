@@ -12,7 +12,6 @@ import state from '../game/SharedState.js'
  * @property {string} [sound] - URL of the sound to play.
  * @property {boolean} [autoPlay=false] - Whether to start playing immediately.
  * @property {string} [message] - Message to display during animation.
- * @property {Object} [parent] - Parent grid to remove when animation stops.
  */
 
 // Class to hold a set of images that make up a moving sprite.  This component can't be changed after
@@ -24,7 +23,7 @@ export default class AnimationPlayer extends Grid {
 
     super(props)
 
-    const { frames, loop, frameSpeed, backfill, color, sound, autoPlay, message, parent } = props
+    const { frames, loop, frameSpeed, backfill, color, sound, autoPlay, message } = props
     this.color = color || undefined
     this.sound = sound || undefined
     this.message = message || undefined
@@ -32,7 +31,6 @@ export default class AnimationPlayer extends Grid {
     this.loop = loop || 0 // number of times to loop the animation.
     this.frameSpeed = frameSpeed || 100 // play speed, in milliseconds.
     this.backfill = backfill || false
-    this.parent = parent || undefined // if this animation has a parent we will delete it when it finishes it's animation.
     if (autoPlay) this.play()
   }
 

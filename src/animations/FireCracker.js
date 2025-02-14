@@ -32,7 +32,7 @@ export default class FireCracker extends AnimationPlayer {
   static colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#FFFFFF']
 
   constructor(props = {}) {
-    const { colors, parent } = props
+    const { colors } = props
     // generate random id
     const id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     let color
@@ -47,8 +47,7 @@ export default class FireCracker extends AnimationPlayer {
       frames: FireCracker.frames,
       color,
       sound: 'sounds/firework.mp3',
-      backfill: true,
-      parent
+      backfill: true
     })
   }
 }

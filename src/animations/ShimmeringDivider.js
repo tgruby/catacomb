@@ -1,6 +1,6 @@
-import Animation from '../ui/Animation.js'
+import AnimationPlayer from '../ui/AnimationPlayer.js'
 
-export default class ShimmeringDivider extends Animation {
+export default class ShimmeringDivider extends AnimationPlayer {
   static frame0 = ['=-·-']
   static frame1 = ['-·-=']
   static frame2 = ['·-=-']

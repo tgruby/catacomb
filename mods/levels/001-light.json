@@ -1,10 +1,10 @@
 {
   "title": [
-    "Day One"
+    "Stuck in the Dark"
   ],
   "titleFont": "Bloody",
   "titleSound": "sounds/gong.mp3",
-  "objective": "Find light!",
+  "objective": "Make a torch to light the way",
   "map": [
     "+---+---+---+---+---+---+---+---+",
     "|           |               |   |",
@@ -25,9 +25,6 @@
     },
     "s": {
       "object": "stick"
-    },
-    "d": {
-      "object": "darkness"
     },
     "1": {
       "object": "game-message",

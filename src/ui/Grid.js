@@ -39,6 +39,7 @@ export default class Grid {
     this.edge = 0
     this.grid = [] // 2D array of Cells
     this.children = [] // Child grids
+    this.parent = null // Parent grid
     this.updated = true // If the grid has been modified
     this.rendered = undefined // The rendered output of the grid
 
@@ -331,6 +332,7 @@ export default class Grid {
     }
     this.children.push({ x, y, grid })
     this.children.sort((a, b) => a.grid.zIndex - b.grid.zIndex)
+    grid.parent = this
   }
 
   /*

@@ -1,5 +1,6 @@
 import FPS from './hud/FPS.js'
 import Hero from '../game/Hero.js'
+import Alert from '../ui/Alert.js'
 import Menus from '../modals/Menus.js'
 import state from '../game/SharedState.js'
 import Screen from '../ui/Screen.js'
@@ -77,7 +78,10 @@ export default class HUD extends Screen {
       this.hero.pickUp()
       state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'Escape') {
-      this.add({ grid: new Menus({ parent: this }), x: 'center', y: 2 })
+      this.add({ grid: new Menus(), x: 'center', y: 2 })
+      state.set({ key: 'request.screen.draw', value: true })
+    } else if (e.key === 'p') {
+      this.add({ grid: new Alert({ message: 'Hi there!' }), x: 'center', y: 'center' })
       state.set({ key: 'request.screen.draw', value: true })
     } else {
       console.log('key', e.key)
