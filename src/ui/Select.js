@@ -13,14 +13,12 @@ export default class Select extends Grid {
   constructor(props) {
     super(props)
 
-    // items are expected to be in the format of {id: id, value: value, ... }
-    // common use is {id: 'item.id', value: 'item.name'}, the value will be displayed.
-    // but you can have as many properties as you want on the object.
+    // items are expected to be in the format of [{id: id1, value: value1}, {id: id2, value: value2}]
+    // the value will be displayed, and the id is returned when the value is highlighted during the up(), down(), and select() method calls.
     const { items, itemInFocus } = props
 
     this.items = items || []
     this.itemInFocus = itemInFocus || 0
-
     this.build()
   }
 
