@@ -1,7 +1,7 @@
-import Grid from '../../ui/Grid.js'
+import Component from '../../ui/Component.js'
 import state from '../../game/SharedState.js'
 
-export default class GameStats extends Grid {
+export default class GameStats extends Component {
   constructor() {
     super({ id: 'GameStats', width: 80, height: 7, fill: ' ', border: true })
     this.add({ x: 'center', y: 0, string: ` Objective `, force: true })

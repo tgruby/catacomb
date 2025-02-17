@@ -1,4 +1,4 @@
-import Grid from '../../ui/Grid.js'
+import Component from '../../ui/Component.js'
 import state from '../../game/SharedState.js'
 import AnimationPlayer from '../../ui/AnimationPlayer.js'
 import ScreenBrightness from '../../game/ScreenBrightness.js'
@@ -75,7 +75,7 @@ const farAwayProps = {
   autoPlay: true
 }
 
-export default class FirstPersonView extends Grid {
+export default class FirstPersonView extends Component {
   constructor() {
     super({
       id: 'FirstPersonView',

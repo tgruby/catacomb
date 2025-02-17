@@ -1,7 +1,7 @@
-import Grid from '../../ui/Grid.js'
+import Component from '../../ui/Component.js'
 import state from '../../game/SharedState.js'
 
-export default class FPS extends Grid {
+export default class FPS extends Component {
   constructor() {
     super({ id: 'FPS', width: 25, height: 1, border: false })
     state.subscribe({

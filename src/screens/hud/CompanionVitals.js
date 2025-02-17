@@ -1,7 +1,7 @@
-import Grid from '../../ui/Grid.js'
+import Component from '../../ui/Component.js'
 import ProgressBar from '../../ui/ProgressBar.js'
 
-export default class CompanionVitals extends Grid {
+export default class CompanionVitals extends Component {
   constructor() {
     super({ id: 'CompanionVitals', width: 26, height: 9, border: true })
     this.add({ x: 2, y: 0, string: ' In Use ', force: true })

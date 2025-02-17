@@ -1,7 +1,7 @@
-import Grid from './Grid.js'
+import Component from './Component.js'
 import state from '../game/SharedState.js'
 
-export default class Tabs extends Grid {
+export default class Tabs extends Component {
   constructor(props) {
     super(props)
     this.tabs = props.tabs || []

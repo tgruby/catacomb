@@ -1,4 +1,4 @@
-import Grid from './Grid.js'
+import Component from './Component.js'
 import state from '../game/SharedState.js'
 
 /**
@@ -16,7 +16,7 @@ import state from '../game/SharedState.js'
 
 // Class to hold a set of images that make up a moving sprite.  This component can't be changed after
 // being created.  If you need to get get rid of it, use thie kill method.
-export default class AnimationPlayer extends Grid {
+export default class AnimationPlayer extends Component {
   constructor(props) {
     // generate an id if it doesn't exist
     if (!props.id) props.id = `Animation_${Math.floor(Math.random() * 1000000)}`

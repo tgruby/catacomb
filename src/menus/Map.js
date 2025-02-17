@@ -1,7 +1,7 @@
-import Grid from '../ui/Grid.js'
+import Component from '../ui/Component.js'
 import state from '../game/SharedState.js'
 
-export default class Map extends Grid {
+export default class Map extends Component {
   constructor() {
     super({ width: 60, height: 30, fill: '·', border: true })
     this.map = this.prettyMap(state.get('catacombs.map'))

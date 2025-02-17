@@ -1,8 +1,8 @@
-import Grid from '../ui/Grid.js'
+import Component from '../ui/Component.js'
 import state from '../game/SharedState.js'
 import Select from '../ui/Select.js'
 
-export default class Inventory extends Grid {
+export default class Inventory extends Component {
   constructor(props) {
     super(props)
 
@@ -17,7 +17,7 @@ export default class Inventory extends Grid {
     inventoryItemList.add({ x: 'left', y: 0, string: ' Items in Pack ', force: true })
     this.add({ x: 1, y: 0, grid: inventoryItemList })
 
-    const itemImagePanel = new Grid({
+    const itemImagePanel = new Component({
       id: 'SelectedItemImage',
       width: 30,
       height: 18,
@@ -26,7 +26,7 @@ export default class Inventory extends Grid {
     itemImagePanel.add({ x: 'left', y: 0, string: ' Image ', force: true })
     this.add({ x: 'right', y: 0, grid: itemImagePanel })
 
-    const itemDescriptionPanel = new Grid({
+    const itemDescriptionPanel = new Component({
       id: 'SelectedItemDescription',
       width: 30,
       height: 12,

@@ -1,6 +1,6 @@
-import Grid from '../ui/Grid.js'
+import Component from '../ui/Component.js'
 
-export default class TBD extends Grid {
+export default class TBD extends Component {
   constructor(name) {
     super({
       width: 60,

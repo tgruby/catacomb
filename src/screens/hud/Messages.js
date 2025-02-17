@@ -1,7 +1,7 @@
-import Grid from '../../ui/Grid.js'
+import Component from '../../ui/Component.js'
 import state from '../../game/SharedState.js'
 
-export default class Messages extends Grid {
+export default class Messages extends Component {
   constructor() {
     super({ id: 'MessagesPanel', width: 80, height: 7, border: true })
     this.add({

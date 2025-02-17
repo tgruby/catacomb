@@ -1,4 +1,4 @@
-import Grid from '../ui/Grid.js'
+import Component from '../ui/Component.js'
 
 const content = `
                     Key Bindings                        
@@ -27,7 +27,7 @@ const content = `
                                                      
               Down                                   `
 
-export default class Help extends Grid {
+export default class Help extends Component {
   constructor(props) {
     super(props)
     this.add({ x: 'center', y: 0, block: content.split('\n') })

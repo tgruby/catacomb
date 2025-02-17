@@ -1,7 +1,7 @@
-import Grid from '../../ui/Grid.js'
+import Component from '../../ui/Component.js'
 import state from '../../game/SharedState.js'
 
-export default class MapView extends Grid {
+export default class MapView extends Component {
   constructor() {
     super({ id: 'MapView', width: 26, height: 20, fill: '.', border: true })
     this.add({ x: 'left', y: 0, string: ' Map ', force: true })

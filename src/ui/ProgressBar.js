@@ -1,7 +1,7 @@
-import Grid from './Grid.js'
+import Component from './Component.js'
 import state from '../game/SharedState.js'
 
-export default class ProgressBar extends Grid {
+export default class ProgressBar extends Component {
   constructor(props) {
     if (!props || !props.stateKey) throw new Error('ProgressBar must have a state key to subscribe to')
     if (!props.width) props.width = 22

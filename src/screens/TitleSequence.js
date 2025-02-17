@@ -1,4 +1,4 @@
-import Grid from '../ui/Grid.js'
+import Component from '../ui/Component.js'
 import Screen from '../ui/Screen.js'
 import state from '../game/SharedState.js'
 import AudioPlayer from '../ui/AudioPlayer.js'
@@ -83,7 +83,7 @@ export default class TitleSequence extends Screen {
   }
 
   showGrubyStudios() {
-    const grid = new Grid({
+    const grid = new Component({
       id: 'GrubStudios',
       width: 76,
       height: 28,
@@ -100,7 +100,7 @@ export default class TitleSequence extends Screen {
   }
 
   showInAssociationWith() {
-    const grid = new Grid({
+    const grid = new Component({
       id: 'InAssociationWith',
       width: 76,
       height: 28,
@@ -118,7 +118,7 @@ export default class TitleSequence extends Screen {
   }
 
   showAsciiArcade() {
-    const grid = new Grid({
+    const grid = new Component({
       id: 'AsciiArcade',
       width: 76,
       height: 28,

@@ -1,9 +1,9 @@
-import Grid from '../ui/Grid.js'
+import Component from '../ui/Component.js'
 import state from '../game/SharedState.js'
 import Select from '../ui/Select.js'
 import Alert from '../ui/Alert.js'
 
-export default class Crafting extends Grid {
+export default class Crafting extends Component {
   constructor(props) {
     super(props)
 
@@ -18,7 +18,7 @@ export default class Crafting extends Grid {
     skillsList.add({ x: 'left', y: 0, string: ' Known Crafting Skills ', force: true })
     this.add({ x: 1, y: 0, grid: skillsList })
 
-    const itemImagePanel = new Grid({
+    const itemImagePanel = new Component({
       id: 'SelectedItemImage',
       width: 30,
       height: 14,
@@ -27,7 +27,7 @@ export default class Crafting extends Grid {
     itemImagePanel.add({ x: 'left', y: 0, string: ' Image ', force: true })
     this.add({ x: 'right', y: 0, grid: itemImagePanel })
 
-    const itemDescriptionPanel = new Grid({
+    const itemDescriptionPanel = new Component({
       id: 'SelectedItemDescription',
       width: 30,
       height: 16,

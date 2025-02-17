@@ -1,7 +1,7 @@
-import Grid from './Grid.js'
+import Component from './Component.js'
 import state from '../game/SharedState.js'
 
-export default class Alert extends Grid {
+export default class Alert extends Component {
   constructor(props) {
     if (!props || !props.message) throw new Error('Alert must have a message')
     if (!props.sound) props.sound = 'sounds/nope.mp3'

@@ -1,6 +1,6 @@
-import Grid from './Grid.js'
+import Component from './Component.js'
 
-export default class Select extends Grid {
+export default class Select extends Component {
   // Example:
   //          Item 1
   // .-----------------------.

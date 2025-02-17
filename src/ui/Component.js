@@ -20,7 +20,7 @@ figlet.preloadFonts(fonts, function (err) {
   You can add other Grids, Blocks, Strings, or Cells to the Grid and
   it will render when draw() is called.
 */
-export default class Grid {
+export default class Component {
   constructor(props) {
     if (!props || typeof props !== 'object') {
       throw new Error('Invalid props provided, not of type object:', props)
@@ -313,7 +313,7 @@ export default class Grid {
 
   _addGrid(props) {
     let { x, y, grid } = props
-    if (!(grid instanceof Grid)) {
+    if (!(grid instanceof Component)) {
       throw new Error('Invalid grid provided')
     }
     if (x === 'center') {
@@ -340,7 +340,7 @@ export default class Grid {
     This allows us to calculate the final ascii UI before rendering.
   */ _flatten(props) {
     const { grid } = props
-    if (!(grid instanceof Grid)) {
+    if (!(grid instanceof Component)) {
       throw new Error('Invalid grid provided')
     }
     // Initialize a copy of the grid to work with

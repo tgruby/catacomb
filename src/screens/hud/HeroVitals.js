@@ -1,7 +1,7 @@
-import Grid from '../../ui/Grid.js'
+import Component from '../../ui/Component.js'
 import ProgressBar from '../../ui/ProgressBar.js'
 
-export default class HeroVitals extends Grid {
+export default class HeroVitals extends Component {
   constructor() {
     super({ id: 'HeroVitals', width: 26, height: 20, fill: ' ', border: true })
     this.add({ x: 2, y: 0, string: ` Vitals `, force: true })
