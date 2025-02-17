@@ -4,6 +4,8 @@ import objectLoader from './GameObjectLoader.js'
 
 export default class Hero {
   constructor() {
+    state.set({ key: 'hero.first.name', value: 'Amara' })
+    state.set({ key: 'hero.last.name', value: 'Ellorien' })
     state.set({ key: 'hero.health', value: { label: 'Health', current: 3, max: 16 } })
     state.set({ key: 'hero.stamina', value: { label: 'Stamina', current: 8, max: 16 } })
     state.set({ key: 'hero.strength', value: { label: 'Strength', current: 16, max: 16 } })
@@ -11,8 +13,8 @@ export default class Hero {
     state.set({ key: 'hero.armor', value: 0 })
     state.set({ key: 'hero.equipped.weapon', value: null })
     const inventory = []
-    inventory.push(objectLoader.getInstanceOf('map'))
-    inventory.push(objectLoader.getInstanceOf('torch'))
+    // inventory.push(objectLoader.getInstanceOf('map'))
+    // inventory.push(objectLoader.getInstanceOf('torch'))
     state.set({ key: 'hero.inventory', value: inventory })
     const skills = []
     skills.push(objectLoader.getInstanceOf('twine'))

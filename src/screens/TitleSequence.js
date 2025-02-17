@@ -42,7 +42,7 @@ export default class TitleSequence extends Screen {
           this.removeGrid('CatacombTitleAnimation')
         }
         this.stopped = true
-        state.set({ key: 'game.state', value: 'setup-game' })
+        state.set({ key: 'game.state', value: 'load-next-level' })
       }
     }
   }

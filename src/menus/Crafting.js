@@ -1,6 +1,7 @@
 import Grid from '../ui/Grid.js'
 import state from '../game/SharedState.js'
 import SelectionList from '../ui/SelectionList.js'
+import Alert from '../ui/Alert.js'
 
 export default class Crafting extends Grid {
   constructor(props) {
@@ -102,7 +103,16 @@ export default class Crafting extends Grid {
       console.log('Crafting keyPressed: Enter')
       const selected = this.getGrid('CraftingSkillsList').selectItem()
       const hero = state.get('hero')
-      hero.craftItem(selected.id)
+      if (hero.canCraft(selected.id)) {
+        hero.craftItem(selected.id)
+        new Audio('sounds/cha-chink.mp3').play()
+      } else {
+        this.add({
+          grid: new Alert({ message: 'You dont have the right resources!' }),
+          x: 'center',
+          y: 'center'
+        })
+      }
       state.set({ key: 'request.screen.draw', value: true })
     } else {
       console.log('Crafting keyPressed:', e.key)

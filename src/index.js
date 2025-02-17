@@ -34,9 +34,6 @@ state.subscribe({
     if (state === 'title-sequence') {
       screen = new TitleSequence()
       canvas.innerHTML = screen.draw()
-    } else if (state === 'setup-game') {
-      screen = new GameSetup()
-      canvas.innerHTML = screen.draw()
     } else if (state === 'load-next-level') {
       await levelLoader.loadNextLevel()
       screen = new LevelStart({
