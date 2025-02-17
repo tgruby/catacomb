@@ -1,4 +1,3 @@
-import state from '../game/SharedState.js'
 import Modal from '../ui/Modal.js'
 import { upperLeft, upperRight, lowerLeft, lowerRight } from '../ui/CelticBorder.js'
 import Tabs from '../ui/Tabs.js'
@@ -43,7 +42,6 @@ export default class Menus extends Modal {
   keyPressed(e) {
     if (e.key === 'Escape' || e.key === 'q') {
       this.close()
-      state.set({ key: 'request.screen.draw', value: true })
     } else {
       this.tabsPanel.keyPressed(e)
     }

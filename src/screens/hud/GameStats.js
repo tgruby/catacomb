@@ -15,6 +15,5 @@ export default class GameStats extends Grid {
 
   updateObjective(objective) {
     this.add({ x: 'center', y: 3, string: `${objective}` })
-    state.set({ key: 'request.screen.draw', value: true })
   }
 }

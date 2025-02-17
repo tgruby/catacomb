@@ -59,30 +59,23 @@ export default class HUD extends Screen {
 
     if (e.key === 'w' || e.key === 'ArrowUp') {
       this.movement.moveForward()
-      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 's' || e.key === 'ArrowDown') {
       // movement.moveBackward()
       // canvas.innerHTML = hud.draw()
     } else if (e.key === 'a' || e.key === 'ArrowLeft') {
       this.movement.turnLeft()
-      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'd' || e.key === 'ArrowRight') {
       this.movement.turnRight()
-      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'Enter') {
       this.movement.moveDown()
     } else if (e.key === 'f') {
       this.movement.meelee()
-      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'e') {
       this.hero.pickUp()
-      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'Escape') {
       this.add({ grid: new Menus(), x: 'center', y: 2 })
-      state.set({ key: 'request.screen.draw', value: true })
     } else if (e.key === 'p') {
       this.add({ grid: new Alert({ message: 'Hi there!' }), x: 'center', y: 'center' })
-      state.set({ key: 'request.screen.draw', value: true })
     } else {
       console.log('key', e.key)
     }

@@ -37,7 +37,6 @@ export default class Tabs extends Grid {
     this.add({ x: 'center', y: 0, block: tabBlock, highlight })
 
     this.add({ x: 'center', y: 4, grid: this.activeGrid })
-    state.set({ key: 'request.screen.draw', value: true })
   }
 
   keyPressed(e) {

@@ -17,7 +17,6 @@ Press │ Enter ⏎ │ to continue...
     super({ id: 'LevelComplete', width: 80, height: 50, border: false })
     this.add({ x: 'center', y: 4, fig: { text: 'Level Completed!', font: 'Small', horizontalLayout: 'default' } })
     this.add({ x: 'center', y: 9, block: this.horizontalBar.split('\n') })
-    state.set({ key: 'request.screen.draw', value: true })
     this.scoreReviewSequence()
   }
 
@@ -28,6 +27,7 @@ Press │ Enter ⏎ │ to continue...
   }
 
   scoreReviewSequence() {
+    state.set({ key: 'request.screen.draw', value: true })
     setTimeout(() => {
       // this.add({ x: 4, y: 16, fig: { text: `Artifacts: 0`, font: 'Pagga' } })
       this.add({ x: 'center', y: 16, string: `A r t i f a c t s   F o u n d :   0` })

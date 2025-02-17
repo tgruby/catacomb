@@ -1,13 +1,13 @@
 import Grid from '../ui/Grid.js'
 import state from '../game/SharedState.js'
-import SelectionList from '../ui/SelectionList.js'
+import Select from '../ui/Select.js'
 
 export default class Inventory extends Grid {
   constructor(props) {
     super(props)
 
     const summaryOfItems = this.getInventorySummary()
-    const inventoryItemList = new SelectionList({
+    const inventoryItemList = new Select({
       id: 'InventoryItemList',
       width: 32,
       height: 30,
@@ -106,7 +106,6 @@ export default class Inventory extends Grid {
       y: 2,
       block: this.wrapText(summarizedItem.description, descriptionGrid.width - 2)
     })
-    state.set({ key: 'request.screen.draw', value: true })
   }
 
   wrapText(text, width) {

@@ -2,7 +2,6 @@ import mods from './game/GameObjectLoader.js'
 import levelLoader from './game/LevelLoader.js'
 import HUD from './screens/HUD.js'
 import state from './game/SharedState.js'
-import GameSetup from './screens/GameSetup.js'
 import LevelStart from './screens/LevelStart.js'
 import LevelComplete from './screens/LevelComplete.js'
 import TitleSequence from './screens/TitleSequence.js'
@@ -59,6 +58,7 @@ state.subscribe({
 // now bind keys to movement
 document.addEventListener('keyup', (e) => {
   screen.keyPressed(e)
+  state.set({ key: 'request.screen.draw', value: true })
 })
 
 // register to listen for updates

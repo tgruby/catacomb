@@ -24,7 +24,6 @@ export default class Jornal extends Modal {
       // page right
     } else if (e.key === 'j' || e.key === 'Escape') {
       this.close()
-      state.set({ key: 'request.screen.draw', value: true })
     } else {
       console.log('Journal keyPressed:', e.key)
     }
