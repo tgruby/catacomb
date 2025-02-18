@@ -74,13 +74,13 @@ export default class Inventory extends Component {
 
   keyPressed(e) {
     if (e.key === 'w' || e.key === 'ArrowUp') {
-      const selected = this.getGrid('InventoryItemList').up()
+      const selected = this.getComponent('InventoryItemList').up()
       this.setImageAndDescription(selected)
     } else if (e.key === 's' || e.key === 'ArrowDown') {
-      const selected = this.getGrid('InventoryItemList').down()
+      const selected = this.getComponent('InventoryItemList').down()
       this.setImageAndDescription(selected)
     } else if (e.key === 'Enter') {
-      const inventoryItems = this.getGrid('InventoryItemList')
+      const inventoryItems = this.getComponent('InventoryItemList')
       const selected = inventoryItems.selectItem()
       const hero = state.get('hero')
       hero.useItem(selected.id)
@@ -92,9 +92,9 @@ export default class Inventory extends Component {
   }
 
   setImageAndDescription(summarizedItem) {
-    const imageGrid = this.getGrid('SelectedItemImage')
+    const imageGrid = this.getComponent('SelectedItemImage')
     imageGrid.clear()
-    const descriptionGrid = this.getGrid('SelectedItemDescription')
+    const descriptionGrid = this.getComponent('SelectedItemDescription')
     descriptionGrid.clear()
     if (!summarizedItem) return
 

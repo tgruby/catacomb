@@ -1,14 +1,11 @@
 export default class ContentFormatter {
-
   constructor(props = {}) {
     const { width } = props
     this.width = width
   }
 
-  format(text) {
-    
-  }
-  
+  format(text) {}
+
   _wrapText(text) {
     const words = text.split(' ')
     const lines = []

@@ -112,10 +112,10 @@ export default class FirstPersonView extends Component {
     }
 
     // add foreground images
-    this.removeGrid('FarViewableEntity')
-    this.removeGrid('MidViewableEntity')
-    this.removeGrid('NearViewableEntity')
-    this.removeGrid('HereViewableEntity')
+    this.removeComponent('FarViewableEntity')
+    this.removeComponent('MidViewableEntity')
+    this.removeComponent('NearViewableEntity')
+    this.removeComponent('HereViewableEntity')
     if (viewpoint.here) {
       const animationProps = { ...hereProps, ...viewpoint.here }
       const hereAnimation = new AnimationPlayer(animationProps)
@@ -184,7 +184,7 @@ export default class FirstPersonView extends Component {
   }
 
   showHeroAnimation(heroAction) {
-    this.removeGrid('HeroAnimation')
+    this.removeComponent('HeroAnimation')
     const animationProps = { ...heroAnimationProps, ...heroAction }
     const action = new AnimationPlayer(animationProps)
     const frameHeight = animationProps.frames[0].length

@@ -13,7 +13,7 @@ export default class Alert extends Component {
     this.add({ x: 'center', y: 'center', string: props.message })
     new Audio(props.sound).play()
     setTimeout(() => {
-      if (this.parent) this.parent.removeGrid(this.id)
+      if (this.parent) this.parent.removeComponent(this.id)
       state.set({ key: 'request.screen.draw', value: true })
     }, props.displayTime)
   }

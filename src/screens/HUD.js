@@ -52,8 +52,8 @@ export default class HUD extends Screen {
   showHelp() {}
 
   keyPressed(e) {
-    if (this.getGrid('MenusModal')) {
-      this.getGrid('MenusModal').keyPressed(e)
+    if (this.getComponent('MenusModal')) {
+      this.getComponent('MenusModal').keyPressed(e)
       return
     }
 

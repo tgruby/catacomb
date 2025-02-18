@@ -16,8 +16,8 @@ figlet.preloadFonts(fonts, function (err) {
 })
 
 /*
-  Basic UI Grid that renders our ascii experience.
-  You can add other Grids, Blocks, Strings, or Cells to the Grid and
+  Basic 2d array that renders our ascii experience.
+  You can add other Components, Blocks, Strings, or Cells to the Component and
   it will render when draw() is called.
 */
 export default class Component {
@@ -36,24 +36,23 @@ export default class Component {
     this.fill = fill || ' '
     this.border = border || false
     this.zIndex = zIndex || 0
-    this.edge = 0
-    this.grid = [] // 2D array of Cells
-    this.children = [] // Child grids
-    this.parent = null // Parent grid
-    this.updated = true // If the grid has been modified
-    this.rendered = undefined // The rendered output of the grid
+    this.edge = 0 // Border edge
+    this.canvas = [] // 2D array of Cells
+    this.children = [] // Child components
+    this.parent = null // the parent component of this component
+    this.updated = true // If the component has been modified
 
     this._init()
     if (this.border) this._border()
   }
 
-  /* Adds a grid, block, string, or cell to the grid */
+  /* Adds a component, block, string, or cell to the component */
   add(props) {
     if (!props || typeof props !== 'object') {
       throw new Error('Invalid props provided')
     }
     if (props.grid) {
-      this._addGrid(props)
+      this._addComponent(props)
     } else if (props.fig) {
       this._addFig(props)
     } else if (props.block) {
@@ -63,24 +62,15 @@ export default class Component {
     } else if (props.cell) {
       this._addCell(props)
     } else {
-      throw new Error('add requires a grid, block, string, or cell')
+      throw new Error('add requires a component, fig, block, string, or cell')
     }
     this.updated = true
   }
 
-  getCell(props) {
-    const { x, y } = props
-    if (typeof x !== 'number' || typeof y !== 'number') {
-      throw new Error('Invalid x or y provided')
-    }
-    if (x < 0 || x > this.width - 1 || y < 0 || y > this.height - 1) return null
-    return this.grid[y][x]
-  }
-
   /*
-    Removes a grid from the children
+    Removes a child component
   */
-  removeGrid(id) {
+  removeComponent(id) {
     if (typeof id !== 'string') {
       throw new Error('Invalid id provided')
     }
@@ -92,9 +82,9 @@ export default class Component {
   }
 
   /*
-    Gets a grid from the children
+    Gets a child component from the children
   */
-  getGrid(id) {
+  getComponent(id) {
     if (typeof id !== 'string') {
       throw new Error('Invalid id provided')
     }
@@ -116,43 +106,12 @@ export default class Component {
     this.updated = true
   }
 
-  isUpdated() {
-    if (this.children.length > 0) {
-      for (const child of this.children) {
-        if (child.grid.isUpdated()) {
-          this.updated = true
-          break
-        }
-      }
-    }
-    return this.updated
-  }
-
-  /*
-    Create Output HTML that can be rendered within a <p/> tag
-  */
-  draw() {
-    if (!Array.isArray(this.grid) || this.grid.length !== this.height) {
-      throw new Error('Grid is not properly initialized')
-    }
-    const flat = this._flatten({ grid: this })
-    let output = ''
-    for (let y = 0; y < this.height; y++) {
-      for (let x = 0; x < this.width; x++) {
-        const cell = flat[y][x].draw()
-        if (cell) output += cell
-      }
-      output += '\n'
-    }
-    return output
-  }
-
   _init() {
     const defaultCell = new Cell({ value: this.fill })
     for (let y = 0; y < this.height; y++) {
       const row = []
       for (let x = 0; x < this.width; x++) row.push(defaultCell)
-      this.grid.push(row)
+      this.canvas.push(row)
     }
   }
 
@@ -191,7 +150,7 @@ export default class Component {
     } else {
       if (x < this.edge || x > this.width - 1 - this.edge || y < this.edge || y > this.height - 1 - this.edge) return
     }
-    this.grid[y][x] = cell
+    this.canvas[y][x] = cell
   }
 
   /*
@@ -311,7 +270,7 @@ export default class Component {
     this._addBlock(props)
   }
 
-  _addGrid(props) {
+  _addComponent(props) {
     let { x, y, grid } = props
     if (!(grid instanceof Component)) {
       throw new Error('Invalid grid provided')
@@ -338,47 +297,44 @@ export default class Component {
   /*
     Applies children grids to the copy.
     This allows us to calculate the final ascii UI before rendering.
-  */ _flatten(props) {
-    const { grid } = props
-    if (!(grid instanceof Component)) {
-      throw new Error('Invalid grid provided')
-    }
-    // Initialize a copy of the grid to work with
-    const copy = []
-    for (let y = 0; y < grid.height; y++) {
-      const row = []
-      for (let x = 0; x < grid.width; x++) row.push(grid.grid[y][x])
-      copy.push(row)
-    }
+  */
+  _flatten() {
+    // If no children, skip unnecessary work
+    if (this.children.length === 0) return
 
-    // Gather child grids and sort by zIndex or another criteria if needed
-    const childDrawings = []
-    for (const child of grid.children) {
-      // Recursively gather child grid drawings without integrating them
-      const childDrawing = this._flatten({ grid: child.grid })
-      childDrawings.push({
-        drawing: childDrawing,
-        x: child.x,
-        y: child.y,
-        grid: child.grid
-      })
-    }
+    // Sort children by zIndex (if they overlap, higher zIndex should appear last)
+    this.children.sort((a, b) => a.grid.zIndex - b.grid.zIndex)
 
-    // Integrate child grids into the parent grid, ensuring parent grids are fully processed first
-    for (const child of childDrawings) {
-      for (let y = 0; y < child.grid.height; y++) {
-        for (let x = 0; x < child.grid.width; x++) {
-          const absoluteX = x + child.x
-          const absoluteY = y + child.y
-          if (copy[absoluteY] && copy[absoluteY][absoluteX]) {
-            const cell = child.drawing[y][x]
-            // Replace the parent cell with the child cell if not null/empty
-            if (cell.draw() !== null) copy[absoluteY][absoluteX] = cell
+    for (const child of this.children) {
+      child.grid._flatten() // Recursively flatten child first
+
+      const { x: offsetX, y: offsetY, grid } = child
+      const childCanvas = grid.canvas
+
+      // Faster loop without unnecessary conditionals
+      for (let y = 0; y < grid.height; y++) {
+        const targetY = y + offsetY
+        if (targetY < 0 || targetY >= this.height) continue
+
+        for (let x = 0; x < grid.width; x++) {
+          const targetX = x + offsetX
+          if (targetX < 0 || targetX >= this.width) continue
+
+          const cell = childCanvas[y][x]
+          if (cell.draw() !== null) {
+            this.canvas[targetY][targetX] = cell // Directly replace parent cell
           }
         }
       }
     }
+  }
 
-    return copy
+  /*
+    Create Output HTML that can be rendered within a <p/> tag
+  */
+  draw() {
+    this._flatten() // Consolidate children first
+
+    return this.canvas.map((row) => row.map((cell) => cell.draw() || ' ').join('')).join('\n')
   }
 }

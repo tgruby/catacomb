@@ -94,14 +94,14 @@ export default class Crafting extends Component {
 
   keyPressed(e) {
     if (e.key === 'w' || e.key === 'ArrowUp') {
-      const selected = this.getGrid('CraftingSkillsList').up()
+      const selected = this.getComponent('CraftingSkillsList').up()
       this.setImageAndDescription(selected)
     } else if (e.key === 's' || e.key === 'ArrowDown') {
-      const selected = this.getGrid('CraftingSkillsList').down()
+      const selected = this.getComponent('CraftingSkillsList').down()
       this.setImageAndDescription(selected)
     } else if (e.key === 'Enter') {
       console.log('Crafting keyPressed: Enter')
-      const selected = this.getGrid('CraftingSkillsList').selectItem()
+      const selected = this.getComponent('CraftingSkillsList').selectItem()
       const hero = state.get('hero')
       if (hero.canCraft(selected.id)) {
         hero.craftItem(selected.id)
@@ -120,9 +120,9 @@ export default class Crafting extends Component {
   }
 
   setImageAndDescription(summarizedItem) {
-    const imageGrid = this.getGrid('SelectedItemImage')
+    const imageGrid = this.getComponent('SelectedItemImage')
     imageGrid.clear()
-    const descriptionGrid = this.getGrid('SelectedItemDescription')
+    const descriptionGrid = this.getComponent('SelectedItemDescription')
     descriptionGrid.clear()
     if (!summarizedItem) return
 

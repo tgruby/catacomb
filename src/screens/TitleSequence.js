@@ -37,9 +37,9 @@ export default class TitleSequence extends Screen {
         this.ranTitleSequency = true
       } else {
         this.audio.fadeOut(2000)
-        if (this.getGrid('CatacombTitleAnimation')) {
-          this.getGrid('CatacombTitleAnimation').kill()
-          this.removeGrid('CatacombTitleAnimation')
+        if (this.getComponent('CatacombTitleAnimation')) {
+          this.getComponent('CatacombTitleAnimation').kill()
+          this.removeComponent('CatacombTitleAnimation')
         }
         this.stopped = true
         state.set({ key: 'game.state', value: 'load-next-level' })
@@ -53,17 +53,17 @@ export default class TitleSequence extends Screen {
     this.showAsciiArcade()
     setTimeout(() => {
       if (this.stopped) return
-      this.removeGrid('AsciiArcade')
+      this.removeComponent('AsciiArcade')
       this.showInAssociationWith()
     }, 5000)
     setTimeout(() => {
       if (this.stopped) return
-      this.removeGrid('InAssociationWith')
+      this.removeComponent('InAssociationWith')
       this.showGrubyStudios()
     }, 9000)
     setTimeout(() => {
       if (this.stopped) return
-      this.removeGrid('GrubStudios')
+      this.removeComponent('GrubStudios')
       this.add({ x: 1, y: 12, grid: new CatacombTitleAnimation() })
     }, 17000)
     setTimeout(() => {

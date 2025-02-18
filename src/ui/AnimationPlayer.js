@@ -59,6 +59,6 @@ export default class AnimationPlayer extends Component {
   // Stop the animation and remove the grid from the parent.
   async kill() {
     this.loop = -1
-    if (this.parent) this.parent.removeGrid(this.id)
+    if (this.parent) this.parent.removeComponent(this.id)
   }
 }
