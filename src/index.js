@@ -12,20 +12,26 @@ const canvas = document.getElementById('canvas')
 canvas.style.fontFamily = 'PrintChar21'
 let screen = null
 
-const fpsCounter = {
-  fps: 0,
-  lastFPSUpdate: new Date().getTime(),
-  update() {
-    this.fps++
-    const now = new Date().getTime()
-    const timeSinceLastUpdate = now - this.lastFPSUpdate
-    if (timeSinceLastUpdate > 1000) {
-      state.set({ key: 'fps.update', value: { fps: this.fps, lastUpdate: timeSinceLastUpdate } })
-      this.fps = 0
-      this.lastFPSUpdate = now
-    }
+class FPSCounter {
+  constructor() {
+    this.times = []
+    this.lastFrameTime = performance.now()
+  }
+
+  update(frameTime) {
+    this.times.push(frameTime)
+
+    // Keep only last 100 frames
+    if (this.times.length > 100) this.times.shift()
+
+    const avgFrameTime = this.times.reduce((a, b) => a + b, 0) / this.times.length
+    const fps = 1000 / avgFrameTime
+
+    state.set({ key: 'fps', value: { fps: fps, frameTime: frameTime } })
   }
 }
+
+const fpsCounter = new FPSCounter()
 
 state.subscribe({
   key: 'game.state',
@@ -61,12 +67,20 @@ document.addEventListener('keyup', (e) => {
   state.set({ key: 'request.screen.draw', value: true })
 })
 
-// register to listen for updates
+// Register to listen for update requests
 state.subscribe({
   key: 'request.screen.draw',
   callback: (draw) => {
-    if (draw) canvas.innerHTML = screen.draw()
-    fpsCounter.update()
+    if (draw) {
+      const start = performance.now() // Start timing
+
+      canvas.innerHTML = screen.draw() // Perform the draw operation
+
+      const end = performance.now() // End timing
+      const frameTime = end - start // Compute frame time
+
+      fpsCounter.update(frameTime) // Pass frame time to FPS counter
+    }
   }
 })
 

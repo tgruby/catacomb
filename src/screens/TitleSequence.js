@@ -53,17 +53,17 @@ export default class TitleSequence extends Screen {
     this.showAsciiArcade()
     setTimeout(() => {
       if (this.stopped) return
-      this.removeComponent('AsciiArcade')
+      this.clear()
       this.showInAssociationWith()
     }, 5000)
     setTimeout(() => {
       if (this.stopped) return
-      this.removeComponent('InAssociationWith')
+      this.clear()
       this.showGrubyStudios()
     }, 9000)
     setTimeout(() => {
       if (this.stopped) return
-      this.removeComponent('GrubStudios')
+      this.clear()
       this.add({ x: 1, y: 12, grid: new CatacombTitleAnimation() })
     }, 17000)
     setTimeout(() => {

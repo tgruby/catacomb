@@ -3,28 +3,19 @@ import state from '../../game/SharedState.js'
 
 export default class FPS extends Component {
   constructor() {
-    super({ id: 'FPS', width: 25, height: 1, border: false })
+    super({ id: 'FPS', width: 30, height: 1, border: false })
     state.subscribe({
-      key: 'fps.update',
+      key: 'fps',
       callback: this.updateFPS.bind(this)
     })
   }
 
-  updateFPS(fpsUpdate) {
+  updateFPS(update) {
     this.clear()
-    let adjusted = fpsUpdate.lastUpdate / 1000
-    adjusted = fpsUpdate.fps / adjusted
     this.add({
       x: 'right',
       y: 0,
-      string:
-        'FPS: ' +
-        adjusted.toFixed(2).padStart(4, '0') +
-        ' (' +
-        fpsUpdate.fps.toString().padStart(3, '0') +
-        '/' +
-        fpsUpdate.lastUpdate +
-        'ms)'
+      string: `FPS: ${update.fps.toFixed(2)}, LFT: ${update.frameTime.toFixed(2)} ms`
     })
   }
 }

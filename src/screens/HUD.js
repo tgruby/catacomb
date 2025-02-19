@@ -33,8 +33,8 @@ export default class HUD extends Screen {
     this.add({ grid: new MapView(), x: 54, y: 7 })
     this.add({ grid: new EnemyVitals(), x: 54, y: 27 })
     this.add({ grid: new Messages(), x: 0, y: 36 })
-    this.add({ grid: new FPS(), x: 'right', y: 43 })
     this.add({ string: '[Esc] for Help', x: 'left', y: 43 })
+    this.add({ grid: new FPS(), x: 'right', y: 44 })
 
     this.add({
       x: 0,
