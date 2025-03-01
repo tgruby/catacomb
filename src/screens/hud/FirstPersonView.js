@@ -80,7 +80,7 @@ export default class FirstPersonView extends Component {
     super({
       id: 'FirstPersonView',
       width: 28,
-      height: 29,
+      height: 28,
       fill: ' ',
       border: true
     })

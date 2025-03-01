@@ -16,7 +16,7 @@ import EnemyVitals from './hud/EnemyVitals.js'
 
 export default class HUD extends Screen {
   constructor() {
-    super({ id: 'HUD', width: 80, height: 48, border: false })
+    super({ id: 'HUD', width: 80, height: 40, border: false })
 
     // create the main game objects
     // this.time = new Time()
@@ -27,14 +27,14 @@ export default class HUD extends Screen {
 
     // add the main game ui components
     this.add({ grid: new GameStats(), x: 0, y: 0 })
-    this.add({ grid: new HeroVitals(), x: 0, y: 7 })
-    this.add({ grid: new CompanionVitals(), x: 0, y: 27 })
-    this.add({ grid: new FirstPersonView(), x: 26, y: 7 })
-    this.add({ grid: new MapView(), x: 54, y: 7 })
-    this.add({ grid: new EnemyVitals(), x: 54, y: 27 })
-    this.add({ grid: new Messages(), x: 0, y: 36 })
-    this.add({ string: '[Esc] for Help', x: 'left', y: 43 })
-    this.add({ grid: new FPS(), x: 'right', y: 44 })
+    this.add({ grid: new HeroVitals(), x: 0, y: 5 })
+    this.add({ grid: new CompanionVitals(), x: 0, y: 25 })
+    this.add({ grid: new FirstPersonView(), x: 26, y: 5 })
+    this.add({ grid: new MapView(), x: 54, y: 5 })
+    this.add({ grid: new EnemyVitals(), x: 54, y: 25 })
+    this.add({ grid: new Messages(), x: 0, y: 33 })
+    this.add({ string: '[Esc] for Help', x: 'left', y: 38 })
+    this.add({ grid: new FPS(), x: 'right', y: 38 })
 
     this.add({
       x: 0,
@@ -42,7 +42,7 @@ export default class HUD extends Screen {
       grid: new FadeIn({
         id: 'FadeIn',
         width: 80,
-        height: 48,
+        height: 40,
         frameSpeed: 32,
         autoPlay: true
       })

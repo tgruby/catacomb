@@ -3,7 +3,7 @@ import state from '../../game/SharedState.js'
 
 export default class Messages extends Component {
   constructor() {
-    super({ id: 'MessagesPanel', width: 80, height: 7, border: true })
+    super({ id: 'MessagesPanel', width: 80, height: 5, border: true })
     this.add({
       x: 'center',
       y: 0,

@@ -17,10 +17,10 @@ export default class TitleSequence extends Screen {
          ╰─────────╯        
 `
   constructor() {
-    super({ id: 'TitleSequence', width: 80, height: 50, border: false })
+    super({ id: 'TitleSequence', width: 80, height: 40, border: false })
     this.add({
       x: 'center',
-      y: 18,
+      y: 16,
       block: this.startTitleSequence.split('\n')
     })
     this.audio = new AudioPlayer('sounds/fenras-theme-trailer-music-intro-music-by-oliver-weckauf.mp3')
@@ -64,20 +64,20 @@ export default class TitleSequence extends Screen {
     setTimeout(() => {
       if (this.stopped) return
       this.clear()
-      this.add({ x: 1, y: 12, grid: new CatacombTitleAnimation() })
+      this.add({ x: 0, y: 8, grid: new CatacombTitleAnimation() })
     }, 17000)
     setTimeout(() => {
       if (this.stopped) return
       this.add({
         x: 'center',
-        y: 32,
+        y: 28,
         string: 'T H E   T O M B   O F   T A H A R A'
       })
       state.set({ key: 'request.screen.draw', value: true })
     }, 19000)
     setTimeout(() => {
       if (this.stopped) return
-      this.add({ x: 'center', y: 36, block: this.startGame.split('\n') })
+      this.add({ x: 'center', y: 31, block: this.startGame.split('\n') })
       state.set({ key: 'request.screen.draw', value: true })
     }, 22000)
   }
@@ -85,53 +85,53 @@ export default class TitleSequence extends Screen {
   showGrubyStudios() {
     const grid = new Component({
       id: 'GrubStudios',
-      width: 76,
-      height: 28,
+      width: 80,
+      height: 40,
       border: false
     })
-    grid.add({ x: 'center', y: 1, fig: { text: 'Gruby', font: 'Crawford2' } })
+    grid.add({ x: 'center', y: 8, fig: { text: 'Gruby', font: 'Crawford2' } })
     grid.add({
       x: 'center',
-      y: 9,
+      y: 16,
       fig: { text: 'Studios', font: 'Crawford2' }
     })
-    this.add({ x: 2, y: 6, grid })
+    this.add({ x: 0, y: 0, grid })
     state.set({ key: 'request.screen.draw', value: true })
   }
 
   showInAssociationWith() {
     const grid = new Component({
       id: 'InAssociationWith',
-      width: 76,
-      height: 28,
+      width: 80,
+      height: 40,
       border: false
     })
-    grid.add({ x: 'center', y: 1, fig: { text: 'In', font: 'Standard' } })
+    grid.add({ x: 'center', y: 6, fig: { text: 'In', font: 'Standard' } })
     grid.add({
       x: 'center',
-      y: 9,
+      y: 14,
       fig: { text: 'Association', font: 'Standard' }
     })
-    grid.add({ x: 'center', y: 17, fig: { text: 'With', font: 'Standard' } })
-    this.add({ x: 2, y: 6, grid })
+    grid.add({ x: 'center', y: 22, fig: { text: 'With', font: 'Standard' } })
+    this.add({ x: 0, y: 0, grid })
     state.set({ key: 'request.screen.draw', value: true })
   }
 
   showAsciiArcade() {
     const grid = new Component({
       id: 'AsciiArcade',
-      width: 76,
-      height: 28,
+      width: 80,
+      height: 40,
       border: false
     })
-    grid.add({ x: 'center', y: 1, fig: { text: 'Ascii-', font: 'Crawford2' } })
-    grid.add({ x: 'center', y: 9, fig: { text: 'Arcade', font: 'Crawford2' } })
+    grid.add({ x: 'center', y: 6, fig: { text: 'Ascii-', font: 'Crawford2' } })
+    grid.add({ x: 'center', y: 14, fig: { text: 'Arcade', font: 'Crawford2' } })
     grid.add({
       x: 'center',
-      y: 19,
+      y: 24,
       fig: { text: 'presents...', font: 'Slant' }
     })
-    this.add({ x: 2, y: 10, grid })
+    this.add({ x: 0, y: 0, grid })
     state.set({ key: 'request.screen.draw', value: true })
   }
 }

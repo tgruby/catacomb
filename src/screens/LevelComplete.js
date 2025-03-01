@@ -14,7 +14,7 @@ Press │ Enter ⏎ │ to continue...
   `
 
   constructor() {
-    super({ id: 'LevelComplete', width: 80, height: 50, border: false })
+    super({ id: 'LevelComplete', width: 80, height: 40, border: false })
     this.add({ x: 'center', y: 4, fig: { text: 'Level Completed!', font: 'Small', horizontalLayout: 'default' } })
     this.add({ x: 'center', y: 9, block: this.horizontalBar.split('\n') })
     this.scoreReviewSequence()

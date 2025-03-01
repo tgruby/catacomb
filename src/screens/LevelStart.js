@@ -4,7 +4,7 @@ import state from '../game/SharedState.js'
 export default class LevelStart extends Screen {
   constructor(props) {
     const { title, sound, font, author, lineHeight } = props
-    super({ id: 'Intertitle', width: 80, height: 50, border: false })
+    super({ id: 'Intertitle', width: 80, height: 40, border: false })
     this.intertitleSequence(title, sound, font, author, lineHeight)
   }
 
